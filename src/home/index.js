@@ -5,6 +5,7 @@ import s from './styles.css';
 import history from '../history';
 import ChatRoom from '../../components/ChatRoom/ChatRoom';
 import UserList from '../../components/UserList/UserList';
+import ChatList from '../../components/ChatList/ChatList';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -71,7 +72,7 @@ class HomePage extends React.Component {
             <UserList />
           </div>
           <div className="mdl-cell mdl-cell--4-col">
-            <h1>채팅목록</h1>
+            <ChatList />
           </div>
           <div className="mdl-cell mdl-cell--4-col">
             <ChatRoom />
