@@ -1,4 +1,4 @@
-export default data = [
+module.exports = [
   {
     "gender": "male",
     "name": {

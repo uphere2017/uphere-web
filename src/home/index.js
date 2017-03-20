@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Layout from '../../components/Layout';
 import s from './styles.css';
 import history from '../history';
+import ChatRoom from '../../components/ChatRoom/ChatRoom';
+import UserList from '../../components/UserList/UserList';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -66,13 +68,13 @@ class HomePage extends React.Component {
       <Layout className={s.content}>
         <div className="mdl-grid">
           <div className="mdl-cell mdl-cell--4-col">
-            <h1>친구목록</h1>
+            <UserList />
           </div>
           <div className="mdl-cell mdl-cell--4-col">
             <h1>채팅목록</h1>
           </div>
           <div className="mdl-cell mdl-cell--4-col">
-            <h1>채팅방</h1>
+            <ChatRoom />
           </div>
         </div>
       </Layout>
