@@ -4,7 +4,7 @@ import Layout from '../../components/Layout';
 import s from './styles.css';
 import history from '../history';
 
-class HomePage extends React.Component {
+class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -15,9 +15,9 @@ class HomePage extends React.Component {
   }
 
   checkLoginState(e) {
-    history.push({ pathname: '/about' });
+    history.push({ pathname: '/about' })
   }
-
+  
   componentDidMount() {
     FB.getLoginStatus((response) => {
       if (response.authResponse === null) {
@@ -33,7 +33,7 @@ class HomePage extends React.Component {
           });
         });
       }
-    });
+    });  
   }
 
   changeLoginStatus() {
@@ -51,7 +51,7 @@ class HomePage extends React.Component {
             loggedIn: true,
             username: response.name
           });
-          history.push({ pathname: '/about' });
+          history.push({ pathname: '/home' });
         });
       },
       {
@@ -64,20 +64,11 @@ class HomePage extends React.Component {
   render() {
     return (
       <Layout className={s.content}>
-        <div className="mdl-grid">
-          <div className="mdl-cell mdl-cell--4-col">
-            <h1>친구목록</h1>
-          </div>
-          <div className="mdl-cell mdl-cell--4-col">
-            <h1>채팅목록</h1>
-          </div>
-          <div className="mdl-cell mdl-cell--4-col">
-            <h1>채팅방</h1>
-          </div>
-        </div>
+        <h1>{this.state.username ? this.state.username : null}</h1>
+        <button onClick={this.changeLoginStatus.bind(this)}>{this.state.loggedIn ? '로그아웃' : '로그인'}</button>
       </Layout>
     );
-  };
+  }
 }
 
-export default HomePage;
+export default LoginPage;
