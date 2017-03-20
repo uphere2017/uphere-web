@@ -62,7 +62,7 @@ class HomePage extends React.Component {
     }
   }
 
-  render() {
+  render() {    
     return (
       <Layout className={s.content}>
         <h1>{this.state.username ? this.state.username : null}</h1>
