@@ -19,7 +19,7 @@ class UserList extends React.Component {
   render() {
     return (
       <ul className={`${s.ulstyle}`}>
-        {this.state.users.map(user => <li className={`${s.listyle}`}><img src={user.picture.large} className={`${s.img_circle}`} />{user.name.first} {user.name.last}</li>)}    
+        {this.state.users.map((user, i) => <li className={`${s.listyle}`} key={i}><img src={user.picture.large} className={`${s.img_circle}`} />{user.name.first} {user.name.last}</li>)}    
       </ul>
     );
   }

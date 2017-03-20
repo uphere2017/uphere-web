@@ -1,0 +1,34 @@
+.latest_text {
+  color: #aaa;
+  height: 50px;
+}
+
+.img_divide {
+  width: 101px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.img_divide img {
+  width: 50px;
+}
+
+.usernames {
+  position: absolute;
+  top: 10px;
+  left: 150px;
+}
+
+.chatroom_container {
+  height: 100px;
+  border-radius: 10px;
+  border: 1px solid #aaa;
+  padding: 20px;
+  margin: 20px;
+  position: relative;
+}
+
+.chatlist_container {
+  height: 150px;
+  border-radius: 10px;
+}
