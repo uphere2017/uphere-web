@@ -14,7 +14,6 @@ const ChatRoom = props => (
       전송
     </button>
   </form>
-  
-)
+);
 
 export default ChatRoom;
