@@ -6,6 +6,7 @@ import history from '../history';
 import ChatRoom from '../../components/ChatRoom/ChatRoom';
 import UserList from '../../components/UserList/UserList';
 import ChatList from '../../components/ChatList/ChatList';
+import socket from 'socket.io-client';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -37,6 +38,10 @@ class HomePage extends React.Component {
         });
       }
     });
+
+    this.socket = io('http://13.124.88.51:8080');
+    this.socket.on('connect', () => {});
+    this.socket.on('disconnect', () => {});
   }
 
   changeLoginStatus() {

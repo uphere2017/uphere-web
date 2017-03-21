@@ -50,4 +50,4 @@ class ChatRoom extends Component {
   }
 }
 
-export default ChatRoom
+export default ChatRoom;
