@@ -27,17 +27,6 @@ const html = task('html', () => {
   fs.writeFileSync('./public/index.html', output, 'utf8');
 });
 
-// Generate sitemap.xml
-const sitemap = task('sitemap', () => {
-  const urls = require('../src/routes.json')
-    .filter(x => !x.path.includes(':'))
-    .map(x => ({ loc: x.path }));
-  const template = fs.readFileSync('./public/sitemap.ejs', 'utf8');
-  const render = ejs.compile(template, { filename: './public/sitemap.ejs' });
-  const output = render({ config, urls });
-  fs.writeFileSync('public/sitemap.xml', output, 'utf8');
-});
-
 // Bundle JavaScript, CSS and image files with Webpack
 const bundle = task('bundle', () => {
   const webpackConfig = require('./webpack.config');
@@ -61,6 +50,5 @@ module.exports = task('build', () => {
   rimraf.sync('public/dist/*', { nosort: true, dot: true });
   return Promise.resolve()
     .then(bundle)
-    .then(html)
-    .then(sitemap);
+    .then(html);
 });
