@@ -15,9 +15,9 @@ class LoginPage extends React.Component {
   }
 
   checkLoginState(e) {
-    history.push({ pathname: '/about' })
+    history.push({ pathname: '/about' });
   }
-  
+
   componentDidMount() {
     FB.getLoginStatus((response) => {
       if (response.authResponse === null) {
@@ -26,14 +26,13 @@ class LoginPage extends React.Component {
         });
       } else {
         FB.api('/me', {fields: 'id,name,email,friends'}, (response) => {
-          console.log(response);
           this.setState({
             loggedIn: true,
             username: response.name
           });
         });
       }
-    });  
+    });
   }
 
   changeLoginStatus() {
@@ -46,7 +45,6 @@ class LoginPage extends React.Component {
     } else {
       FB.login((response) => {
         FB.api('/me', {fields: 'id,name,email,friends'}, (response) => {
-          console.log(response);
           this.setState({
             loggedIn: true,
             username: response.name
