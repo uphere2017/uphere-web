@@ -13,9 +13,17 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io('http://13.124.88.51:8080');
-    this.socket.on('connect', () => {});
-    this.socket.on('disconnect', () => {});
+    const that = this;
+
+    this.socket = io('http://127.0.0.1:8080');
+
+    // Usage example
+    setTimeout(() => {
+      that.socket.emit('message', {
+        text: 'Hello, World.',
+        sender_id: 1
+      });
+    }, 10000);
   }
 
   render() {
