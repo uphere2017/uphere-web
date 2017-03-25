@@ -6,6 +6,7 @@ import ChatRoom from '../ChatRoom/ChatRoom';
 import UserList from '../UserList/UserList';
 import ChatList from '../ChatList/ChatList';
 import FacebookLogin from 'react-facebook-login';
+import { API_URL } from '../../config';
 
 class HomePage extends React.Component {
   constructor(props) {
