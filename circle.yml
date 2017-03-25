@@ -14,4 +14,4 @@ deployment:
     branch: dev
     commands:
       - npm run build
-      - aws s3 sync --delete public/ s3://uphereweb/
+      - aws s3 sync --delete public/ s3://uphere.world/
