@@ -21,7 +21,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://127.0.0.1:8080/users/3/friend-list')
+    axios.get('http://13.124.88.51:8080/users/3/friend-list')
       .then(({ data }) => {
         this.setState({
           friendList: data
@@ -84,7 +84,7 @@ class HomePage extends React.Component {
           <div className={`${s.fb_login_button}`}>
             <h1>UPHERE</h1>
             <FacebookLogin
-              appId="910249799115871"
+              appId="272459766534622"
               autoLoad={true}
               fields="name,email,picture"
               scope="public_profile,user_friends"
