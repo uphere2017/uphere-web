@@ -17,12 +17,12 @@ class HomePage extends React.Component {
       username: null,
       email: null,
       fbID: null,
-      fbToken: null
+      fbToken: null,
+      user_id: 0,
     };
   }
-
   componentDidMount() {
-    axios.get(API_URL + '/users/3/friend-list')
+    axios.get(API_URL + '/users/20/friend-list')
       .then(({ data }) => {
         this.setState({
           friendList: data
@@ -44,16 +44,32 @@ class HomePage extends React.Component {
 
   onLogin(data) {
     console.log('Logged in:', data);
-
     this.setState({
       fbToken: data.accessToken
     });
 
-    FB.api('/me', {fields: 'id,name,email,friends'}, (response) => {
-      console.log(response);
-
+    FB.api('/me', {fields:'id, name, email, friends'}, (response) => {
       this.setState({
         friends: response.friends.data
+      });
+
+    var userdata = {
+      name: data.name,
+      profile_image_url: data.picture.data.url,
+      facebook_id: data.id,
+      email_address: data.email,
+      friend_list: response.friends.data.map(friend => {
+        return friend.id
+      })
+    };
+
+    axios.post(API_URL + '/users', userdata)
+      .then(userinfo => {
+        this.setState((prevState, props) => {
+          return { user_id: prevState.user_id || userinfo.data.user.uphere_id }
+        });
+      }).catch(error => {
+        console.log('error', error);
       });
     });
   }
@@ -88,7 +104,7 @@ class HomePage extends React.Component {
               appId="272459766534622"
               autoLoad={true}
               fields="name,email,picture"
-              scope="public_profile,user_friends"
+              scope="public_profile,email,user_friends"
               size="metro"
               callback={this.onLogin.bind(this)}
             />
@@ -96,14 +112,14 @@ class HomePage extends React.Component {
         }
         {
           this.state.fbToken &&
-          <div className="mdl-grid">
-            <div className="mdl-cell mdl-cell--4-col">
+          <div className={`${s.app_container}`}>
+            <div className={`${s.content_item}`}>
               <UserList friendList={this.state.friendList}/>
             </div>
-            <div className="mdl-cell mdl-cell--4-col">
+            <div className={`${s.content_item}`}>
               <ChatList />
             </div>
-            <div className="mdl-cell mdl-cell--4-col">
+            <div className={`${s.content_item}`}>
               <ChatRoom />
             </div>
           </div>
