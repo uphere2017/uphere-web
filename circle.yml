@@ -1,0 +1,17 @@
+machine:
+  node:
+    version: 6.9.4
+
+dependencies:
+  override:
+    - npm install
+
+  post:
+    - sudo pip install awscli
+    - aws configure set region ap-northeast-2
+deployment:
+  uphereweb:
+    branch: dev
+    commands:
+      - npm run build
+      - aws s3 sync --delete public/ s3://uphereweb/
