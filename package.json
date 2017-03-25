@@ -111,10 +111,10 @@
     "lint": "npm run eslint && npm run stylelint",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "mocha --compilers js:babel-register --reporter min --watch",
-    "build": "node tools/build.js",
+    "build": "NODE_ENV=production node tools/build.js",
     "build:debug": "node tools/build.js --debug",
     "publish": "node tools/publish.js",
     "publish:debug": "node tools/publish.js --debug",
-    "start": "node tools/run.js"
+    "start": "NODE_ENV=development node tools/run.js"
   }
 }
