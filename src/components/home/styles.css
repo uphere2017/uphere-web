@@ -44,3 +44,12 @@ html, body, #container {
 .navigation_bar ul li:last-of-type {
   float: right;
 }
+
+.app_container: {
+  display: flex;
+  flex-direction: row;
+  margin: 30px;
+}
+.content_item: {
+  flex: 1;
+}
