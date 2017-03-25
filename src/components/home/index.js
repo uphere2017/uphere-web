@@ -2,9 +2,9 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
-import ChatRoom from '../components/ChatRoom/ChatRoom';
-import UserList from '../components/UserList/UserList';
-import ChatList from '../components/ChatList/ChatList';
+import ChatRoom from './ChatRoom/ChatRoom';
+import UserList from './UserList/UserList';
+import ChatList from './ChatList/ChatList';
 import FacebookLogin from 'react-facebook-login';
 
 class HomePage extends React.Component {
