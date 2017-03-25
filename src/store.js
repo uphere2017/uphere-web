@@ -1,15 +1,8 @@
 import { createStore } from 'redux';
+import uphereReducers from './reducers';
 
 const initialState = { count: 0 };
 
-const store = createStore((state = initialState, action) => {
-  // TODO: Add action handlers (aka "reducers")
-  switch (action.type) {
-    case 'COUNT':
-      return { ...state, count: (state.count) + 1 };
-    default:
-      return state;
-  }
-});
+const store = createStore(uphereReducers);
 
 export default store;
