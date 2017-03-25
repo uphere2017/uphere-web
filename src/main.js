@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import store from './store';
-import Home from './home';
+import Home from './components/home';
 
 const container = document.getElementById('container');
 

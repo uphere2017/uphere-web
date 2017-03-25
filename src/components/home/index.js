@@ -2,9 +2,9 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import React, { PropTypes } from 'react';
 import s from './styles.css';
-import ChatRoom from './ChatRoom/ChatRoom';
-import UserList from './UserList/UserList';
-import ChatList from './ChatList/ChatList';
+import ChatRoom from '../ChatRoom/ChatRoom';
+import UserList from '../UserList/UserList';
+import ChatList from '../ChatList/ChatList';
 import FacebookLogin from 'react-facebook-login';
 
 class HomePage extends React.Component {
@@ -21,7 +21,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://13.124.88.51:8080/users/3/friend-list')
+    axios.get(API_URL + '/users/3/friend-list')
       .then(({ data }) => {
         this.setState({
           friendList: data
@@ -30,7 +30,7 @@ class HomePage extends React.Component {
 
     const that = this;
 
-    that.socket = io('http://13.124.88.51:8080');
+    that.socket = io(API_URL);
 
     // Usage example
     setTimeout(() => {

@@ -69,6 +69,7 @@ const config = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
       __DEV__: isDebug,
+      API_URL: process.env.NODE_ENV === 'production' ? 'http://127.0.0.1:8080' : 'http://localhost:8080'
     }),
     // Emit a JSON file with assets paths
     // https://github.com/sporto/assets-webpack-plugin#options
