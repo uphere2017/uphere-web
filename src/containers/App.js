@@ -6,15 +6,22 @@ import {
   receiveLoginFailure,
   receiveFBUserData,
   receiveFBUserID,
-  receiveFriendList
+  receiveFriendIDList
 } from '../actionCreators';
 import App from '../components/App';
 
 const fetchFacebookUserData = (dispatch) => {
+  const mapID = (arr) => {
+    if (arr) {
+      return arr.map((i) => i.id);
+    }
+    return [];
+  };
+
   return new Promise((resolve, reject) => {
     window.FB.api('/me', {fields: 'id,name,email,friends'}, ({ name, email = null, friends }) => {
       dispatch(receiveFBUserData({ name, email }));
-      dispatch(receiveFriendList({ friendList: friends.data || [] }));
+      dispatch(receiveFriendIDList({ friendIDList: mapID(friends.data) }));
       resolve();
     });
   });
@@ -22,7 +29,10 @@ const fetchFacebookUserData = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.isLoggedIn,
+    user: state.user,
+    friendList: state.friendList,
+    chatList: state.chatList
   };
 };
 
