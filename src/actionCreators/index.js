@@ -1,7 +1,7 @@
 import {
   ADD_TODO,
   TOGGLE_TODO
-} from './actionTypes';
+} from '../actionTypes';
 
 const todoId = 0;
 

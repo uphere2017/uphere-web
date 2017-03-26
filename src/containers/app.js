@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import {
   addTodo,
   toggleTodo
-} from './actionCreators';
+} from '../actionCreators';
 import {
   SHOW_ALL,
   SHOW_COMPLETED,
   SHOW_ACTIVE
-} from 'actionTypes';
-import Home from './components/Home';
+} from '../actionTypes';
+import Home from '../components/Home';
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {

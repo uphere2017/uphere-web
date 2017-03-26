@@ -1,11 +1,12 @@
 import axios from 'axios';
 import io from 'socket.io-client';
 import React, { PropTypes } from 'react';
+import FacebookLogin from 'react-facebook-login';
+
 import s from './styles.css';
 import ChatRoom from '../ChatRoom/ChatRoom';
 import UserList from '../UserList/UserList';
 import ChatList from '../ChatList/ChatList';
-import FacebookLogin from 'react-facebook-login';
 import { API_URL } from '../../config';
 
 class HomePage extends React.Component {
