@@ -5,61 +5,24 @@ import FacebookLogin from 'react-facebook-login';
 
 import s from './styles.css';
 import Home from '../Home/Home';
-import { API_URL } from '../../config';
+import { API_URL, FACEBOOK_APP_ID } from '../../config';
 
+// Facebook login behavior reference: https://developers.facebook.com/docs/facebook-login/web
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('APP PROPS:', props);
+    console.log('[UPHERE]APP_COMPONENT_PROPS:', props);
 
-    // TODO: Fix login behavior - ref: https://developers.facebook.com/docs/facebook-login/web
     this.state = {
-      isLoading: true,
-      isLoggedIn: false,
-      name: null,
-      email: null,
-      facebookID: null,
-      facebookAccessToken: null,
-      friendList: null,
-      uphereID: null
+      isLoading: true
     };
-  }
-
-  getLoginStatus() {
-    const that = this;
-
-    if (window.FB) {
-      FB.getLoginStatus(({ authResponse }) => {
-        if (!authResponse) {
-          that.setState({
-            isLoading: false,
-            isLoggedIn: false,
-            name: null,
-            email: null,
-            facebookID: null,
-            facebookAccessToken: null,
-            friendList: null,
-            uphereID: null
-          });
-        }
-      });
-    } else {
-      setTimeout(that.getLoginStatus.bind(that), 300);
-    }
   }
 
   componentDidMount() {
     const that = this;
 
-    that.getLoginStatus();
-
-    axios.get(API_URL + '/users/3/friend-list')
-      .then(({ data }) => {
-        that.setState({
-          friendList: data
-        });
-      });
+    that._onLoad();
 
     that.socket = io(API_URL);
 
@@ -72,68 +35,66 @@ class App extends React.Component {
     }, 10000);
   }
 
-  onLogin(data) {
-    console.log('Logged in:', data);
+  _onLoad() {
+    const that = this;
 
-    FB.api('/me', {fields: 'id,name,email,friends'}, (response) => {
-      console.log(response);
-
-      this.setState({
-        isLoading: false,
-        isLoggedIn: true,
-        name: response.name,
-        email: response.email,
-        friendList: response.friends.data,
-        facebookAccessToken: data.accessToken
-      });
-    });
+    if (window.FB) {
+      that.props.onLoad()
+        .then(() => {
+          that.setState({
+            isLoading: false
+          });
+        });
+    } else {
+      setTimeout(that._onLoad.bind(that), 500);
+    }
   }
 
-  onLogout() {
+  _onLoginStart() {
     this.setState({
-      name: null,
-      email: null,
-      facebookID: null,
-      facebookAccessToken: null,
-      friendList: null,
-      uphereID: null
+      isLoading: true
     });
   }
 
-  _onClick() {
-    this.props.onClick('Hellooow');
+  _onLoginDone(data) {
+    const that = this;
+
+    that.props.onLogin(data)
+      .then(() => {
+        that.setState({
+          isLoading: false
+        });
+      });
   }
 
   render() {
+    const that = this;
+
     return (
-      <div onClick={this._onClick.bind(this)}>
+      <div>
         {
-          this.props.todos.map((todo, i) => {
-            return <div key={i}>{ todo }</div>;
-          })
-        }
-        {
-          !this.state.isLoggedIn && this.state.isLoading &&
+          !this.props.isLoggedIn && this.state.isLoading &&
           <div>
             <div className={`${s.coffee_cup}`}></div>
           </div>
         }
         {
-          !this.state.isLoggedIn &&
-          <div className={`${s.fb_login_button}`} style={{ display: this.state.isLoading ? 'none' : 'block' }}>
+          <div className={`${s.fb_login_button}`}
+               style={{ display: !this.props.isLoggedIn && !this.state.isLoading ? 'block' : 'none' }}>
             <h1>UPHERE</h1>
             <FacebookLogin
-              appId="272459766534622"
-              autoLoad={true}
+              onClick={that._onLoginStart.bind(that)}
+              appId={FACEBOOK_APP_ID}
+              autoLoad={false}
               fields="name,email,picture"
               scope="public_profile,user_friends"
               size="metro"
-              callback={this.onLogin.bind(this)}
+              callback={that._onLoginDone.bind(that)}
             />
           </div>
         }
         {
-          this.state.isLoggedIn &&
+          this.props.isLoggedIn && !this.state.isLoading &&
           <Home />
         }
       </div>
