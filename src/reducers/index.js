@@ -6,7 +6,7 @@ import {
   RECEIVE_LOGIN_FAILURE,
   RECEIVE_FB_USER_DATA,
   RECEIVE_FB_USER_ID,
-  RECEIVE_FRIEND_LIST
+  RECEIVE_FRIEND_ID_LIST
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -15,7 +15,7 @@ const login = (state = false, action) => {
     case RECEIVE_LOGIN_FAILURE:
       return false;
     case RECEIVE_FB_USER_DATA:
-    case RECEIVE_FRIEND_LIST:
+    case RECEIVE_FRIEND_ID_LIST:
     case RECEIVE_LOGIN_SUCCESS:
     case RECEIVE_FB_USER_ID:
     default:
@@ -41,8 +41,15 @@ const user = (state, action) => {
 
 const friendList = (state = [], action) => {
   switch (action.type) {
-    case RECEIVE_FRIEND_LIST:
-      return action.friendList;
+    case RECEIVE_FRIEND_ID_LIST:
+      return action.friendIDList.map((friendID) => {
+        return {
+          name: null,
+          email: null,
+          facebookID: friendID,
+          uphereID: null
+        };
+      });
     default:
       return [];
   };
