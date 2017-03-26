@@ -1,24 +1,21 @@
-import { createStore } from 'redux';
-import uphereReducers from './reducers';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+
+import reducers from './reducers';
 
 const initialState = {
-  todos: [
-    {
-      id: 0,
-      text: 'hello'
-    },
-    {
-      id: 1,
-      text: 'hi, there'
-    },
-    {
-      id: 2,
-      text: 'why, there'
-    }
-  ]
+  isLoggedIn: false,
+  user: {
+    uphereID: null,
+    name: null,
+    email: null,
+    facebookID: null
+  },
+  friendList: [],
+  chatList: []
 };
 
-const store = createStore(uphereReducers, initialState);
-console.log('Initial App State:', store.getState());
+const store = createStore(reducers, initialState, applyMiddleware(logger));
+console.log('[UPHERE]INITIAL_APP_STATE:', store.getState());
 
 export default store;
