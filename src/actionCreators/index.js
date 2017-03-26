@@ -1,27 +1,14 @@
 import {
-  ADD_TODO,
-  TOGGLE_TODO
+  ADD_TODO
 } from '../actionTypes';
 
-const todoId = 0;
+let todoId = 3;
 
-const addTodo = (text) => {
+export const addTodo = (text) => {
+  console.log('ActionCreator:addTodo:', text);
   return {
     type: ADD_TODO,
     id: todoId++,
-    text,
-    completed: false
+    text
   };
-};
-
-const toggleTodo = id => {
-  return {
-    id,
-    type: TOGGLE_TODO
-  }
-};
-
-export default {
-  addTodo,
-  toggleTodo
 };

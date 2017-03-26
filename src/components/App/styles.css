@@ -1,0 +1,73 @@
+.content {
+  padding: 0 16px;
+  text-align: center;
+}
+
+.coffee_cup {
+  width: 20px;
+  height: 24px;
+  border: 1px #2196F3 solid;
+  border-radius: 0px 0px 5px 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.coffee_cup:after, .coffee_cup:before {
+  position: absolute;
+  content: "";
+}
+
+.coffee_cup:after {
+  width: 5px;
+  height: 12px;
+  border: 1px #2196F3 solid;
+  border-left: none;
+  border-radius: 0px 20px 20px 0px;
+  left: 20px;
+}
+
+.coffee_cup:before {
+  width: 1px;
+  height: 6px;
+  background-color: #2196F3;
+  top: -10px;
+  left: 4px;
+  box-shadow: 5px 0px 0px 0px #2196F3,
+              5px -5px 0px 0px #2196F3,
+              10px 0px 0px 0px #2196F3;
+  -webkit-animation: steam 0.3s linear infinite alternate;
+     -moz-animation: steam 0.3s linear infinite alternate;
+          animation: steam 0.3s linear infinite alternate;
+}
+
+@-webkit-keyframes steam {
+  0% { height: 0px; }
+  100% { height: 6px; }
+}
+
+@-moz-keyframes steam {
+  0% { height: 0px }
+  100% { height: 6px; }
+}
+
+@keyframes steam {
+  0%{ height: 0px }
+  100% { height: 6px; }
+}
+
+.fb_login_button {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.fb_login_button h1 {
+  font-size: 3em;
+  letter-spacing: 7px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+}

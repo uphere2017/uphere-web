@@ -10,7 +10,7 @@ class UserList extends React.Component {
   render() {
     return (
       <ul className={`${s.ulstyle}`}>
-        {this.props.friendList.map((friend, i) => {
+        { this.props.friendList && this.props.friendList.map((friend, i) => {
             {console.log(friend)}
           return (
             <li className={`${s.listyle}`} key={i}>
@@ -18,6 +18,7 @@ class UserList extends React.Component {
             </li>
           )
         })}
+        { !this.props.friendList && <div>No friends yet</div> }
       </ul>
     );
   }

@@ -1,0 +1,19 @@
+.home_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.home_item {
+  border-top: 1px solid grey;
+}
+
+.home_item:not(:last-of-type) {
+  border-right: 1px solid grey;
+}
+
+.friend_list, .chatlist {
+  flex: 0 0 300px;
+}
