@@ -14,6 +14,8 @@ const login = (state = false, action) => {
     case REQUEST_LOGIN_STATUS:
     case RECEIVE_LOGIN_FAILURE:
       return false;
+    case RECEIVE_FB_USER_DATA:
+    case RECEIVE_FRIEND_LIST:
     case RECEIVE_LOGIN_SUCCESS:
     case RECEIVE_FB_USER_ID:
     default:

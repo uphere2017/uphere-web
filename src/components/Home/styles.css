@@ -6,10 +6,6 @@
   align-items: stretch;
 }
 
-.home_item {
-  border-top: 1px solid grey;
-}
-
 .home_item:not(:last-of-type) {
   border-right: 1px solid grey;
 }
