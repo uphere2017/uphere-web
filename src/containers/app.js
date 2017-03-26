@@ -1,43 +1,34 @@
 import { connect } from 'react-redux';
 import {
-  addTodo,
-  toggleTodo
-} from './actionCreators';
+  addTodo
+} from '../actionCreators';
 import {
-  SHOW_ALL,
-  SHOW_COMPLETED,
-  SHOW_ACTIVE
-} from 'actionTypes';
-import Home from './components/Home';
+  ADD_TODO
+} from '../actionTypes';
+import App from '../components/App';
 
-const getVisibleTodos = (todos, filter) => {
-  switch (filter) {
-    case SHOW_ALL:
-      return todos;
-    case SHOW_COMPLETED:
-      return todos.filter(t => t.completed);
-    case SHOW_ACTIVE:
-      return todos.filter(t => !t.completed);
-  }
+const getTodoText = (todos) => {
+  return todos.map((todo) => todo.text);
 };
 
 const mapStateToProps = (state) => {
   return {
-    todos: getVisibleTodos(state.todos, state.visibilityFilter);
+    todos: getTodoText(state.todos)
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTodoClick: (id) => {
-      dispatch(toggleTodo(id));
+    onClick: (text) => {
+      console.log('MapDispatchToProps:onClick:', text);
+      dispatch(addTodo(text));
     }
   };
 };
 
-const VisibleTodoList = connect(
+const AppContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(App);
 
-export default App;
+export default AppContainer;
