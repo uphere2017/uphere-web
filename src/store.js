@@ -12,6 +12,7 @@ const initialState = {
     facebookID: null,
     profilePictureUrl: null
   },
+  currentChatRoom: null,
   friendList: [],
   chatList: []
 };

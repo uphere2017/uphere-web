@@ -61,9 +61,14 @@ const chatList = (state = [], action) => {
   return [];
 };
 
+const currentChatRoom = (state = null, action) => {
+  return state;
+};
+
 export default combineReducers({
   isLoggedIn: login,
   user,
   friendList,
-  chatList
+  chatList,
+  currentChatRoom,
 });

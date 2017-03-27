@@ -32,7 +32,8 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.isLoggedIn,
     user: state.user,
     friendList: state.friendList,
-    chatList: state.chatList
+    chatList: state.chatList,
+    currentChatRoom: state.currentChatRoom
   };
 };
 
