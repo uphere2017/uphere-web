@@ -21,7 +21,7 @@ class ChatList extends React.Component {
                 </h4>
                 <p>
                   <span className={`${s.latest_text}`}>{ chat.messages[0].text }</span>
-                </p>
+                </p> 
               </div>
             </div>
           );
