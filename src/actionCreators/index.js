@@ -25,11 +25,12 @@ export const receiveLoginFailure = () => {
   };
 };
 
-export const receiveFBUserData = ({ name, email }) => {
+export const receiveFBUserData = ({ name, email, picture }) => {
   return {
     type: RECEIVE_FB_USER_DATA,
     name,
-    email
+    email,
+    picture
   };
 };
 

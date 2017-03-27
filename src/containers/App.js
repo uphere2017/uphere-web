@@ -19,8 +19,8 @@ const fetchFacebookUserData = (dispatch) => {
   };
 
   return new Promise((resolve, reject) => {
-    window.FB.api('/me', {fields: 'id,name,email,friends'}, ({ name, email = null, friends }) => {
-      dispatch(receiveFBUserData({ name, email }));
+    window.FB.api('/me', {fields: 'id,name,email,friends,picture'}, ({ name, email = null, friends, picture }) => {
+      dispatch(receiveFBUserData({ name, email, picture }));
       dispatch(receiveFriendIDList({ friendIDList: mapID(friends.data) }));
       resolve();
     });
