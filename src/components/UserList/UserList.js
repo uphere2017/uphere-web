@@ -1,6 +1,5 @@
 import React from 'react';
 import s from './UserList.css';
-import data from './data.js';
 
 class UserList extends React.Component {
   constructor(props) {
@@ -11,12 +10,11 @@ class UserList extends React.Component {
     return (
       <ul className={`${s.ulstyle}`}>
         { this.props.friendList && this.props.friendList.map((friend, i) => {
-            {console.log(friend)}
           return (
             <li className={`${s.listyle}`} key={i}>
-              <img src={friend.profile_image_url} className={`${s.img_circle}`} />{friend.name}
+              <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />{friend.name}
             </li>
-          )
+          );
         })}
         { !this.props.friendList && <div>No friends yet</div> }
       </ul>

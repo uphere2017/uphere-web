@@ -4,7 +4,8 @@ import {
   RECEIVE_LOGIN_FAILURE,
   RECEIVE_FB_USER_DATA,
   RECEIVE_FB_USER_ID,
-  RECEIVE_FRIEND_ID_LIST
+  RECEIVE_FRIEND_ID_LIST,
+  RECEIVE_USER_DATA
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -45,5 +46,17 @@ export const receiveFBUserID = (facebookID) => {
   return {
     type: RECEIVE_FB_USER_ID,
     facebookID
+  };
+};
+
+export const receiveUserData = ({ user }) => {
+  return {
+    type: RECEIVE_USER_DATA,
+    user: {
+      uphereID: user.uphere_id,
+      name: user.name,
+      email: user.email_address,
+      profilePictureUrl: user.profile_image_url
+    }
   };
 };
