@@ -7,7 +7,7 @@ import {
   receiveLoginFailure,
   receiveFBUserData,
   receiveFBUserID,
-  receiveFriendIDList,
+  receiveFriendList,
   receiveUserData
 } from '../actionCreators';
 import App from '../components/App';
@@ -24,7 +24,7 @@ const fetchFacebookUserData = (dispatch) => {
   return new Promise((resolve, reject) => {
     window.FB.api('/me', {fields: 'id,name,email,friends,picture'}, ({ id, name, email = null, friends, picture }) => {
       dispatch(receiveFBUserData({ name, email, picture }));
-      dispatch(receiveFriendIDList({ friendIDList: mapID(friends.data) }));
+      // dispatch(receiveFriendIDList({ friendIDList: mapID(friends.data) }));
 
       axios.post(API_URL + '/users', {
         facebook_id: id,
@@ -34,6 +34,11 @@ const fetchFacebookUserData = (dispatch) => {
         friend_list: mapID(friends.data)
       })
         .then(({ data }) => {
+          axios.get(`${API_URL}/users/${data.user.uphere_id}/friend-list`)
+            .then(response => {
+              dispatch(receiveFriendList(response.data));
+            })
+            .catch(error => {console.log(error)})
           dispatch(receiveUserData({ user: data.user }));
           resolve();
         })
