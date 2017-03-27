@@ -95,7 +95,11 @@ class App extends React.Component {
         }
         {
           this.props.isLoggedIn && !this.state.isLoading &&
-          <Home />
+          <Home
+            chatList={this.props.chatList}
+            friendList={this.props.friendList}
+            currentChatRoom={this.props.currentChatRoom}
+          />
         }
       </div>
     );

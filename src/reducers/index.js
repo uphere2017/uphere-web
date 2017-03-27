@@ -6,7 +6,8 @@ import {
   RECEIVE_LOGIN_FAILURE,
   RECEIVE_FB_USER_DATA,
   RECEIVE_FB_USER_ID,
-  RECEIVE_FRIEND_ID_LIST
+  RECEIVE_FRIEND_ID_LIST,
+  RECEIVE_USER_DATA
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -35,6 +36,13 @@ const user = (state, action) => {
       return Object.assign({}, state, {
         facebookID: action.facebookID
       });
+    case RECEIVE_USER_DATA:
+      return Object.assign({}, state, {
+        uphereID: action.user.uphereID,
+        name: action.user.name,
+        email: action.user.email,
+        profilePictureUrl: action.user.profilePictureUrl
+      });
     default:
       return Object.assign({}, state);
   };
@@ -61,9 +69,14 @@ const chatList = (state = [], action) => {
   return [];
 };
 
+const currentChatRoom = (state = null, action) => {
+  return state;
+};
+
 export default combineReducers({
   isLoggedIn: login,
   user,
   friendList,
-  chatList
+  chatList,
+  currentChatRoom,
 });

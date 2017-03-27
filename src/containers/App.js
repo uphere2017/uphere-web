@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import {
   requestLoginStatus,
@@ -6,9 +7,11 @@ import {
   receiveLoginFailure,
   receiveFBUserData,
   receiveFBUserID,
-  receiveFriendIDList
+  receiveFriendIDList,
+  receiveUserData
 } from '../actionCreators';
 import App from '../components/App';
+import { API_URL } from '../config';
 
 const fetchFacebookUserData = (dispatch) => {
   const mapID = (arr) => {
@@ -19,10 +22,22 @@ const fetchFacebookUserData = (dispatch) => {
   };
 
   return new Promise((resolve, reject) => {
-    window.FB.api('/me', {fields: 'id,name,email,friends,picture'}, ({ name, email = null, friends, picture }) => {
+    window.FB.api('/me', {fields: 'id,name,email,friends,picture'}, ({ id, name, email = null, friends, picture }) => {
       dispatch(receiveFBUserData({ name, email, picture }));
       dispatch(receiveFriendIDList({ friendIDList: mapID(friends.data) }));
-      resolve();
+
+      axios.post(API_URL + '/users', {
+        facebook_id: id,
+        profile_image_url: picture.data.url,
+        email_address: email,
+        name,
+        friend_list: mapID(friends.data)
+      })
+        .then(({ data }) => {
+          dispatch(receiveUserData({ user: data.user }));
+          resolve();
+        })
+        .catch(reject);
     });
   });
 };
@@ -32,7 +47,8 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.isLoggedIn,
     user: state.user,
     friendList: state.friendList,
-    chatList: state.chatList
+    chatList: state.chatList,
+    currentChatRoom: state.currentChatRoom
   };
 };
 
