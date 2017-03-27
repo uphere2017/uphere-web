@@ -28,7 +28,8 @@ const user = (state, action) => {
     case RECEIVE_FB_USER_DATA:
       return Object.assign({}, state, {
         name: action.name,
-        email: action.email
+        email: action.email,
+        profilePictureUrl: action.picture.data.url
       });
     case RECEIVE_FB_USER_ID:
       return Object.assign({}, state, {
@@ -47,7 +48,8 @@ const friendList = (state = [], action) => {
           name: null,
           email: null,
           facebookID: friendID,
-          uphereID: null
+          uphereID: null,
+          profilePictureUrl: null
         };
       });
     default:

@@ -9,7 +9,8 @@ const initialState = {
     uphereID: null,
     name: null,
     email: null,
-    facebookID: null
+    facebookID: null,
+    profilePictureUrl: null
   },
   friendList: [],
   chatList: []
