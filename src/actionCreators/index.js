@@ -4,7 +4,7 @@ import {
   RECEIVE_LOGIN_FAILURE,
   RECEIVE_FB_USER_DATA,
   RECEIVE_FB_USER_ID,
-  RECEIVE_FRIEND_ID_LIST,
+  RECEIVE_FRIEND_LIST,
   RECEIVE_USER_DATA
 } from '../actionTypes';
 
@@ -35,10 +35,10 @@ export const receiveFBUserData = ({ name, email, picture }) => {
   };
 };
 
-export const receiveFriendIDList = ({ friendIDList }) => {
+export const receiveFriendList = (friendList) => {
   return {
-    type: RECEIVE_FRIEND_ID_LIST,
-    friendIDList
+    type: RECEIVE_FRIEND_LIST,
+    friendList
   };
 };
 
