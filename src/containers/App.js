@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 import {
   requestLoginStatus,
@@ -16,6 +17,16 @@ import {
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
+
+const socket = io(API_URL);
+
+// Usage example
+setTimeout(() => {
+  socket.emit('message', {
+    text: 'Hello, World.',
+    sender_id: 1
+  });
+}, 10000);
 
 const fetchFacebookUserData = (dispatch) => {
   const mapID = (arr) => {
