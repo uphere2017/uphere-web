@@ -29,6 +29,12 @@ setTimeout(() => {
   });
 }, 10000);
 
+socket.on('FRIEND_ONLINE', (data) => {
+  // data example
+  // { friend_id: 1 }
+  console.log('My friend is online:', data);
+});
+
 const fetchFacebookUserData = (dispatch) => {
   const mapID = (arr) => {
     if (arr) {
@@ -51,8 +57,17 @@ const fetchFacebookUserData = (dispatch) => {
       })
         .then(({ data }) => {
           dispatch(receiveUserData({ user: data.user }));
+
+          socket.emit('USER_LOG_IN', {
+            user_uphere_id: data.user.uphere_id
+          });
+
           axios.get(`${API_URL}/users/${data.user.uphere_id}/friend-list`)
             .then(response => {
+              socket.emit('USER_ONLINE', {
+                user_uphere_id: data.user.uphere_id,
+                friend_list: [data.user.uphere_id]
+              });
               dispatch(receiveFriendList(response.data));
               chatListRequest(dispatch, data.user.uphere_id, response.data);
               resolve();
