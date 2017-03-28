@@ -28,7 +28,7 @@ const login = (state = false, action) => {
   }
 };
 
-const user = (state, action) => {
+const user = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_FB_USER_DATA:
       return Object.assign({}, state, {
@@ -65,11 +65,11 @@ const friendList = (state = [], action) => {
         };
       });
     default:
-      return [];
+      return state.slice();
   };
 };
 
-const chatList = (state, action) => {
+const chatList = (state = [], action) => {
   switch (action.type) {
     case REQUEST_CHAT_LIST_FAILURE:
       return [{ errorMessage: action.err }];
@@ -82,11 +82,11 @@ const chatList = (state, action) => {
         };
       });
     default:
-      return [];
+      return state.slice();
   };
 };
 
-const currentChatRoom = (state = null, action) => {
+const currentChatRoom = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_CHAT_ROOM_SUCCESS:
       return Object.assign({}, state, {
@@ -95,7 +95,7 @@ const currentChatRoom = (state = null, action) => {
         messages: action.chatroom.messages
       })
     default:
-      return state;
+      return Object.assign({}, state);
   };
 };
 
