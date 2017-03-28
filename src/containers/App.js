@@ -78,7 +78,7 @@ const fetchFacebookUserData = (dispatch) => {
                 friend_list: response.data.map((friend) => friend.uphere_id)
               });
               dispatch(receiveFriendList(response.data));
-              chatListRequest(dispatch, data.user.uphere_id, response.data);
+              chatListRequest(dispatch, data.user, response.data);
               resolve();
             })
             .catch(err => {
@@ -90,13 +90,14 @@ const fetchFacebookUserData = (dispatch) => {
   });
 };
 
-const chatListRequest = (dispatch, uphere_id, friendList) => {
-  return axios.get(`${API_URL}/users/${uphere_id}/chats`)
+const chatListRequest = (dispatch, user, friendList) => {
+  return axios.get(`${API_URL}/users/${user.uphere_id}/chats`)
               .then(({ data }) => {
                 data.chats.map((chat, i) => {
-                  if(chat.participants.includes(uphere_id)) {
-                    chat.participants[chat.participants.indexOf(uphere_id)] = friendList[i];
-                  } else if (chat.participants.includes(friendList[i].uphere_id)) {
+                  if(chat.participants.includes(user.uphere_id)) {
+                    chat.participants[chat.participants.indexOf(user.uphere_id)] = user;
+                  }
+                  if (chat.participants.includes(friendList[i].uphere_id)) {
                     chat.participants[chat.participants.indexOf(friendList[i].uphere_id)] = friendList[i];
                   }
                   return chat;

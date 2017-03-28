@@ -103,9 +103,23 @@ const initialState = {
     facebookID: null,
     profilePictureUrl: null
   },
-  currentChatRoom: null,
-  friendList: [],
-  chatList: []
+  currentChatRoom: {
+    uphere_id: null,
+    participants: null,
+    messages: null
+  }
+  // friendList: [{
+  //         name: null,
+  //         email: null,
+  //         facebookID: null,
+  //         uphereID: null,
+  //         profilePictureUrl: null
+  //       }],
+  // chatList: {
+  //         uphere_id: null,
+  //         participants: null,
+  //         messages: null
+  //       }
 };
 
 const store = createStore(reducers, initialState, applyMiddleware(logger));
