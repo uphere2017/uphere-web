@@ -7,7 +7,9 @@ import {
   RECEIVE_FB_USER_DATA,
   RECEIVE_FB_USER_ID,
   RECEIVE_FRIEND_LIST,
-  RECEIVE_USER_DATA
+  RECEIVE_USER_DATA,
+  CREATE_CHAT_MESSAGE,
+  UPDATE_CHAT_MESSAGE
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -66,10 +68,33 @@ const friendList = (state = [], action) => {
 };
 
 const chatList = (state = [], action) => {
-  return [];
+  switch (action.type) {
+    case CREATE_CHAT_MESSAGE:
+      return action.chatList.map((chatGroup) => {
+        if(chatGroup.uphereID === action.chatRoom.uphereID){
+          chatGroup.lastMessage = {
+            uphereID: action.message.text_ID, // Message uphereID
+            senderID: action.message.sender_ID, // User uphereID
+            text: action.message.text
+          }
+        }
+      });
+    default:
+      return [];        
+  }
 };
 
 const currentChatRoom = (state = null, action) => {
+  switch (action.type) {
+    case UPDATE_CHAT_MESSAGE:
+      var msg = {
+        uphereID: action.message.text_ID,
+        senderID: action.message.sender_ID,
+        text: action.message.message
+      };
+      action.message.chatRoom.messages.push(msg);
+      return Object.assign({}, state, action.message.chatRoom);
+  }
   return state;
 };
 

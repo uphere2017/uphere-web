@@ -5,7 +5,10 @@ import {
   RECEIVE_FB_USER_DATA,
   RECEIVE_FB_USER_ID,
   RECEIVE_FRIEND_LIST,
-  RECEIVE_USER_DATA
+  RECEIVE_USER_DATA,
+  RECEIVE_FRIEND_ID_LIST,
+  CREATE_CHAT_MESSAGE,
+  UPDATE_CHAT_MESSAGE
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -58,5 +61,19 @@ export const receiveUserData = ({ user }) => {
       email: user.email_address,
       profilePictureUrl: user.profile_image_url
     }
+  };
+};
+
+export const createChatMessage = (message) => {
+  return {
+    type: CREATE_CHAT_MESSAGE,
+    message
+  };
+};
+
+export const updateChatMessage = (message) => {
+  return {
+    type: UPDATE_CHAT_MESSAGE,
+    message
   };
 };

@@ -1,0 +1,28 @@
+machine:
+  node:
+    version: 6.9.4
+dependencies:
+  override:
+    - pip install awscli
+    - chmod +x deploy.sh
+    - ./deploy.sh
+    - npm install
+test:
+  override:
+    - npm test
+deployment:
+  production:
+    branch: dev
+    commands:
+      - aws s3 sync uphere-web/public s3://circle-production-static-site/docs/ --delete
+    codedeploy:
+      uphere-web:
+        application_root: /
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: test-uphere
+            key_pattern: uphereAPI-{BRANCH}-{SHORT_COMMIT}
+        region: ap-northeast-2
+        deployment_group: Production
+        deployment_config: CodeDeployDefault.OneAtATime

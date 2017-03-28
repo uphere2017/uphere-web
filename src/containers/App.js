@@ -8,7 +8,11 @@ import {
   receiveFBUserData,
   receiveFBUserID,
   receiveFriendList,
-  receiveUserData
+  receiveUserData,
+  receiveFriendIDList,
+  createChatMessage,
+  updateChatMessage
+
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -88,6 +92,38 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(receiveLoginSuccess());
       dispatch(receiveFBUserID(id));
       return fetchFacebookUserData(dispatch);
+    },
+
+    newMessage: (message, user, chatList, chatRoom) => {
+      axios.post(API_URL + '/chats/:chat_id', {
+        text: message,
+        sender_id: user.uphereID
+      })
+        .then(({ data }) => {
+          dispatch(createChatMessage({ 
+            text_ID: data.id, 
+            sender_ID: user.uphereID, 
+            chatList: chatList, 
+            message: message, 
+            chatRoom: chatRoom }));    
+        })
+        .catch((err) => console.log(err));
+    },
+
+    updateMessage: (message, user, chatRoom) => {
+      axios.post(API_URL + '/chats/:chat_id', {
+        text: message,
+        sender_id: user.uphereID
+      })
+        .then(({ data }) => {
+          dispatch(updateChatMessage({ 
+            text_ID: data.id, 
+            sender_ID: user.uphereID,  
+            message: message, 
+            chatRoom: chatRoom 
+          }));    
+        })
+        .catch((err) => console.log(err));
     }
   };
 };

@@ -27,12 +27,14 @@ class ChatRoom extends Component {
 
   sendMessage(event, message) {
     event.preventDefault();
+    this.props.getMessage(this.state.text);
     if (message) {
       this.setState({
         messages: this.state.messages.concat({text: message, timestamp: Date.now(), senderName: 'me'}),
         text: ''
       });
     }
+    
   }
 
   render () {

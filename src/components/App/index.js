@@ -15,7 +15,11 @@ class App extends React.Component {
     console.log('[UPHERE]APP_COMPONENT_PROPS:', props);
 
     this.state = {
-      isLoading: true
+      isLoading: true,
+      message: '',
+      user: '',
+      chatRoom: {},
+      chatList: []
     };
   }
 
@@ -33,6 +37,12 @@ class App extends React.Component {
         sender_id: 1
       });
     }, 10000);
+
+    this.setState({ 
+      user: this.props.user,
+      chatRoom: this.props.currentChatRoom,
+      chatList: this.props.chatList
+    });
   }
 
   _onLoad() {
@@ -67,6 +77,12 @@ class App extends React.Component {
       });
   }
 
+  _newMessage(msg, user, chatList, chatRoom) {
+    const that = this;
+    that.props.newMessage(msg, user, chatList, chatRoom);
+    that.props.updateMessage(msg, user, chatRoom);
+  }
+
   render() {
     const that = this;
 
@@ -96,9 +112,11 @@ class App extends React.Component {
         {
           this.props.isLoggedIn && !this.state.isLoading &&
           <Home
+            user={this.props.user}
             chatList={this.props.chatList}
             friendList={this.props.friendList}
             currentChatRoom={this.props.currentChatRoom}
+            newMessage={that._newMessage.bind(that)}
           />
         }
       </div>
