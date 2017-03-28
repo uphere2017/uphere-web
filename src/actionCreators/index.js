@@ -6,10 +6,11 @@ import {
   RECEIVE_FB_USER_ID,
   RECEIVE_FRIEND_LIST,
   RECEIVE_USER_DATA,
-  REQUEST_CHAT_LIST_STATUS,
   REQUEST_CHAT_LIST_SUCCESS,
   REQUEST_CHAT_LIST_FAILURE,
-  REQUEST_CHAT_ROOM_SUCCESS
+  REQUEST_CHAT_ROOM_SUCCESS,
+  CREATE_CHAT_SUCCESS,
+  CREATE_CHAT_FAILURE
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -65,12 +66,6 @@ export const receiveUserData = ({ user }) => {
   };
 };
 
-export const requestChatListStatus = () => {
-  return {
-    type: REQUEST_CHAT_LIST_STATUS
-  };
-};
-
 export const requestChatListSuccess = (chats) => {
   return {
     type: REQUEST_CHAT_LIST_SUCCESS,
@@ -91,3 +86,17 @@ export const requestChatRoomSuccess = (chatroom) => {
     chatroom
   }
 };
+
+export const createChatSuccess = ( id ) => {
+  return {
+    type: CREATE_CHAT_SUCCESS,
+    id: id
+  };
+};
+
+export const createChatFailure = ( ) => {
+  return {
+    type: CREATE_CHAT_FAILURE
+  };
+};
+
