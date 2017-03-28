@@ -10,24 +10,45 @@ class ChatList extends React.Component {
     this.props.showChat(chat);
   }
 
+  _getFriend(chat) {
+    const friend = chat.participants.filter((user) => {
+      return user.uphere_id !== this.props.user.uphereID;
+    })[0];
+
+    return friend;
+  }
+
+  _isYourMessage(message) {
+    return message.sender_id === this.props.user.uphereID;
+  }
+
   render() {
     return (
       <div>
-        {this.props.chats && this.props.chats.map((chat, i) => {
+        {this.props.chats.length > 0 && this.props.chats.map((chat, i) => {
           return (
             <div ref="chatroom" className={`${s.chatroom_container}`} key={i} onClick={(e) => {
               e.preventDefault();
               this.clickHandler(chat);
             }} >
               <div className={`${s.img_divide}`} >
-                { <img src={chat.participants[1].profile_image_url} /> }
+                { <img src={this._getFriend(chat).profile_image_url} /> }
               </div>
               <div className={`${s.usernames}`}>
                 <h4>
-                  { chat.participants[1].name }
+                  { this._getFriend(chat).name }
                 </h4>
                 <p>
-                  <span className={`${s.latest_text}`}>{ chat.messages[chat.messages.length - 1].text }</span>
+                  {
+                    chat.messages.length <= 0 ? null :
+                      <span className={`${s.latest_text}`}>
+                        {
+                          this._isYourMessage(chat.messages[chat.messages.length - 1]) ?
+                            'You: ' : null
+                        }
+                        { chat.messages[chat.messages.length - 1].text }
+                      </span>
+                  }
                 </p>
               </div>
             </div>

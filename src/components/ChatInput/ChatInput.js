@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
 
-const ChatRoom = props => (
-  <form>
-    <div>
-      <input type="text" id="talk" value={props.text}  onChange={props.onChange} />
-      {props.text ? '' :
-        <label htmlFor="talk">Talk</label>}
-    </div>
-    <button
-      onClick={(event) => {
-        event.preventDefault();
-        props.newMessage(props.text, props.chat, props.user);
-      }}
-    >
-      전송
-    </button>
-  </form>
-);
+class ChatRoom extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: ''
+    };
+  }
+
+  onChange(e) {
+    e.preventDefault();
+
+    this.setState({
+      text: e.target.value
+    });
+  }
+
+  render() {
+    return (<form>
+              <div>
+                <input type="text" id="talk" value={this.state.text} onChange={this.onChange.bind(this)} />
+              </div>
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  this.props.newMessage(this.state.text, this.props.chat, this.props.user);
+                  this.setState({ text: '' });
+                }}
+              >
+                전송
+              </button>
+            </form>);
+  }
+}
 
 export default ChatRoom;

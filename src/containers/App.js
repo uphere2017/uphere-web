@@ -16,7 +16,8 @@ import {
   createChatSuccess,
   createChatFailure,
   receiveFriendOnline,
-  createChatMessage
+  createChatMessage,
+  updateCurrentChatroom
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -103,7 +104,11 @@ const chatListRequest = (dispatch, user, friendList) => {
                   }
                   return chat;
                 });
-                dispatch(requestChatListSuccess(data.chats));
+
+                if (data.chats.length > 0) {
+                  dispatch(requestChatListSuccess(data.chats));
+                  dispatch(updateCurrentChatroom(data.chats[0]));
+                }
               })
               .catch(err => {
                 dispatch(requestChatListFailure(err));
@@ -149,7 +154,7 @@ const mapDispatchToProps = (dispatch) => {
       });
     },
 
-  onNewChat: (friendID, hostID) => {
+    onNewChat: (friendID, hostID) => {
       axios.post(API_URL + '/chats', {
         participants: [hostID, friendID]
       })
@@ -181,7 +186,8 @@ const mapDispatchToProps = (dispatch) => {
             chatroom: chatroom,
             text_id: data.id,
             user_id: user.uphereID,
-            text: message
+            text: message,
+            created_at: data.created_at
           }));
         });
     }

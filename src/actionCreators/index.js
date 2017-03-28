@@ -12,7 +12,8 @@ import {
   CREATE_CHAT_SUCCESS,
   CREATE_CHAT_FAILURE,
   RECEIVE_FRIEND_ONLINE,
-  CREATE_CHAT_MESSAGE
+  CREATE_CHAT_MESSAGE,
+  UPDATE_CURRENT_CHATROOM
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -109,12 +110,20 @@ export const receiveFriendOnline = (friend) => {
   };
 };
 
-export const createChatMessage = ({ chatroom, text_id, user_id, text }) => {
+export const createChatMessage = ({ chatroom, text_id, user_id, text, created_at }) => {
   return {
     type: CREATE_CHAT_MESSAGE,
     chatroom: chatroom,
     text_id,
     user_id,
-    text
+    text,
+    created_at
+  };
+};
+
+export const updateCurrentChatroom = (chatroom) => {
+  return {
+    type: UPDATE_CURRENT_CHATROOM,
+    chatroom
   };
 };
