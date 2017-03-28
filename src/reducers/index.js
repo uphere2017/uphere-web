@@ -58,13 +58,13 @@ const friendList = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_FRIEND_LIST:
       return action.friendList.map((friend) => {
-        return {
+        return Object.assign({}, state, {
           name: friend.name,
           email: friend.email_address,
           facebookID: friend.facebook_id,
           uphereID: friend.uphere_id,
           profilePictureUrl: friend.profile_image_url
-        };
+        });
       });
     case RECEIVE_FRIEND_ONLINE:
       const newState = state.slice();
@@ -85,11 +85,11 @@ const chatList = (state = [], action) => {
       return [{ errorMessage: action.err }];
     case REQUEST_CHAT_LIST_SUCCESS:
       return action.chats.map((chatroom) => {
-        return {
+        return Object.assign({}, state, {
           uphere_id: chatroom.uphere_id,
           participants: chatroom.participants,
           messages: chatroom.messages
-        };
+        });
       });
     case CREATE_CHAT_SUCCESS:
       const newChat = { uphereID: action.id };
