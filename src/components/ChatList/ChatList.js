@@ -6,7 +6,6 @@ class ChatList extends React.Component {
     super(props);
   }
 
-
   clickHandler(chat) {
     this.props.showChat(chat);
   }

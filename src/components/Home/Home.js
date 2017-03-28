@@ -16,14 +16,19 @@ class Home extends React.Component {
         <div className={`${s.home_item}` + ' ' + `${s.chatlist}`}>
           <ChatList
             chats={this.props.chatList}
-            showChat={this.props.showChat}
-          />
+            showChat={this.props.showChat} />
         </div>
         <div className={`${s.home_item}`}>
-          <ChatRoom chat={this.props.currentChatRoom}/>
+          <ChatRoom
+            chat={this.props.currentChatRoom}
+            newMessage={this.props.newMessage}
+            user={this.props.user} />
         </div>
         <div className={`${s.home_item}` + ' ' + `${s.friend_list}`}>
-          <UserList onNewChat={this.props.onNewChat} friendList={this.props.friendList} user={this.props.user}/>
+          <UserList
+            onNewChat={this.props.onNewChat}
+            friendList={this.props.friendList}
+            user={this.props.user} />
         </div>
       </div>
     );

@@ -50,7 +50,13 @@ class ChatRoom extends Component {
             }) : <p>No Content Yet</p>
           }
           </ul>
-          <ChatInput onChange={this.handleChange} text={this.state.text} sendMessage={this.sendMessage} />
+          <ChatInput
+            user={this.props.user}
+            chat={this.props.chat}
+            newMessage={this.props.newMessage}
+            onChange={this.handleChange}
+            text={this.state.text}
+            sendMessage={this.sendMessage} />
         </div>
     );
   }

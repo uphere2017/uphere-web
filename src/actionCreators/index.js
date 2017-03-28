@@ -11,7 +11,8 @@ import {
   REQUEST_CHAT_ROOM_SUCCESS,
   CREATE_CHAT_SUCCESS,
   CREATE_CHAT_FAILURE,
-  RECEIVE_FRIEND_ONLINE
+  RECEIVE_FRIEND_ONLINE,
+  CREATE_CHAT_MESSAGE
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -105,5 +106,15 @@ export const receiveFriendOnline = (friend) => {
   return {
     type: RECEIVE_FRIEND_ONLINE,
     friend
+  };
+};
+
+export const createChatMessage = ({ chatroom, text_id, user_id, text }) => {
+  return {
+    type: CREATE_CHAT_MESSAGE,
+    chatroom: chatroom,
+    text_id,
+    user_id,
+    text
   };
 };

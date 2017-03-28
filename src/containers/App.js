@@ -15,7 +15,8 @@ import {
   requestChatRoomSuccess,
   createChatSuccess,
   createChatFailure,
-  receiveFriendOnline
+  receiveFriendOnline,
+  createChatMessage
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -168,6 +169,21 @@ const mapDispatchToProps = (dispatch) => {
 
     showChat: (chatroom) => {
       dispatch(requestChatRoomSuccess(chatroom));
+    },
+
+    newMessage: (message, chatroom, user) => {
+      axios.post(API_URL + `/chats/${chatroom.uphere_id}`, {
+        text: message,
+        sender_id: user.uphereID
+      })
+        .then(({ data }) => {
+          dispatch(createChatMessage({
+            chatroom: chatroom,
+            text_id: data.id,
+            user_id: user.uphereID,
+            text: message
+          }));
+        });
     }
   };
 };

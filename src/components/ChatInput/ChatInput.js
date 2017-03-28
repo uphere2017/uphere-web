@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 
 const ChatRoom = props => (
   <form>
-    <div >
+    <div>
       <input type="text" id="talk" value={props.text}  onChange={props.onChange} />
       {props.text ? '' :
         <label htmlFor="talk">Talk</label>}
     </div>
     <button
-      // className="mdl-button mdl-js-button mdl-js-ripple-effect"
-      onClick={(event) => props.sendMessage(event, props.text)}
+      onClick={(event) => {
+        event.preventDefault();
+        props.newMessage(props.text, props.chat, props.user);
+      }}
     >
       전송
     </button>
