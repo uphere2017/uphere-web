@@ -12,7 +12,7 @@ import {
   receiveUserData,
   requestChatListSuccess,
   requestChatListFailure,
-  requestChatRoomSuccess
+  requestChatRoomSuccess,
   createChatSuccess,
   createChatFailure
 } from '../actionCreators';
