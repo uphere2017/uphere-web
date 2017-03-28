@@ -14,7 +14,8 @@ import {
   requestChatListFailure,
   requestChatRoomSuccess,
   createChatSuccess,
-  createChatFailure
+  createChatFailure,
+  receiveFriendOnline
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -29,10 +30,19 @@ setTimeout(() => {
   });
 }, 10000);
 
-socket.on('FRIEND_ONLINE', (data) => {
-  // data example
-  // { friend_id: 1 }
-  console.log('My friend is online:', data);
+const addFriendPartial = (dispatch) => (friendID) => {
+  axios.get(`${API_URL}/users/${friendID}`)
+    .then(({ data }) =>{
+      dispatch(receiveFriendOnline(data));
+    });
+};
+
+let addFriend;
+
+socket.on('FRIEND_ONLINE', ({ friend_id }) => {
+  if (addFriend) {
+    addFriend(friend_id);
+  }
 });
 
 const fetchFacebookUserData = (dispatch) => {
@@ -47,7 +57,6 @@ const fetchFacebookUserData = (dispatch) => {
     window.FB.api('/me', {fields: 'id,name,email,friends,picture'}, ({ id, name, email = null, friends, picture }) => {
       dispatch(receiveFBUserData({ name, email, picture }));
       // dispatch(receiveFriendIDList({ friendIDList: mapID(friends.data) }));
-
       axios.post(API_URL + '/users', {
         facebook_id: id,
         profile_image_url: picture.data.url,
@@ -58,7 +67,7 @@ const fetchFacebookUserData = (dispatch) => {
         .then(({ data }) => {
           dispatch(receiveUserData({ user: data.user }));
 
-          socket.emit('USER_LOG_IN', {
+          socket.emit('LOG_IN', {
             user_uphere_id: data.user.uphere_id
           });
 
@@ -66,7 +75,7 @@ const fetchFacebookUserData = (dispatch) => {
             .then(response => {
               socket.emit('USER_ONLINE', {
                 user_uphere_id: data.user.uphere_id,
-                friend_list: [data.user.uphere_id]
+                friend_list: response.data.map((friend) => friend.uphere_id)
               });
               dispatch(receiveFriendList(response.data));
               chatListRequest(dispatch, data.user.uphere_id, response.data);
@@ -97,7 +106,7 @@ const chatListRequest = (dispatch, uphere_id, friendList) => {
               .catch(err => {
                 dispatch(requestChatListFailure(err));
               });
-}
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -110,6 +119,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
+  addFriend = addFriendPartial(dispatch);
+
   return {
     onLoad: () => {
       dispatch(requestLoginStatus());
@@ -144,7 +155,7 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(createChatSuccess(res.data.chat_id));
         })
         .catch(err => {
-          dispatch(createChatFailure());
+          dispatch(createChatFailure(err));
         })
     },
 
