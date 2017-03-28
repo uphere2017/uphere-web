@@ -37,12 +37,24 @@ import reducers from './reducers';
  *       profilePictureUrl: "https://image.com/jinhodo.jpg"
  *     }
  *   ],
- *   lastMessage: {
- *     uphereID: 1, // Message uphereID
- *     senderID: 3, // User uphereID
- *     text: "Where are you?"
- *   }
- * }
+ *   messages: [
+ *     {
+ *       uphereID: 1, // Message uphereID
+ *       participants: [1, 3], // User uphereID,
+ *       messages: [{
+ *        uphereID: 1,
+ *        senderID: 3,
+ *        text: "Who are you?"
+ *     },
+ *     {
+ *       uphereID: 1, // Message uphereID
+ *       participants: [1, 3], // User uphereID,
+ *       messages: [{
+ *        uphereID: 2,
+ *        senderID: 1,
+ *        text: "I am at Peach Tree."
+ *     },
+ * ]
  *
 */
 
@@ -78,7 +90,7 @@ import reducers from './reducers';
  *       senderID: 1, // User uphereID,
  *       text: "I am at Peach Tree."
  *     }
- * }
+ * ]
  *
 */
 

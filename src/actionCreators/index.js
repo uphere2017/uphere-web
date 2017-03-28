@@ -5,7 +5,11 @@ import {
   RECEIVE_FB_USER_DATA,
   RECEIVE_FB_USER_ID,
   RECEIVE_FRIEND_LIST,
-  RECEIVE_USER_DATA
+  RECEIVE_USER_DATA,
+  REQUEST_CHAT_LIST_STATUS,
+  REQUEST_CHAT_LIST_SUCCESS,
+  REQUEST_CHAT_LIST_FAILURE,
+  REQUEST_CHAT_ROOM_SUCCESS
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -59,4 +63,31 @@ export const receiveUserData = ({ user }) => {
       profilePictureUrl: user.profile_image_url
     }
   };
+};
+
+export const requestChatListStatus = () => {
+  return {
+    type: REQUEST_CHAT_LIST_STATUS
+  };
+};
+
+export const requestChatListSuccess = (chats) => {
+  return {
+    type: REQUEST_CHAT_LIST_SUCCESS,
+    chats
+  };
+};
+
+export const requestChatListFailure = (err) => {
+  return {
+    type: REQUEST_CHAT_LIST_FAILURE,
+    err
+  };
+};
+
+export const requestChatRoomSuccess = (chatroom) => {
+  return {
+    type: REQUEST_CHAT_ROOM_SUCCESS,
+    chatroom
+  }
 };

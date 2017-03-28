@@ -8,7 +8,11 @@ import {
   receiveFBUserData,
   receiveFBUserID,
   receiveFriendList,
-  receiveUserData
+  receiveUserData,
+  requestChatListStatus,
+  requestChatListSuccess,
+  requestChatListFailure,
+  requestChatRoomSuccess
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -37,15 +41,36 @@ const fetchFacebookUserData = (dispatch) => {
           axios.get(`${API_URL}/users/${data.user.uphere_id}/friend-list`)
             .then(response => {
               dispatch(receiveFriendList(response.data));
+              chatListRequest(dispatch, data.user.uphere_id, response.data);
+              resolve();
             })
-            .catch(error => {console.log(error)})
+            .catch(err => {
+              console.error('[UPHERE_WEB] Could not get friend list', err)
+            });
           dispatch(receiveUserData({ user: data.user }));
-          resolve();
         })
         .catch(reject);
     });
   });
 };
+
+const chatListRequest = (dispatch, uphere_id, friendList) => {
+  return axios.get(`${API_URL}/users/${uphere_id}/chats`)
+              .then(({ data }) => {
+                data.chats.map((chat, i) => {
+                  if(chat.participants.includes(uphere_id)) {
+                    chat.participants[chat.participants.indexOf(uphere_id)] = friendList[i];
+                  } else if (chat.participants.includes(friendList[i].uphere_id)) {
+                    chat.participants[chat.participants.indexOf(friendList[i].uphere_id)] = friendList[i];
+                  }
+                  return chat;
+                })
+                dispatch(requestChatListSuccess(data.chats));
+              })
+              .catch(err => {
+                dispatch(requestChatListFailure(err));
+              });
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -88,6 +113,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(receiveLoginSuccess());
       dispatch(receiveFBUserID(id));
       return fetchFacebookUserData(dispatch);
+    },
+
+    showChat: (chatroom) => {
+      dispatch(requestChatRoomSuccess(chatroom));
     }
   };
 };

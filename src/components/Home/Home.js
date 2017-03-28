@@ -14,7 +14,10 @@ class Home extends React.Component {
     return (
       <div className={`${s.home_container}`}>
         <div className={`${s.home_item}` + ' ' + `${s.chatlist}`}>
-          <ChatList chats={this.props.chatList}/>
+          <ChatList
+            chats={this.props.chatList}
+            showChat={this.props.showChat}
+          />
         </div>
         <div className={`${s.home_item}`}>
           <ChatRoom chat={this.props.currentChatRoom}/>
