@@ -1,11 +1,9 @@
-import axios from 'axios';
-import io from 'socket.io-client';
 import React, { PropTypes } from 'react';
 import FacebookLogin from 'react-facebook-login';
 
 import s from './styles.css';
 import Home from '../Home/Home';
-import { API_URL, FACEBOOK_APP_ID } from '../../config';
+import { FACEBOOK_APP_ID } from '../../config';
 
 // Facebook login behavior reference: https://developers.facebook.com/docs/facebook-login/web
 class App extends React.Component {
@@ -20,19 +18,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const that = this;
-
-    that._onLoad();
-
-    that.socket = io(API_URL);
-
-    // Usage example
-    setTimeout(() => {
-      that.socket.emit('message', {
-        text: 'Hello, World.',
-        sender_id: 1
-      });
-    }, 10000);
+    this._onLoad();
   }
 
   _onLoad() {
