@@ -15,6 +15,7 @@ class Home extends React.Component {
       <div className={`${s.home_container}`}>
         <div className={`${s.home_item}` + ' ' + `${s.chatlist}`}>
           <ChatList
+            user={this.props.user}
             chats={this.props.chatList}
             showChat={this.props.showChat} />
         </div>

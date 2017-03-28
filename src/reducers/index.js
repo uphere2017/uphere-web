@@ -14,7 +14,8 @@ import {
   CREATE_CHAT_SUCCESS,
   CREATE_CHAT_FAILURE,
   RECEIVE_FRIEND_ONLINE,
-  CREATE_CHAT_MESSAGE
+  CREATE_CHAT_MESSAGE,
+  UPDATE_CURRENT_CHATROOM
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -83,7 +84,7 @@ const friendList = (state = [], action) => {
 const chatList = (state = [], action) => {
   switch (action.type) {
     case REQUEST_CHAT_LIST_FAILURE:
-      return [{ errorMessage: action.err }];
+      return state.slice();
     case REQUEST_CHAT_LIST_SUCCESS:
       return action.chats.map((chatroom) => {
         return Object.assign({}, state, {
@@ -102,11 +103,13 @@ const chatList = (state = [], action) => {
     case CREATE_CHAT_MESSAGE:
       const chats = state.slice();
       chats.forEach((chat) => {
-        if (chat.uphere_id === action.chatroom.uphere_id) {
+        if (chat.uphere_id === action.chatroom.uphere_id
+            && chat.messages[chat.messages.length - 1].uphere_id !== action.text_id) {
           chat.messages.push({
             sender_id: action.user_id,
             text: action.text,
-            uphere_id: action.text_id
+            uphere_id: action.text_id,
+            created_at: action.created_at
           });
         }
       });
@@ -125,14 +128,21 @@ const currentChatRoom = (state = {}, action) => {
         messages: action.chatroom.messages
       });
     case CREATE_CHAT_MESSAGE:
+      if (state.messages[state.messages.length - 1].uphere_id === action.text_id) {
+        return Object.assign({}, state);
+      }
+
       var msg = {
-        uphereID: action.text_id,
-        senderID: action.user_id,
-        text: action.text
+        uphere_id: action.text_id,
+        sender_id: action.user_id,
+        text: action.text,
+        created_at: action.created_at
       };
       var newState = Object.assign({}, state);
       newState.messages.push(msg);
       return newState;
+    case UPDATE_CURRENT_CHATROOM:
+      return Object.assign({}, action.chatroom);
     default:
       return Object.assign({}, state);
   };

@@ -3,60 +3,43 @@ import ChatMessages from '../ChatMessages/ChatMessages';
 import ChatInput from '../ChatInput/ChatInput';
 import s from '../ChatList/ChatList.css';
 
-// mock ChatData
-import ChatData from './ChatData';
-
 class ChatRoom extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.sendMessage = this.sendMessage.bind(this);
-    this.showMessages = null;
   }
 
-  handleChange(e) {
-    this.setState({
-      text: e.target.value,
-      isEmpty: false
-    });
-  }
-
-  sendMessage(event, message) {
-    event.preventDefault();
-    if (message) {
-      this.setState({
-        text: ''
-      });
+  _findSenderById(id) {
+    if (id && this.props.chat.participants && this.props.chat.participants.length > 0) {
+      return this.props.chat.participants.filter((user) => {
+        return user.uphere_id === id;
+      })[0];
     }
+
+    return {};
   }
 
   render () {
-    let sortedMessages = this.props.chat.messages && this.props.chat.messages.sort((a, b) => a.uphere_id - b.uphere_id);
-    let participants = this.props.chat.participants;
+    let messages = this.props.chat.messages && this.props.chat.messages.length > 0 ? this.props.chat.messages : [];
+    messages = messages.sort((x, y) => x.uphere_id - y.uphere_id);
+    console.log(messages.map((msg) => msg.uphere_id));
     return (
         <div>
           <ul>
-            { sortedMessages ? sortedMessages.map((message, i) => {
+            { messages.map((message, i) => {
               return <div key={i}>
                        <div className={`${s.img_divide}`} style={{ width: "200px" }}>
-                         <img src={participants[i].uphere_id === message.sender_id ? participants[i].profile_image_url : i ? 0 : 1}/>
+                         <img src={this._findSenderById(message.sender_id).profile_image_url}/>
                          <span style={{ marginLeft: "20px" }}>{message.text}</span>
                        </div>
                      </div>
-            }) : <p>No Content Yet</p>
-          }
+              })
+            }
           </ul>
           <ChatInput
             user={this.props.user}
             chat={this.props.chat}
             newMessage={this.props.newMessage}
-            onChange={this.handleChange}
-            text={this.state.text}
-            sendMessage={this.sendMessage} />
+          />
         </div>
     );
   }
