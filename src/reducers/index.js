@@ -12,7 +12,8 @@ import {
   REQUEST_CHAT_LIST_FAILURE,
   REQUEST_CHAT_ROOM_SUCCESS,
   CREATE_CHAT_SUCCESS,
-  CREATE_CHAT_FAILURE
+  CREATE_CHAT_FAILURE,
+  RECEIVE_FRIEND_ONLINE
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -65,6 +66,14 @@ const friendList = (state = [], action) => {
           profilePictureUrl: friend.profile_image_url
         };
       });
+    case RECEIVE_FRIEND_ONLINE:
+      const newState = state.slice();
+      newState.forEach((friend) => {
+        if(friend.uphereID === action.friend.uphere_id) {
+          newState.push(action.friend);
+        }
+      });
+      return newState;
     default:
       return state.slice();
   };
@@ -112,5 +121,5 @@ export default combineReducers({
   user,
   friendList,
   chatList,
-  currentChatRoom,
+  currentChatRoom
 });

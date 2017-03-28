@@ -10,7 +10,8 @@ import {
   REQUEST_CHAT_LIST_FAILURE,
   REQUEST_CHAT_ROOM_SUCCESS,
   CREATE_CHAT_SUCCESS,
-  CREATE_CHAT_FAILURE
+  CREATE_CHAT_FAILURE,
+  RECEIVE_FRIEND_ONLINE
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -84,7 +85,7 @@ export const requestChatRoomSuccess = (chatroom) => {
   return {
     type: REQUEST_CHAT_ROOM_SUCCESS,
     chatroom
-  }
+  };
 };
 
 export const createChatSuccess = ( id ) => {
@@ -100,3 +101,9 @@ export const createChatFailure = ( ) => {
   };
 };
 
+export const receiveFriendOnline = (friend) => {
+  return {
+    type: RECEIVE_FRIEND_ONLINE,
+    friend
+  };
+};
