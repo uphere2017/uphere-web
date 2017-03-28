@@ -8,7 +8,6 @@ import ChatData from './ChatData';
 class ChatRoom extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       messages: ChatData,
       text: '',

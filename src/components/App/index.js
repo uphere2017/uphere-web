@@ -96,6 +96,7 @@ class App extends React.Component {
         {
           this.props.isLoggedIn && !this.state.isLoading &&
           <Home
+            showChat={this.props.showChat}
             chatList={this.props.chatList}
             friendList={this.props.friendList}
             currentChatRoom={this.props.currentChatRoom}

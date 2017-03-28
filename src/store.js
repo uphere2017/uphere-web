@@ -45,7 +45,6 @@ import reducers from './reducers';
  *        uphereID: 1,
  *        senderID: 3,
  *        text: "Who are you?"
- *      }]
  *     },
  *     {
  *       uphereID: 1, // Message uphereID

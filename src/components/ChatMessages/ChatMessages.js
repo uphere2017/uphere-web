@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const ChatMessages = ({ message }) => (
+const ChatMessages = ({ message, participant }) => (
   <li className="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp">
     {message.senderName !== 'me' ?
       <span className="mdl-list__item-primary-content">

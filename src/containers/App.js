@@ -11,7 +11,8 @@ import {
   receiveUserData,
   requestChatListStatus,
   requestChatListSuccess,
-  requestChatListFailure
+  requestChatListFailure,
+  requestChatRoomSuccess
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -39,12 +40,13 @@ const fetchFacebookUserData = (dispatch) => {
         .then(({ data }) => {
           axios.get(`${API_URL}/users/${data.user.uphere_id}/friend-list`)
             .then(response => {
-              console.log('FRUEND', response.data)
               dispatch(receiveFriendList(response.data));
               chatListRequest(dispatch, data.user.uphere_id, response.data);
               resolve();
             })
-            .catch(error => {console.log(error)})
+            .catch(err => {
+              console.error('[UPHERE_WEB] Could not get friend list', err)
+            });
           dispatch(receiveUserData({ user: data.user }));
         })
         .catch(reject);
@@ -55,7 +57,6 @@ const fetchFacebookUserData = (dispatch) => {
 const chatListRequest = (dispatch, uphere_id, friendList) => {
   return axios.get(`${API_URL}/users/${uphere_id}/chats`)
               .then(({ data }) => {
-                console.log('CHATETHEA', data);
                 data.chats.map((chat, i) => {
                   if(chat.participants.includes(uphere_id)) {
                     chat.participants[chat.participants.indexOf(uphere_id)] = friendList[i];
@@ -68,7 +69,7 @@ const chatListRequest = (dispatch, uphere_id, friendList) => {
               })
               .catch(err => {
                 dispatch(requestChatListFailure(err));
-              })
+              });
 }
 
 const mapStateToProps = (state) => {
@@ -112,6 +113,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(receiveLoginSuccess());
       dispatch(receiveFBUserID(id));
       return fetchFacebookUserData(dispatch);
+    },
+
+    showChat: (chatroom) => {
+      dispatch(requestChatRoomSuccess(chatroom));
     }
   };
 };

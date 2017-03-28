@@ -10,7 +10,8 @@ import {
   RECEIVE_USER_DATA,
   REQUEST_CHAT_LIST_STATUS,
   REQUEST_CHAT_LIST_SUCCESS,
-  REQUEST_CHAT_LIST_FAILURE
+  REQUEST_CHAT_LIST_FAILURE,
+  REQUEST_CHAT_ROOM_SUCCESS
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -71,22 +72,31 @@ const friendList = (state = [], action) => {
 const chatList = (state, action) => {
   switch (action.type) {
     case REQUEST_CHAT_LIST_FAILURE:
-      return [{Error: action.err}];
+      return [{ errorMessage: action.err }];
     case REQUEST_CHAT_LIST_SUCCESS:
       return action.chats.map((chatroom) => {
         return {
           uphere_id: chatroom.uphere_id,
           participants: chatroom.participants,
           messages: chatroom.messages
-        }
-      })
+        };
+      });
     default:
       return [];
   };
 };
 
 const currentChatRoom = (state = null, action) => {
-  return state;
+  switch (action.type) {
+    case REQUEST_CHAT_ROOM_SUCCESS:
+      return Object.assign({}, state, {
+        uphere_id: action.chatroom.uphere_id,
+        participants: action.chatroom.participants,
+        messages: action.chatroom.messages
+      })
+    default:
+      return state;
+  };
 };
 
 export default combineReducers({

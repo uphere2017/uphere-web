@@ -8,7 +8,8 @@ import {
   RECEIVE_USER_DATA,
   REQUEST_CHAT_LIST_STATUS,
   REQUEST_CHAT_LIST_SUCCESS,
-  REQUEST_CHAT_LIST_FAILURE
+  REQUEST_CHAT_LIST_FAILURE,
+  REQUEST_CHAT_ROOM_SUCCESS
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -82,4 +83,11 @@ export const requestChatListFailure = (err) => {
     type: REQUEST_CHAT_LIST_FAILURE,
     err
   };
+};
+
+export const requestChatRoomSuccess = (chatroom) => {
+  return {
+    type: REQUEST_CHAT_ROOM_SUCCESS,
+    chatroom
+  }
 };
