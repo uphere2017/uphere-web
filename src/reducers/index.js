@@ -13,7 +13,8 @@ import {
   REQUEST_CHAT_ROOM_SUCCESS,
   CREATE_CHAT_SUCCESS,
   CREATE_CHAT_FAILURE,
-  RECEIVE_FRIEND_ONLINE
+  RECEIVE_FRIEND_ONLINE,
+  CREATE_CHAT_MESSAGE
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -98,6 +99,18 @@ const chatList = (state = [], action) => {
       return newState;
     case CREATE_CHAT_FAILURE:
       return state.slice();
+    case CREATE_CHAT_MESSAGE:
+      const chats = state.slice();
+      chats.forEach((chat) => {
+        if (chat.uphere_id === action.chatroom.uphere_id) {
+          chat.messages.push({
+            sender_id: action.user_id,
+            text: action.text,
+            uphere_id: action.text_id
+          });
+        }
+      });
+      return chats;
     default:
       return state.slice();
   }
@@ -111,9 +124,18 @@ const currentChatRoom = (state = {}, action) => {
         participants: action.chatroom.participants,
         messages: action.chatroom.messages
       });
+    case CREATE_CHAT_MESSAGE:
+      var msg = {
+        uphereID: action.text_id,
+        senderID: action.user_id,
+        text: action.text
+      };
+      var newState = Object.assign({}, state);
+      newState.messages.push(msg);
+      return newState;
     default:
       return Object.assign({}, state);
-  }
+  };
 };
 
 export default combineReducers({

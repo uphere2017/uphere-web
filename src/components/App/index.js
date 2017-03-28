@@ -87,6 +87,7 @@ class App extends React.Component {
             chatList={this.props.chatList}
             friendList={this.props.friendList}
             currentChatRoom={this.props.currentChatRoom}
+            newMessage={this.props.newMessage}
             user={this.props.user}
           />
         }
