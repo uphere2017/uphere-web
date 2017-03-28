@@ -6,12 +6,16 @@ class UserList extends React.Component {
     super(props);
   }
 
+  handleClickOnFriend(friendID) {
+    this.props.onNewChat(friendID, this.props.user.uphereID);
+  }
+
   render() {
     return (
       <ul className={`${s.ulstyle}`}>
         { this.props.friendList && this.props.friendList.map((friend, i) => {
           return (
-            <li className={`${s.listyle}`} key={i}>
+            <li className={`${s.listyle}`} key={i} onClick={() => { this.handleClickOnFriend(friend.uphereID) }}>
               <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />{friend.name}
             </li>
           );

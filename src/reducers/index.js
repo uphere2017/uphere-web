@@ -8,10 +8,11 @@ import {
   RECEIVE_FB_USER_ID,
   RECEIVE_FRIEND_LIST,
   RECEIVE_USER_DATA,
-  REQUEST_CHAT_LIST_STATUS,
   REQUEST_CHAT_LIST_SUCCESS,
   REQUEST_CHAT_LIST_FAILURE,
-  REQUEST_CHAT_ROOM_SUCCESS
+  REQUEST_CHAT_ROOM_SUCCESS,
+  CREATE_CHAT_SUCCESS,
+  CREATE_CHAT_FAILURE
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -49,7 +50,7 @@ const user = (state = {}, action) => {
       });
     default:
       return Object.assign({}, state);
-  };
+  }
 };
 
 const friendList = (state = [], action) => {
@@ -81,9 +82,16 @@ const chatList = (state = [], action) => {
           messages: chatroom.messages
         };
       });
+    case CREATE_CHAT_SUCCESS:
+      const newChat = { uphereID: action.id };
+      const newState = state.slice();
+      newState.push(newChat);
+      return newState;
+    case CREATE_CHAT_FAILURE:
+      return state.slice();
     default:
       return state.slice();
-  };
+  }
 };
 
 const currentChatRoom = (state = {}, action) => {
@@ -93,10 +101,10 @@ const currentChatRoom = (state = {}, action) => {
         uphere_id: action.chatroom.uphere_id,
         participants: action.chatroom.participants,
         messages: action.chatroom.messages
-      })
+      });
     default:
       return Object.assign({}, state);
-  };
+  }
 };
 
 export default combineReducers({
