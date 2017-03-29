@@ -11,6 +11,10 @@
   overflow:auto;
 }
 
+.content h3 {
+  text-align: center;
+}
+
 .chatlog {
   max-width: 800em;
   margin: 0 auto;
