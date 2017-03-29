@@ -108,10 +108,10 @@ const chatListRequest = (dispatch, user, friendList) => {
                     chat.participants[userIndex] = user;
                   }
 
-                  friendIndex = chat.participants[userIndex === 0 ? 1 : 0];
+                  friendIndex = userIndex === 0 ? 1 : 0;
 
                   const friend = friendList.filter((friend) => {
-                    return friend.uphere_id === chat.participants[friendIndex].uphere_id;
+                    return friend.uphere_id === chat.participants[friendIndex];
                   })[0];
 
                   chat.participants[friendIndex] = friend;
