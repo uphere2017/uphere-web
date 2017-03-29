@@ -97,11 +97,11 @@ import reducers from './reducers';
 const initialState = {
   isLoggedIn: false,
   user: {
-    uphereID: null,
+    uphere_id: null,
     name: null,
     email: null,
     facebookID: null,
-    profilePictureUrl: null
+    profile_image_url: null
   },
   currentChatRoom: {
     uphere_id: null,
