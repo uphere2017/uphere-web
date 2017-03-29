@@ -6,9 +6,8 @@
 }
 
 .content {
-  margin-bottom: -150px;
-  min-height: 100%;
-  overflow:auto;
+  overflow: auto;
+  flex: 1;
 }
 
 .chatlog {
