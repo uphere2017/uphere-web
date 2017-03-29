@@ -165,7 +165,8 @@ const currentChatRoom = (state = {}, action) => {
       updatedChat.messages.push(newMessage);
       return updatedChat;
     case CREATE_CHAT_MESSAGE:
-      if (state.messages[state.messages.length - 1].uphere_id === action.text_id) {
+      if (state.messages.length > 0 &&
+          state.messages[state.messages.length - 1].uphere_id === action.text_id) {
         return Object.assign({}, state);
       }
 
