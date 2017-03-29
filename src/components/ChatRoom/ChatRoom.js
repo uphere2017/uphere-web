@@ -21,7 +21,7 @@ class ChatRoom extends Component {
   render () {
     let messages = this.props.chat.messages && this.props.chat.messages.length > 0 ? this.props.chat.messages : [];
     messages = messages.sort((x, y) => x.uphere_id - y.uphere_id);
-    console.log(messages.map((msg) => msg.uphere_id));
+
     return (
         <div>
           <ul>

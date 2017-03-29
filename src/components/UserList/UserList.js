@@ -6,8 +6,28 @@ class UserList extends React.Component {
     super(props);
   }
 
+  _getChat(friendID, hostID) {
+    let existingChat;
+
+    this.props.chats.forEach((chat) => {
+      let allUserIDs = chat.participants.map((user) => user.uphere_id);
+
+      if (allUserIDs.indexOf(friendID) >= 0 && allUserIDs.indexOf(hostID) >= 0) {
+        existingChat = chat;
+      }
+    });
+
+    return existingChat || null;
+  }
+
   handleClickOnFriend(friendID) {
-    this.props.onNewChat(friendID, this.props.user.uphereID);
+    const existingChat = this._getChat(friendID, this.props.user.uphereID);
+
+    if (existingChat) {
+      this.props.showChat(existingChat);
+    } else {
+      this.props.onNewChat(friendID, this.props.user.uphereID);
+    }
   }
 
   render() {

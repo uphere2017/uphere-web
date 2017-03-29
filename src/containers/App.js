@@ -159,7 +159,11 @@ const mapDispatchToProps = (dispatch) => {
         participants: [hostID, friendID]
       })
         .then((res) => {
-          dispatch(createChatSuccess(res.data.chat_id));
+          if (res.status === 201) {
+            dispatch(createChatSuccess(res.data.chat_id));
+          } else if (res.status === 208) {
+            dispatch(updateCurrentChatroom(res.data.chat));
+          }
         })
         .catch(err => {
           dispatch(createChatFailure(err));
