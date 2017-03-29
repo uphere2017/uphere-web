@@ -65,7 +65,8 @@ export const receiveUserData = ({ user }) => {
       uphere_id: user.uphere_id,
       name: user.name,
       email: user.email_address,
-      profile_image_url: user.profile_image_url
+      profile_image_url: user.profile_image_url,
+      token: user.token
     }
   };
 };
