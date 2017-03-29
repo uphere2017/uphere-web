@@ -5,12 +5,13 @@
   justify-content: center;
   align-items: stretch;
   height: 100%;
+  overflow: hidden;
 }
 
 .chatroom {
   flex: 1;
-  border-right: 1px solid grey;
-  border-left: 1px solid grey;
+  border-right: 1px solid rgba(0, 0, 0, .20);
+  border-left: 1px solid rgba(0, 0, 0, .20);
 }
 
 .friend_list, .chatlist {
