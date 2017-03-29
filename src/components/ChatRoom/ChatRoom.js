@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import ChatMessages from '../ChatMessages/ChatMessages';
 import ChatInput from '../ChatInput/ChatInput';
-import s from '../ChatList/ChatList.css';
+import s from './ChatRoom.css';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -23,23 +22,25 @@ class ChatRoom extends Component {
     messages = messages.sort((x, y) => x.uphere_id - y.uphere_id);
 
     return (
-        <div>
-          <ul>
-            { messages.map((message, i) => {
-              return <div key={i}>
-                       <div>
-                         <img src={this._findSenderById(message.sender_id).profile_image_url}/>
-                         <span>{message.text}</span>
-                       </div>
-                     </div>
-              })
-            }
-          </ul>
-          <ChatInput
-            user={this.props.user}
-            chat={this.props.chat}
-            newMessage={this.props.newMessage}
-          />
+        <div className={`${s.container}`} >
+          <div className={`${s.content}`}>
+            <ul className={`${s.chatlog}`}>
+              { messages.map((message, i) => {
+                  return <li key={i} className={message.sender_id === this.props.user.uphereID ? `${s.chatlog_entry_user} ${s.chatlog_entry}` : `${s.chatlog_entry}`}>
+                            {message.sender_id !== this.props.user.uphereID && <img className={`${s.chatlog_avatar}`} src={this._findSenderById(message.sender_id).profile_image_url}/>}
+                            <p className={`${s.chatlog_message}`}>{message.text}</p>
+                          </li>
+                })
+              }
+            </ul>
+          </div>
+          <div className={`${s.footer}`}>
+            <ChatInput
+              user={this.props.user}
+              chat={this.props.chat}
+              newMessage={this.props.newMessage}
+            />
+          </div>
         </div>
     );
   }
