@@ -99,13 +99,24 @@ const chatList = (state = [], action) => {
         });
       });
     case CREATE_CHAT_SUCCESS:
+      const newState = state.slice();
+
+      const existingChat = newState.filter((chat) => {
+        return chat.uphere_id === action.chatroom.uphere_id;
+      })[0];
+
+      if (existingChat) {
+        return newState;
+      }
+
       const newChat = {
         uphere_id: action.chatroom.uphere_id,
         participants: action.chatroom.participants,
         messages: action.chatroom.messages
       };
-      const newState = state.slice();
+
       newState.push(newChat);
+
       return newState;
     case CREATE_CHAT_FAILURE:
       return state.slice();

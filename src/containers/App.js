@@ -46,7 +46,7 @@ socket.on('FRIEND_ONLINE', ({ friend_id }) => {
 });
 
 socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id }) => {
-  if (receiveNewMessage) {
+  if (dispatchReceiveNewMessage) {
     dispatchReceiveNewMessage(message, chat_id);
   }
 });
@@ -166,10 +166,7 @@ const mapDispatchToProps = (dispatch) => {
       })
         .then((res) => {
           dispatch(updateCurrentChatroom(res.data.chat));
-
-          if (res.status === 201) {
-            dispatch(createChatSuccess(res.data.chat));
-          }
+          dispatch(createChatSuccess(res.data.chat));
         })
         .catch(err => {
           dispatch(createChatFailure(err));

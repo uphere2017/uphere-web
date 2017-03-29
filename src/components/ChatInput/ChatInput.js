@@ -20,7 +20,7 @@ class ChatInput extends Component {
 
   render() {
     return (
-              <form className={`${s.text_field}`}>
+              <div className={`${s.text_field}`}>
                 <div className={`${s.input_wrapper}`}>
                   <textarea className={`${s.text}`}placeholder={'메시지를 입력하세요...'} type="text" id="talk" rows="4" value={this.state.text} onChange={this.onChange.bind(this)}></textarea>
                 </div>
@@ -36,7 +36,7 @@ class ChatInput extends Component {
                     SEND
                   </div>
                 </div>
-              </form>
+              </div>
             );
   }
 }
