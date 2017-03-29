@@ -71,11 +71,15 @@ const friendList = (state = [], action) => {
       });
     case RECEIVE_FRIEND_ONLINE:
       const newState = state.slice();
+      let isExistingFriend = false;
       newState.forEach((friend) => {
         if(friend.uphereID === action.friend.uphere_id) {
-          newState.push(action.friend);
+          isExistingFriend = true;
         }
       });
+      if(!isExistingFriend) {
+        newState.push(action.friend);
+      }
       return newState;
     default:
       return state.slice();
@@ -119,7 +123,7 @@ const chatList = (state = [], action) => {
       const chats = state.slice();
       chats.forEach((chat) => {
         if (chat.uphere_id === action.chatroom.uphere_id
-            && chat.messages[chat.messages.length - 1].uphere_id !== action.text_id) {
+            && chat.messages.length && chat.messages[chat.messages.length - 1].uphere_id !== action.text_id) {
           chat.messages.push({
             sender_id: action.user_id,
             text: action.text,
