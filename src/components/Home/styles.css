@@ -15,4 +15,5 @@
 
 .friend_list, .chatlist {
   flex: 0 0 420px;
+  overflow-y: auto;
 }
