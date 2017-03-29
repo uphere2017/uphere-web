@@ -25,23 +25,35 @@ class ChatList extends React.Component {
   render() {
     return (
       <div>
+        <div className={`${s.chatlist_header}`}>
+          <div>
+            <i className="fa fa-cog" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h4>Messenger</h4>
+          </div>
+          <div>
+            <i className="fa fa-commenting-o" aria-hidden="true"></i>
+          </div>
+        </div>
+        <ul className={s.chatlist_container}>
         {this.props.chats.length > 0 && this.props.chats.map((chat, i) => {
           return (
-            <div ref="chatroom" className={`${s.chatroom_container}`} key={i} onClick={(e) => {
+            <li ref="chatroom" className={`${s.chatroom_container}`} key={i} onClick={(e) => {
               e.preventDefault();
               this.clickHandler(chat);
-            }} >
-              <div className={`${s.img_divide}`} >
-                { <img src={this._getFriend(chat).profile_image_url} /> }
-              </div>
-              <div className={`${s.usernames}`}>
-                <h4>
-                  { this._getFriend(chat).name }
-                </h4>
-                <p>
+            }}>
+              <img src={this._getFriend(chat).profile_image_url} />
+              <span className={`${s.chatroom_username}`}>
+                { this._getFriend(chat).name }
+              </span>
+              <span className={`${s.chatroom_titme}`}>
+                <i className="fa fa-check" aria-hidden="true">2:09 PM</i>
+              </span>
+                <span className={`${s.chatroom_preview}`}>
                   {
                     chat.messages.length <= 0 ? null :
-                      <span className={`${s.latest_text}`}>
+                      <span>
                         {
                           this._isYourMessage(chat.messages[chat.messages.length - 1]) ?
                             'You: ' : null
@@ -49,11 +61,11 @@ class ChatList extends React.Component {
                         { chat.messages[chat.messages.length - 1].text }
                       </span>
                   }
-                </p>
-              </div>
-            </div>
+                </span>
+            </li>
           );
         })}
+        </ul>
       </div>
     );
   }
