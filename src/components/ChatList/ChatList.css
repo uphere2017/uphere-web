@@ -1,34 +1,78 @@
-.latest_text {
-  color: #aaa;
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+
+.chatlist_header {
+  width: 100%;
+  display: flex;
   height: 50px;
-}
-
-.img_divide {
-  width: 101px;
-  height: 100px;
-  margin-right: 20px;
-}
-
-.img_divide img {
-  width: 50px;
-}
-
-.usernames {
-  position: absolute;
-  top: 10px;
-  left: 150px;
-}
-
-.chatroom_container {
-  height: 100px;
-  border-radius: 10px;
-  border: 1px solid #aaa;
-  padding: 20px;
-  margin: 20px;
-  position: relative;
+  color: #495057;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, .10);
+  box-sizing: border-box;
+  justify-content: space-between;
+  padding: 0px 20px 0px 20px;
 }
 
 .chatlist_container {
-  height: 150px;
-  border-radius: 10px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chatroom_container {
+  position: relative;
+  padding: 15px 20px 40px;
+  cursor: pointer;
+  transition: All 0.5s ease;
+  -webkit-transition: All 0.5s ease;
+  -moz-transition: All 0.5s ease;
+  -o-transition: All s ease;
+  transform: rotate(0deg) scale(1) skew(1deg) translate(0px);
+  -webkit-transform: rotate(0deg) scale(1) skew(1deg) translate(0px);
+  -moz-transform: rotate(0deg) scale(1) skew(1deg) translate(0px);
+  -o-transform: rotate(0deg) scale(1) skew(1deg) translate(0px);
+  -ms-transform: rotate(0deg) scale(1) skew(1deg) translate(0px);
+}
+
+.chatroom_container:hover {
+  background-color: #f8f9fa;
+  transform: rotate(0deg) scale(1.008) skew(1deg) translate(0px);
+  -webkit-transform: rotate(0deg) scale(1.008) skew(0deg) translate(0px);
+  -moz-transform: rotate(0deg) scale(1.008) skew(0deg) translate(0px);
+  -o-transform: rotate(0deg) scale(1.008) skew(0deg) translate(0px);
+  -ms-transform: rotate(0deg) scale(1.008) skew(0deg) translate(0px);
+}
+
+.chatroom_container img {
+  float: left;
+  margin-right: 12px;
+  border-radius: 50%;
+}
+
+.chatroom_username {
+  font-size: 14px;
+  line-height: 22px;
+  color: #1a1a1a;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.chatroom_titme {
+  font-size: 14px;
+  position: absolute;
+  top: 16px;
+  right: 3%;
+  padding: 5px 10px 0 0;
+  color: #999;
+}
+
+.chatroom_preview {
+  font-size: 14px;
+  display: inline-block;
+  overflow: hidden;
+  width: 70%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #868e96;
+  margin-top: 10px;
 }
