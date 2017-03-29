@@ -46,7 +46,7 @@ socket.on('FRIEND_ONLINE', ({ friend_id }) => {
 });
 
 socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id }) => {
-  if (receiveNewMessage) {
+  if (dispatchReceiveNewMessage) {
     dispatchReceiveNewMessage(message, chat_id);
   }
 });
@@ -100,12 +100,22 @@ const chatListRequest = (dispatch, user, friendList) => {
   return axios.get(`${API_URL}/users/${user.uphere_id}/chats`)
               .then(({ data }) => {
                 data.chats.map((chat, i) => {
+                  let userIndex;
+                  let friendIndex;
+
                   if(chat.participants.includes(user.uphere_id)) {
-                    chat.participants[chat.participants.indexOf(user.uphere_id)] = user;
+                    userIndex = chat.participants.indexOf(user.uphere_id);
+                    chat.participants[userIndex] = user;
                   }
-                  if (chat.participants.includes(friendList[i].uphere_id)) {
-                    chat.participants[chat.participants.indexOf(friendList[i].uphere_id)] = friendList[i];
-                  }
+
+                  friendIndex = chat.participants[userIndex === 0 ? 1 : 0];
+
+                  const friend = friendList.filter((friend) => {
+                    return friend.uphere_id === chat.participants[friendIndex].uphere_id;
+                  })[0];
+
+                  chat.participants[friendIndex] = friend;
+
                   return chat;
                 });
 
@@ -165,11 +175,8 @@ const mapDispatchToProps = (dispatch) => {
         messages: []
       })
         .then((res) => {
-          if (res.status === 201) {
-            dispatch(createChatSuccess(res.data.chat));
-          } else if (res.status === 208) {
-            dispatch(updateCurrentChatroom(res.data.chat));
-          }
+          dispatch(updateCurrentChatroom(res.data.chat));
+          dispatch(createChatSuccess(res.data.chat));
         })
         .catch(err => {
           dispatch(createChatFailure(err));

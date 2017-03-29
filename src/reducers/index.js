@@ -99,13 +99,24 @@ const chatList = (state = [], action) => {
         });
       });
     case CREATE_CHAT_SUCCESS:
+      const newState = state.slice();
+
+      const existingChat = newState.filter((chat) => {
+        return chat.uphere_id === action.chatroom.uphere_id;
+      })[0];
+
+      if (existingChat) {
+        return newState;
+      }
+
       const newChat = {
         uphere_id: action.chatroom.uphere_id,
         participants: action.chatroom.participants,
         messages: action.chatroom.messages
       };
-      const newState = state.slice();
+
       newState.push(newChat);
+
       return newState;
     case CREATE_CHAT_FAILURE:
       return state.slice();
@@ -142,7 +153,13 @@ const chatList = (state = [], action) => {
   }
 };
 
-const currentChatRoom = (state = {}, action) => {
+const initialChatRoomState = {
+  messages: [],
+  uphere_id: null,
+  participants: []
+};
+
+const currentChatRoom = (state = initialChatRoomState, action) => {
   switch (action.type) {
     case REQUEST_CHAT_ROOM_SUCCESS:
       return Object.assign({}, state, {
@@ -165,7 +182,8 @@ const currentChatRoom = (state = {}, action) => {
       updatedChat.messages.push(newMessage);
       return updatedChat;
     case CREATE_CHAT_MESSAGE:
-      if (state.messages[state.messages.length - 1].uphere_id === action.text_id) {
+      if (state.messages.length > 0 &&
+          state.messages[state.messages.length - 1].uphere_id === action.text_id) {
         return Object.assign({}, state);
       }
 
