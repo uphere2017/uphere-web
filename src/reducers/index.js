@@ -15,6 +15,7 @@ import {
   CREATE_CHAT_FAILURE,
   RECEIVE_FRIEND_ONLINE,
   CREATE_CHAT_MESSAGE,
+  RECEIVE_NEW_MESSAGE,
   UPDATE_CURRENT_CHATROOM
 } from '../actionTypes';
 
@@ -100,6 +101,20 @@ const chatList = (state = [], action) => {
       return newState;
     case CREATE_CHAT_FAILURE:
       return state.slice();
+    case RECEIVE_NEW_MESSAGE:
+      const newChats = state.slice();
+      newChats.forEach((chat) => {
+        if (chat.uphere_id === action.chat_id && chat.messages.length &&
+          chat.messages[chat.messages.length - 1].uphere_id !== action.message.uphere_id) {
+          chat.messages.push({
+            sender_id: action.message.sender_id,
+            text: action.message.text,
+            uphere_id: action.message.uphere_id,
+            created_at: action.message.created_at
+          });
+        }
+      });
+      return newChats;
     case CREATE_CHAT_MESSAGE:
       const chats = state.slice();
       chats.forEach((chat) => {
@@ -127,6 +142,20 @@ const currentChatRoom = (state = {}, action) => {
         participants: action.chatroom.participants,
         messages: action.chatroom.messages
       });
+    case RECEIVE_NEW_MESSAGE:
+      if (state.messages.length && state.messages[state.messages.length - 1].uphere_id === action.message.uphere_id) {
+        return Object.assign({}, state);
+      }
+
+      var newMessage = {
+        uphere_id: action.message.uphere_id,
+        sender_id: action.message.sender_id,
+        text: action.message.text,
+        created_at: action.message.created_at
+      };
+      var updatedChat = Object.assign({}, state);
+      updatedChat.messages.push(newMessage);
+      return updatedChat;
     case CREATE_CHAT_MESSAGE:
       if (state.messages[state.messages.length - 1].uphere_id === action.text_id) {
         return Object.assign({}, state);

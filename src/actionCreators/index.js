@@ -13,6 +13,7 @@ import {
   CREATE_CHAT_FAILURE,
   RECEIVE_FRIEND_ONLINE,
   CREATE_CHAT_MESSAGE,
+  RECEIVE_NEW_MESSAGE,
   UPDATE_CURRENT_CHATROOM
 } from '../actionTypes';
 
@@ -118,6 +119,14 @@ export const createChatMessage = ({ chatroom, text_id, user_id, text, created_at
     user_id,
     text,
     created_at
+  };
+};
+
+export const receiveNewMessage = (message, chat_id) => {
+  return {
+    type: RECEIVE_NEW_MESSAGE,
+    message,
+    chat_id
   };
 };
 

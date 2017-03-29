@@ -17,6 +17,7 @@ import {
   createChatFailure,
   receiveFriendOnline,
   createChatMessage,
+  receiveNewMessage,
   updateCurrentChatroom
 } from '../actionCreators';
 import App from '../components/App';
@@ -24,13 +25,8 @@ import { API_URL } from '../config';
 
 const socket = io(API_URL);
 
-// Usage example
-setTimeout(() => {
-  socket.emit('message', {
-    text: 'Hello, World.',
-    sender_id: 1
-  });
-}, 10000);
+let addFriend;
+let dispatchReceiveNewMessage;
 
 const addFriendPartial = (dispatch) => (friendID) => {
   axios.get(`${API_URL}/users/${friendID}`)
@@ -39,11 +35,19 @@ const addFriendPartial = (dispatch) => (friendID) => {
     });
 };
 
-let addFriend;
+const receiveNewMessagePartial = (dispatch) => (message, chat_id) => {
+  dispatch(receiveNewMessage(message, chat_id));
+};
 
 socket.on('FRIEND_ONLINE', ({ friend_id }) => {
   if (addFriend) {
     addFriend(friend_id);
+  }
+});
+
+socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id }) => {
+  if (receiveNewMessage) {
+    dispatchReceiveNewMessage(message, chat_id);
   }
 });
 
@@ -127,6 +131,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   addFriend = addFriendPartial(dispatch);
+  dispatchReceiveNewMessage = receiveNewMessagePartial(dispatch);
 
   return {
     onLoad: () => {
@@ -193,6 +198,19 @@ const mapDispatchToProps = (dispatch) => {
             text: message,
             created_at: data.created_at
           }));
+
+          const receipient_id = chatroom.participants.filter((chatUser) => {
+            return chatUser.uphere_id !== user.uphereID;
+          })[0].uphere_id;
+
+          socket.emit('SEND_NEW_MESSAGE', {
+            sender_id: user.uphereID,
+            chat_id: chatroom.uphere_id,
+            text: message,
+            created_at: data.created_at,
+            text_id: data.id,
+            receipient_id
+          });
         });
     }
   };
