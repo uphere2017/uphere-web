@@ -12,14 +12,14 @@ class ChatList extends React.Component {
 
   _getFriend(chat) {
     const friend = chat.participants.filter((user) => {
-      return user.uphere_id !== this.props.user.uphereID;
+      return user.uphere_id !== this.props.user.uphere_id;
     })[0];
 
     return friend;
   }
 
   _isYourMessage(message) {
-    return message.sender_id === this.props.user.uphereID;
+    return message.sender_id === this.props.user.uphere_id;
   }
 
   render() {

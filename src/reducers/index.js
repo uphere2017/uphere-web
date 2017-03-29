@@ -39,7 +39,7 @@ const user = (state = {}, action) => {
       return Object.assign({}, state, {
         name: action.name,
         email: action.email,
-        profilePictureUrl: action.picture.data.url
+        profile_image_url: action.picture.data.url
       });
     case RECEIVE_FB_USER_ID:
       return Object.assign({}, state, {
@@ -47,10 +47,10 @@ const user = (state = {}, action) => {
       });
     case RECEIVE_USER_DATA:
       return Object.assign({}, state, {
-        uphereID: action.user.uphereID,
+        uphere_id: action.user.uphere_id,
         name: action.user.name,
         email: action.user.email,
-        profilePictureUrl: action.user.profilePictureUrl
+        profile_image_url: action.user.profile_image_url
       });
     default:
       return Object.assign({}, state);
@@ -65,15 +65,15 @@ const friendList = (state = [], action) => {
           name: friend.name,
           email: friend.email_address,
           facebookID: friend.facebook_id,
-          uphereID: friend.uphere_id,
-          profilePictureUrl: friend.profile_image_url
+          uphere_id: friend.uphere_id,
+          profile_image_url: friend.profile_image_url
         });
       });
     case RECEIVE_FRIEND_ONLINE:
       const newState = state.slice();
       let isExistingFriend = false;
       newState.forEach((friend) => {
-        if(friend.uphereID === action.friend.uphere_id) {
+        if(friend.uphere_id === action.friend.uphere_id) {
           isExistingFriend = true;
         }
       });
@@ -99,7 +99,11 @@ const chatList = (state = [], action) => {
         });
       });
     case CREATE_CHAT_SUCCESS:
-      const newChat = { uphereID: action.id };
+      const newChat = {
+        uphere_id: action.chatroom.uphere_id,
+        participants: action.chatroom.participants,
+        messages: action.chatroom.messages
+      };
       const newState = state.slice();
       newState.push(newChat);
       return newState;

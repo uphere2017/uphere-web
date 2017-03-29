@@ -62,10 +62,10 @@ export const receiveUserData = ({ user }) => {
   return {
     type: RECEIVE_USER_DATA,
     user: {
-      uphereID: user.uphere_id,
+      uphere_id: user.uphere_id,
       name: user.name,
       email: user.email_address,
-      profilePictureUrl: user.profile_image_url
+      profile_image_url: user.profile_image_url
     }
   };
 };
@@ -91,10 +91,10 @@ export const requestChatRoomSuccess = (chatroom) => {
   };
 };
 
-export const createChatSuccess = ( id ) => {
+export const createChatSuccess = ( chatroom ) => {
   return {
     type: CREATE_CHAT_SUCCESS,
-    id: id
+    chatroom
   };
 };
 

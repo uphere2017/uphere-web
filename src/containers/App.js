@@ -161,11 +161,12 @@ const mapDispatchToProps = (dispatch) => {
 
     onNewChat: (friendID, hostID) => {
       axios.post(API_URL + '/chats', {
-        participants: [hostID, friendID]
+        participants: [hostID, friendID],
+        messages: []
       })
         .then((res) => {
           if (res.status === 201) {
-            dispatch(createChatSuccess(res.data.chat_id));
+            dispatch(createChatSuccess(res.data.chat));
           } else if (res.status === 208) {
             dispatch(updateCurrentChatroom(res.data.chat));
           }
@@ -188,23 +189,23 @@ const mapDispatchToProps = (dispatch) => {
     newMessage: (message, chatroom, user) => {
       axios.post(API_URL + `/chats/${chatroom.uphere_id}`, {
         text: message,
-        sender_id: user.uphereID
+        sender_id: user.uphere_id
       })
         .then(({ data }) => {
           dispatch(createChatMessage({
             chatroom: chatroom,
             text_id: data.id,
-            user_id: user.uphereID,
+            user_id: user.uphere_id,
             text: message,
             created_at: data.created_at
           }));
 
           const receipient_id = chatroom.participants.filter((chatUser) => {
-            return chatUser.uphere_id !== user.uphereID;
+            return chatUser.uphere_id !== user.uphere_id;
           })[0].uphere_id;
 
           socket.emit('SEND_NEW_MESSAGE', {
-            sender_id: user.uphereID,
+            sender_id: user.uphere_id,
             chat_id: chatroom.uphere_id,
             text: message,
             created_at: data.created_at,

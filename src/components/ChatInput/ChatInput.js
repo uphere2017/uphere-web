@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import s from './ChatInput.css'
-class ChatRoom extends Component {
+import s from './ChatInput.css';
+
+class ChatInput extends Component {
   constructor(props) {
     super(props);
 
@@ -40,4 +41,4 @@ class ChatRoom extends Component {
   }
 }
 
-export default ChatRoom;
+export default ChatInput;
