@@ -7,6 +7,17 @@ class ChatRoom extends Component {
     super(props);
   }
 
+  componentWillUpdate () {
+    let node = this.refs.scroll;
+    this.scrollHeight = node.scrollHeight;
+    this.scrollTop = node.scrollTop;
+  }
+
+  componentDidUpdate () {
+    let node = this.refs.scroll;
+    node.scrollTop = this.scrollTop + (node.scrollHeight - this.scrollHeight);
+  }
+
   _findSenderById(id) {
     if (id && this.props.chat.participants && this.props.chat.participants.length > 0) {
       return this.props.chat.participants.filter((user) => {
@@ -23,7 +34,7 @@ class ChatRoom extends Component {
 
     return (
         <div className={`${s.container}`} >
-          <div className={`${s.content}`}>
+          <div className={`${s.content}`} ref="scroll">
             <ul className={`${s.chatlog}`}>
               { messages.map((message, i) => {
                   return <li key={i} className={message.sender_id === this.props.user.uphereID ? `${s.chatlog_entry_user} ${s.chatlog_entry}` : `${s.chatlog_entry}`}>
