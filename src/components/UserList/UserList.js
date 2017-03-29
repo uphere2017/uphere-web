@@ -36,7 +36,60 @@ class UserList extends React.Component {
         { this.props.friendList && this.props.friendList.map((friend, i) => {
           return (
             <li className={`${s.listyle}`} key={i} onClick={() => { this.handleClickOnFriend(friend.uphereID) }}>
-              <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />{friend.name}
+              <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />
+              <div className={`${s.name}`}>
+                {friend.name}<br/><span className={`${s.active}`}>15분 전에 활동</span>
+              </div>
+            </li>
+          );
+        })}
+        { this.props.friendList && this.props.friendList.map((friend, i) => {
+          return (
+            <li className={`${s.listyle}`} key={i} onClick={() => { this.handleClickOnFriend(friend.uphereID) }}>
+              <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />
+              <div className={`${s.name}`}>
+                {friend.name}<br/><span className={`${s.active}`}>15분 전에 활동</span>
+              </div>
+            </li>
+          );
+        })}
+        { this.props.friendList && this.props.friendList.map((friend, i) => {
+          return (
+            <li className={`${s.listyle}`} key={i} onClick={() => { this.handleClickOnFriend(friend.uphereID) }}>
+              <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />
+              <div className={`${s.name}`}>
+                {friend.name}<br/><span className={`${s.active}`}>15분 전에 활동</span>
+              </div>
+            </li>
+          );
+        })}
+        { this.props.friendList && this.props.friendList.map((friend, i) => {
+          return (
+            <li className={`${s.listyle}`} key={i} onClick={() => { this.handleClickOnFriend(friend.uphereID) }}>
+              <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />
+              <div className={`${s.name}`}>
+                {friend.name}<br/><span className={`${s.active}`}>15분 전에 활동</span>
+              </div>
+            </li>
+          );
+        })}
+        { this.props.friendList && this.props.friendList.map((friend, i) => {
+          return (
+            <li className={`${s.listyle}`} key={i} onClick={() => { this.handleClickOnFriend(friend.uphereID) }}>
+              <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />
+              <div className={`${s.name}`}>
+                {friend.name}<br/><span className={`${s.active}`}>15분 전에 활동</span>
+              </div>
+            </li>
+          );
+        })}
+        { this.props.friendList && this.props.friendList.map((friend, i) => {
+          return (
+            <li className={`${s.listyle}`} key={i} onClick={() => { this.handleClickOnFriend(friend.uphereID) }}>
+              <img src={friend.profilePictureUrl} className={`${s.img_circle}`} />
+              <div className={`${s.name}`}>
+                {friend.name}<br/><span className={`${s.active}`}>15분 전에 활동</span>
+              </div>
             </li>
           );
         })}
