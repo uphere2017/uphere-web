@@ -153,7 +153,13 @@ const chatList = (state = [], action) => {
   }
 };
 
-const currentChatRoom = (state = {}, action) => {
+const initialChatRoomState = {
+  messages: [],
+  uphere_id: null,
+  participants: []
+};
+
+const currentChatRoom = (state = initialChatRoomState, action) => {
   switch (action.type) {
     case REQUEST_CHAT_ROOM_SUCCESS:
       return Object.assign({}, state, {
