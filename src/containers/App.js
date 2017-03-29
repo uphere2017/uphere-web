@@ -165,10 +165,10 @@ const mapDispatchToProps = (dispatch) => {
         messages: []
       })
         .then((res) => {
+          dispatch(updateCurrentChatroom(res.data.chat));
+
           if (res.status === 201) {
             dispatch(createChatSuccess(res.data.chat));
-          } else if (res.status === 208) {
-            dispatch(updateCurrentChatroom(res.data.chat));
           }
         })
         .catch(err => {
