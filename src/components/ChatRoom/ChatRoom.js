@@ -27,9 +27,9 @@ class ChatRoom extends Component {
           <ul>
             { messages.map((message, i) => {
               return <div key={i}>
-                       <div className={`${s.img_divide}`} style={{ width: "200px" }}>
+                       <div>
                          <img src={this._findSenderById(message.sender_id).profile_image_url}/>
-                         <span style={{ marginLeft: "20px" }}>{message.text}</span>
+                         <span>{message.text}</span>
                        </div>
                      </div>
               })

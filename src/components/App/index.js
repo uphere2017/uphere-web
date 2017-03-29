@@ -57,7 +57,7 @@ class App extends React.Component {
     const that = this;
 
     return (
-      <div>
+      <div className={`${s.container}`}>
         {
           !this.props.isLoggedIn && this.state.isLoading &&
           <div>
@@ -82,6 +82,7 @@ class App extends React.Component {
         {
           this.props.isLoggedIn && !this.state.isLoading &&
           <Home
+            className={`${s.container}`}
             showChat={this.props.showChat}
             onNewChat={this.props.onNewChat}
             chatList={this.props.chatList}
