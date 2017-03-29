@@ -7,8 +7,10 @@
   height: 100%;
 }
 
-.home_item:not(:last-of-type) {
+.chatroom {
+  flex: 1;
   border-right: 1px solid grey;
+  border-left: 1px solid grey;
 }
 
 .friend_list, .chatlist {

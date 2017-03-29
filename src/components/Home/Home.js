@@ -13,19 +13,19 @@ class Home extends React.Component {
   render() {
     return (
       <div className={`${s.home_container}`}>
-        <div className={`${s.home_item}` + ' ' + `${s.chatlist}`}>
+        <div className={`${s.chatlist}`}>
           <ChatList
             user={this.props.user}
             chats={this.props.chatList}
             showChat={this.props.showChat} />
         </div>
-        <div className={`${s.home_item}`}>
+        <div className={`${s.chatroom}`}>
           <ChatRoom
             chat={this.props.currentChatRoom}
             newMessage={this.props.newMessage}
             user={this.props.user} />
         </div>
-        <div className={`${s.home_item}` + ' ' + `${s.friend_list}`}>
+        <div className={`${s.friend_list}`}>
           <UserList
             showChat={this.props.showChat}
             chats={this.props.chatList}
