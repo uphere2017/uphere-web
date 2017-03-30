@@ -1,5 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
-
 .chatlist_header {
   width: 100%;
   display: flex;
@@ -22,6 +20,7 @@
   position: relative;
   padding: 15px 20px 40px;
   cursor: pointer;
+  font-size: 14px;
   transition: All 0.5s ease;
   -webkit-transition: All 0.5s ease;
   -moz-transition: All 0.5s ease;
@@ -42,6 +41,10 @@
   -ms-transform: rotate(0deg) scale(1.008) skew(0deg) translate(0px);
 }
 
+.chatroom_click {
+  background-color: #f8f9fa;
+}
+
 .chatroom_container img {
   float: left;
   margin-right: 12px;
@@ -49,7 +52,6 @@
 }
 
 .chatroom_username {
-  font-size: 14px;
   line-height: 22px;
   color: #1a1a1a;
   font-family: 'Source Sans Pro', sans-serif;
@@ -57,8 +59,8 @@
   margin-top: 10px;
 }
 
-.chatroom_titme {
-  font-size: 14px;
+
+.chatroom_time {
   position: absolute;
   top: 16px;
   right: 3%;
@@ -67,8 +69,7 @@
 }
 
 .chatroom_preview {
-  font-size: 14px;
-  display: inline-block;
+  display: block;
   overflow: hidden;
   width: 70%;
   white-space: nowrap;
