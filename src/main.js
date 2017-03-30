@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import AppContainer from './containers/App';
+import { getNotificationPermission } from './utilities/notifications';
 
 const container = document.getElementById('container');
 
@@ -12,3 +13,4 @@ function renderComponent() {
 }
 
 renderComponent();
+getNotificationPermission();
