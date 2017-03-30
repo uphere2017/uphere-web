@@ -26,8 +26,7 @@ class ChatList extends React.Component {
   }
 
   render() {
-
-    let lastmsgddd = create_at => {
+    let lastmsgDate = create_at => {
       let date = new Date(Date.parse(create_at)).toString();
       let month = create_at[5] === '0' ? create_at.slice(6, 7) : create_at.slice(5, 7);
       let day = date.split(' ')[2];
