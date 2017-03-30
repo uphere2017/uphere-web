@@ -1,4 +1,4 @@
-let isActive = true;
+let isActive = false;
 
 function getNotificationPermission() {
   if (!Notification) {
@@ -17,17 +17,17 @@ function showMessageNotification(text) {
   }
 
   const notification = new Notification('A new message from Uphere!', {
-    icon: "https://maxcdn.icons8.com/Share/icon/Logos//facebook_messenger1600.png",
+    icon: "https://cdn2.iconfinder.com/data/icons/flat-game-ui-buttons-icons-1/512/1-512.png",
     body: `Your friend says: ${text}`,
   });
 }
 
 window.onfocus = () => {
-  isActive = true;
+  isActive = false;
 };
 
 window.onblur = () => {
-  isActive = false;
+  isActive = true;
 };
 
 export {
