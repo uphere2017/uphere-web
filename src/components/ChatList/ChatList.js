@@ -23,6 +23,12 @@ class ChatList extends React.Component {
   }
 
   render() {
+    let lastmsgddd = create_at => {
+      let date = new Date(Date.parse(create_at)).toString();
+      let month = create_at[5] === '0' ? create_at.slice(6, 7) : create_at.slice(5, 7);
+      let day = date.split(' ')[2];
+      return `${month}/${day} ${date.slice(0, 3)}`; 
+    };
     return (
       <div>
         <div className={`${s.chatlist_header}`}>
@@ -48,7 +54,7 @@ class ChatList extends React.Component {
                 { this._getFriend(chat).name }
               </span>
               <span className={`${s.chatroom_titme}`}>
-                <i className="fa fa-check" aria-hidden="true">2:09 PM</i>
+                <i className="fa fa-check" aria-hidden="true">{lastmsgDate(chat.messages[chat.messages.length - 1].created_at)}</i>
               </span>
                 <span className={`${s.chatroom_preview}`}>
                   {
