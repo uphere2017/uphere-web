@@ -38,13 +38,13 @@ class ChatList extends React.Component {
       <div>
         <div className={`${s.chatlist_header}`}>
           <div>
-            <i className="fa fa-cog" aria-hidden="true"></i>
+            <i className="fa fa-cog fa-lg" aria-hidden="true"></i>
           </div>
           <div>
             <h4>Messenger</h4>
           </div>
           <div>
-            <i className="fa fa-commenting-o" aria-hidden="true"></i>
+            <i className="fa fa-commenting-o fa-lg" aria-hidden="true"></i>
           </div>
         </div>
         <ul className={s.chatlist_container}>
