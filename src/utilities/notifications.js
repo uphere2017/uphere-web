@@ -1,4 +1,4 @@
-let isActive = false;
+let isActive = true;
 
 function getNotificationPermission() {
   if (!Notification) {
