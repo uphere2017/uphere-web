@@ -12,6 +12,14 @@
   padding: 0px 20px 0px 20px;
 }
 
+.chatlist_header i {
+  color: #2395ff;
+}
+
+.chatlist_header i:hover {
+  cursor: pointer;
+}
+
 .chatlist_container {
   list-style-type: none;
   margin: 0;
@@ -51,7 +59,7 @@
 .chatroom_username {
   font-size: 14px;
   line-height: 22px;
-  color: #1a1a1a;
+  color: #495057;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
   margin-top: 10px;

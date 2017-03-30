@@ -28,16 +28,6 @@ class ChatRoom extends Component {
     return {};
   }
 
-  _getFriendName() {
-    if (this.props.chat.participants) {
-      return this.props.chat.participants.filter((friend) => {
-        return this.props.user.uphere_id !== friend.uphere_id;
-      })[0];
-    }
-
-    return {};
-  }
-
   render() {
     let messages = this.props.chat.messages && this.props.chat.messages.length > 0 ? this.props.chat.messages : [];
     messages = messages.sort((x, y) => x.uphere_id - y.uphere_id);
@@ -45,7 +35,6 @@ class ChatRoom extends Component {
     return (
         <div className={`${s.container}`} >
           <div className={`${s.content}`} ref="scroll">
-            <h3>{this._getFriendName().name}</h3>
             <ul className={`${s.chatlog}`}>
               { messages.map((message, i) => {
                   return <li key={i} className={message.sender_id === this.props.user.uphere_id ? `${s.chatlog_entry_user} ${s.chatlog_entry}` : `${s.chatlog_entry}`}>
