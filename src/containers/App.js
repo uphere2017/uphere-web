@@ -22,6 +22,7 @@ import {
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
+import { showMessageNotification } from '../utilities/notifications';
 
 const socket = io(API_URL);
 
@@ -49,6 +50,8 @@ socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id }) => {
   if (dispatchReceiveNewMessage) {
     dispatchReceiveNewMessage(message, chat_id);
   }
+
+  showMessageNotification(message.text);
 });
 
 const fetchFacebookUserData = (dispatch) => {
