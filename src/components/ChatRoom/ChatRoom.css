@@ -92,3 +92,8 @@
   height: 150px;
   border-top: 1px solid rgba(0, 0, 0, .20);
 }
+
+.message_time {
+  font-size: 14px;
+  color: #999999;
+}
