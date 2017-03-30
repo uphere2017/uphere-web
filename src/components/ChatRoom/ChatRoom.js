@@ -36,7 +36,7 @@ class ChatRoom extends Component {
       let month = create_at[5] === '0' ? create_at.slice(6, 7) : create_at.slice(5, 7);
       let day = date.split(' ')[2];
       let time = date.split(' ')[4];
-      return `${month}/${day} ${date.slice(0, 3)} ${time.slice(0, 5)}`; 
+      return `${month}/${day} ${date.slice(0, 3)} ${time.slice(0, 5)}`;
     };
     return (
         <div className={`${s.container}`} >
