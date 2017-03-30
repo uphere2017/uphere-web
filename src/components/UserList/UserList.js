@@ -26,7 +26,7 @@ class UserList extends React.Component {
     if (existingChat) {
       this.props.showChat(existingChat);
     } else {
-      this.props.onNewChat(friendID, this.props.user.uphere_id);
+      this.props.onNewChat(friendID, this.props.user.uphere_id, this.props.user.token);
     }
   }
 
