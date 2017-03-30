@@ -4,6 +4,9 @@ import s from './ChatList.css';
 class ChatList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentChatIndex: 0
+    };
   }
 
   clickHandler(chat) {
@@ -23,12 +26,14 @@ class ChatList extends React.Component {
   }
 
   render() {
+
     let lastmsgddd = create_at => {
       let date = new Date(Date.parse(create_at)).toString();
       let month = create_at[5] === '0' ? create_at.slice(6, 7) : create_at.slice(5, 7);
       let day = date.split(' ')[2];
       return `${month}/${day} ${date.slice(0, 3)}`; 
     };
+
     return (
       <div>
         <div className={`${s.chatlist_header}`}>
@@ -45,15 +50,20 @@ class ChatList extends React.Component {
         <ul className={s.chatlist_container}>
         {this.props.chats.length > 0 && this.props.chats.map((chat, i) => {
           return (
-            <li ref="chatroom" className={`${s.chatroom_container}`} key={i} onClick={(e) => {
-              e.preventDefault();
-              this.clickHandler(chat);
+            <li ref="chatroom" key={i}
+              className={`${s.chatroom_container} ${this.state.currentChatIndex === i ? s.chatroom_click : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                this.setState({
+                  currentChatIndex: i
+                });
+                this.clickHandler(chat);
             }}>
               <img src={this._getFriend(chat).profile_image_url} />
               <span className={`${s.chatroom_username}`}>
                 { this._getFriend(chat).name }
               </span>
-              <span className={`${s.chatroom_titme}`}>
+              <span className={`${s.chatroom_time}`}>
                 <i className="fa fa-check" aria-hidden="true">{lastmsgDate(chat.messages[chat.messages.length - 1].created_at)}</i>
               </span>
                 <span className={`${s.chatroom_preview}`}>
