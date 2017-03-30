@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
 import io from 'socket.io-client';
+import sentiment from 'sentiment';
 
 import {
   requestLoginStatus,
@@ -226,9 +227,12 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     newMessage: (message, chatroom, user) => {
+      const emotions = sentiment(message);
+
       axios.post(API_URL + `/chats/${chatroom.uphere_id}`, {
         text: message,
-        sender_id: user.uphere_id
+        sender_id: user.uphere_id,
+        emotion_status: emotions.score
       }, {
         headers: {
           authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
