@@ -77,7 +77,11 @@ const fetchFacebookUserData = (dispatch) => {
             user_uphere_id: data.user.uphere_id
           });
 
-          axios.get(`${API_URL}/users/${data.user.uphere_id}/friend-list`)
+          axios.get(`${API_URL}/users/${data.user.uphere_id}/friend-list`, {
+            headers: {
+              'x-access-token': data.token
+            }
+          })
             .then(response => {
               socket.emit('USER_ONLINE', {
                 user_uphere_id: data.user.uphere_id,
@@ -97,7 +101,11 @@ const fetchFacebookUserData = (dispatch) => {
 };
 
 const chatListRequest = (dispatch, user, friendList) => {
-  return axios.get(`${API_URL}/users/${user.uphere_id}/chats`)
+  return axios.get(`${API_URL}/users/${user.uphere_id}/chats`, {
+    headers: {
+      'x-access-token': user.token
+    }
+  })
               .then(({ data }) => {
                 data.chats.map((chat, i) => {
                   let userIndex;
@@ -169,10 +177,14 @@ const mapDispatchToProps = (dispatch) => {
       });
     },
 
-    onNewChat: (friendID, hostID) => {
+    onNewChat: (friendID, hostID, token) => {
       axios.post(API_URL + '/chats', {
         participants: [hostID, friendID],
         messages: []
+      }, {
+        headers: {
+          'x-access-token': token
+        }
       })
         .then((res) => {
           dispatch(updateCurrentChatroom(res.data.chat));
@@ -197,6 +209,10 @@ const mapDispatchToProps = (dispatch) => {
       axios.post(API_URL + `/chats/${chatroom.uphere_id}`, {
         text: message,
         sender_id: user.uphere_id
+      }, {
+        headers: {
+          'x-access-token': user.token
+        }
       })
         .then(({ data }) => {
           dispatch(createChatMessage({
