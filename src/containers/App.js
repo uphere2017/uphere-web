@@ -71,6 +71,7 @@ const fetchFacebookUserData = (dispatch) => {
         friend_list: mapID(friends.data)
       })
         .then(({ data }) => {
+          data.user.token = data.token;
           dispatch(receiveUserData({ user: data.user }));
 
           socket.emit('LOG_IN', {
@@ -108,10 +109,10 @@ const chatListRequest = (dispatch, user, friendList) => {
                     chat.participants[userIndex] = user;
                   }
 
-                  friendIndex = chat.participants[userIndex === 0 ? 1 : 0];
+                  friendIndex = userIndex === 0 ? 1 : 0;
 
                   const friend = friendList.filter((friend) => {
-                    return friend.uphere_id === chat.participants[friendIndex].uphere_id;
+                    return friend.uphere_id === chat.participants[friendIndex];
                   })[0];
 
                   chat.participants[friendIndex] = friend;
@@ -169,10 +170,14 @@ const mapDispatchToProps = (dispatch) => {
       });
     },
 
-    onNewChat: (friendID, hostID) => {
+    onNewChat: (friendID, hostID, token) => {
       axios.post(API_URL + '/chats', {
         participants: [hostID, friendID],
         messages: []
+      }, {
+        headers: {
+          'x-access-token': token
+        }
       })
         .then((res) => {
           dispatch(updateCurrentChatroom(res.data.chat));
@@ -197,6 +202,10 @@ const mapDispatchToProps = (dispatch) => {
       axios.post(API_URL + `/chats/${chatroom.uphere_id}`, {
         text: message,
         sender_id: user.uphere_id
+      }, {
+        headers: {
+          'x-access-token': user.token
+        }
       })
         .then(({ data }) => {
           dispatch(createChatMessage({

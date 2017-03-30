@@ -41,7 +41,12 @@ class ChatRoom extends Component {
   render() {
     let messages = this.props.chat.messages && this.props.chat.messages.length > 0 ? this.props.chat.messages : [];
     messages = messages.sort((x, y) => x.uphere_id - y.uphere_id);
-
+    msgDate = create_at => {
+      var date = new Date(Date.parse(create_at));
+      var month = create_at[5] === '0' ? create_at.slice(6, 7) : create_at.slice(5, 7);
+      var day = date.split(' ')[2];
+      return `&{month}/${day} ${date.slice(0, 3)}`; 
+    }
     return (
         <div className={`${s.container}`} >
           <div className={`${s.content}`} ref="scroll">
@@ -51,7 +56,8 @@ class ChatRoom extends Component {
                   return <li key={i} className={message.sender_id === this.props.user.uphere_id ? `${s.chatlog_entry_user} ${s.chatlog_entry}` : `${s.chatlog_entry}`}>
                             {message.sender_id !== this.props.user.uphere_id && <img className={`${s.chatlog_avatar}`} src={this._findSenderById(message.sender_id).profile_image_url}/>}
                             <p className={`${s.chatlog_message}`}>{message.text}</p>
-                          </li>
+                            <span>{msgDate(message.create_at)}</span>// 3/10 Mon
+                          </li>// "2017-03-30T01:03:16.107Z"
                 })
               }
             </ul>
