@@ -17,7 +17,7 @@ function showMessageNotification(text) {
   }
 
   const notification = new Notification('A new message from Uphere!', {
-    // icon: profile_image_url,
+    icon: "https://maxcdn.icons8.com/Share/icon/Logos//facebook_messenger1600.png",
     body: `Your friend says: ${text}`,
   });
 }
