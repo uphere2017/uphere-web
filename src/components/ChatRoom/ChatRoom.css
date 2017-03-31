@@ -18,15 +18,18 @@
   max-width: 800em;
   margin: 0 auto;
   padding: 0px;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 .chatlog .chatlog_entry {
   margin: 1em;
 }
 .chatlog_entry {
+  max-width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  max-width: 100%;
+  ;
 }
 
 .chatlog_entry.chatlog_entry_user {
@@ -74,11 +77,12 @@
 }
 
 .chatlog_message {
+
   background-color: #ddd;
   padding: .5em;
   border-radius: 10px;
   font-weight: lighter;
-  max-width: 70%;
+  max-width: 55%;
 }
 
 .chatlog_entry.chatlog_entry_user .chatlog_message {

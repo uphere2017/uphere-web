@@ -12,7 +12,6 @@ class ChatInput extends Component {
 
   onChange(e) {
     e.preventDefault();
-
     this.setState({
       text: e.target.value
     });
@@ -20,9 +19,13 @@ class ChatInput extends Component {
 
   onKeyPress(e) {
     if (e.key === 'Enter') {
-      if (e.target.value.trim() === '') {
-        return
-      } else {
+      if (e.target.value.trim() === '' || e.altKey ) {
+        this.setState((prevState) => {
+          return {
+            text: prevState.text + "\n"
+          };
+        });
+      } else if (!e.altKey) {
         e.preventDefault();
         this.props.newMessage(e.target.value, this.props.chat, this.props.user);
         this.setState({ text: '' });
@@ -42,7 +45,7 @@ class ChatInput extends Component {
                     rows="4"
                     value={this.state.text}
                     onChange={this.onChange.bind(this)}
-                    onKeyPress={this.onKeyPress.bind(this)}
+                    onKeyDown={this.onKeyPress.bind(this)}
                   >
                   </textarea>
                 </div>
