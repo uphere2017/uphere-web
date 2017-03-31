@@ -16,7 +16,8 @@ import {
   RECEIVE_FRIEND_ONLINE,
   CREATE_CHAT_MESSAGE,
   RECEIVE_NEW_MESSAGE,
-  UPDATE_CURRENT_CHATROOM
+  UPDATE_CURRENT_CHATROOM,
+  RECEIVE_APP_ERROR
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -207,10 +208,22 @@ const currentChatRoom = (state = initialChatRoomState, action) => {
   };
 };
 
+const error = (state = null, action) => {
+  switch (action.type) {
+    case RECEIVE_LOGIN_FAILURE:
+    case REQUEST_CHAT_LIST_FAILURE:
+    case RECEIVE_APP_ERROR:
+      return action.error;
+    default:
+      return null;
+  }
+};
+
 export default combineReducers({
   isLoggedIn: login,
   user,
   friendList,
   chatList,
-  currentChatRoom
+  currentChatRoom,
+  error
 });

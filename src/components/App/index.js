@@ -3,6 +3,7 @@ import FacebookLogin from 'react-facebook-login';
 
 import s from './styles.css';
 import Home from '../Home/Home';
+import Error from '../Error/Error';
 import { FACEBOOK_APP_ID } from '../../config';
 
 // Facebook login behavior reference: https://developers.facebook.com/docs/facebook-login/web
@@ -91,6 +92,10 @@ class App extends React.Component {
             newMessage={this.props.newMessage}
             user={this.props.user}
           />
+        }
+        {
+          this.props.error !== null &&
+          <Error error={this.props.error} />
         }
       </div>
     );
