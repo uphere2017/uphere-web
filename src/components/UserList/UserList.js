@@ -38,7 +38,10 @@ class UserList extends React.Component {
             <li className={`${s.listyle}`} key={i} onClick={() => { this.handleClickOnFriend(friend.uphere_id) }}>
               <img src={friend.profile_image_url} className={`${s.img_circle}`} />
               <div className={`${s.name}`}>
-                {friend.name}<br/><span className={`${s.active}`}>15분 전에 활동</span>
+                {friend.name}
+                <span className={`${s.on_off_check} ${friend.isOnOff ? s.on_color : s.off_color}`}></span>
+                <br/>
+                <span className={`${s.active}`}>15분 전에 활동</span>
               </div>
             </li>
           );

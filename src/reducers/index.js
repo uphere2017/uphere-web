@@ -67,7 +67,8 @@ const friendList = (state = [], action) => {
           email: friend.email_address,
           facebookID: friend.facebook_id,
           uphere_id: friend.uphere_id,
-          profile_image_url: friend.profile_image_url
+          profile_image_url: friend.profile_image_url,
+          isOnOff: false
         });
       });
     case RECEIVE_FRIEND_ONLINE:
@@ -76,9 +77,11 @@ const friendList = (state = [], action) => {
       newState.forEach((friend) => {
         if(friend.uphere_id === action.friend.uphere_id) {
           isExistingFriend = true;
+          friend.isOnOff = true;
         }
       });
       if(!isExistingFriend) {
+        action.friend.isOnOff = true;
         newState.push(action.friend);
       }
       return newState;
