@@ -32,7 +32,10 @@ export const receiveLoginSuccess = () => {
 
 export const receiveLoginFailure = () => {
   return {
-    type: RECEIVE_LOGIN_FAILURE
+    type: RECEIVE_LOGIN_FAILURE,
+    error: {
+      message: 'Login Failed.'
+    }
   };
 };
 
@@ -81,7 +84,7 @@ export const requestChatListSuccess = (chats) => {
 export const requestChatListFailure = (err) => {
   return {
     type: REQUEST_CHAT_LIST_FAILURE,
-    err
+    error: err
   };
 };
 
