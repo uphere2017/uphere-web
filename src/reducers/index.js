@@ -168,6 +168,10 @@ const currentChatRoom = (state = initialChatRoomState, action) => {
         messages: action.chatroom.messages
       });
     case RECEIVE_NEW_MESSAGE:
+      if (state.uphere_id !== action.chat_id) {
+        return Object.assign({}, state);
+      }
+
       if (state.messages.length && state.messages[state.messages.length - 1].uphere_id === action.message.uphere_id) {
         return Object.assign({}, state);
       }

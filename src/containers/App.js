@@ -65,7 +65,7 @@ const fetchFacebookUserData = (dispatch) => {
   return new Promise((resolve, reject) => {
     window.FB.api('/me', {fields: 'id,name,email,friends,picture'}, ({ id, name, email = null, friends, picture }) => {
       dispatch(receiveFBUserData({ name, email, picture }));
-      // dispatch(receiveFriendIDList({ friendIDList: mapID(friends.data) }));
+
       axios.post(API_URL + '/users', {
         facebook_id: id,
         profile_image_url: picture.data.url,

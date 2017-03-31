@@ -4,9 +4,21 @@ import s from './ChatList.css';
 class ChatList extends React.Component {
   constructor(props) {
     super(props);
+
+    const defaultCurrentChatIndex = this.props.chats.map(chat => chat.uphere_id).indexOf(this.props.currentChatID);
+
     this.state = {
-      currentChatIndex: 0
+      currentChatIndex: defaultCurrentChatIndex < 0 ? 0 : defaultCurrentChatIndex
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const defaultCurrentChatIndex = nextProps.chats.map(chat => chat.uphere_id).indexOf(nextProps.currentChatID);
+    const newCurrentChatIndex = defaultCurrentChatIndex < 0 ? 0 : defaultCurrentChatIndex;
+
+    this.setState({
+      currentChatIndex: newCurrentChatIndex
+    });
   }
 
   clickHandler(chat) {
