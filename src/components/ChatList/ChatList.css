@@ -85,3 +85,55 @@
   color: #868e96;
   margin-top: 10px;
 }
+
+.hide_outer_modal {
+  display: none;
+}
+
+.not_hide_outer_modal {
+  display: block;
+  position: absolute;
+  padding: 0 0 0 10px;
+  z-index: 1;
+  width: 150px;
+  height: 100px;
+  top: 30px;
+}
+
+.show_inner_modal {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid rgba(0,0,0,.15);
+  box-shadow: 0 3px 8px rgba(0,0,0,.3);
+  margin: -25px 0 0 0;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.logout {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin: -4px 0 0 0;
+}
+
+.logout:hover,
+.logout:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logoutMsg {
+  font-size: 14px;
+}
+
+.arrow_on_modal {
+  margin: 8px 0 0 10px;
+}
+
+.arrow_polygon {
+  fill: #FFFFFF;
+  stroke: rgba(0,0,0,.15);
+  stroke-width: 1;
+}

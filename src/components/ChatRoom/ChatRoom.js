@@ -51,7 +51,7 @@ class ChatRoom extends Component {
                          >
                             {message.sender_id !== this.props.user.uphere_id && <img className={`${s.chatlog_avatar}`} src={this._findSenderById(message.sender_id).profile_image_url}/>}
                             <p className={`${s.chatlog_message}`}>{message.text}</p>
-                            <span>{msgDate(message.created_at)}</span>
+                            <span className={`${s.message_time}`}>{msgDate(message.created_at)}</span>
                          </li>
                 })
               }

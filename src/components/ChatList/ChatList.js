@@ -8,7 +8,23 @@ class ChatList extends React.Component {
     const defaultCurrentChatIndex = this.props.chats.map(chat => chat.uphere_id).indexOf(this.props.currentChatID);
 
     this.state = {
-      currentChatIndex: defaultCurrentChatIndex < 0 ? 0 : defaultCurrentChatIndex
+      currentChatIndex: defaultCurrentChatIndex < 0 ? 0 : defaultCurrentChatIndex,
+      showModal: false,
+    };
+  }
+
+  componentDidMount() {
+    document.onclick = (e) => {
+      if (e.target !== this.outermodal &&
+        e.target !== this.innermodal &&
+        e.target !== this.configBtn &&
+        this.outermodal.className !== `${s.hide_outer_modal}`) {
+        this.setState((prevState, prevProps) => {
+          return {
+            showModal: !prevState.showModal
+          };
+        });
+      }
     };
   }
 
@@ -38,6 +54,7 @@ class ChatList extends React.Component {
   }
 
   render() {
+
     let lastmsgDate = create_at => {
       let date = new Date(Date.parse(create_at)).toString();
       let month = create_at[5] === '0' ? create_at.slice(6, 7) : create_at.slice(5, 7);
@@ -45,11 +62,37 @@ class ChatList extends React.Component {
       return `${month}/${day} ${date.slice(0, 3)}`;
     };
 
+    const logoutModal = (
+      <div ref={(ref) => { this.outermodal = ref; }} className={this.state.showModal ? `${s.not_hide_outer_modal}` : `${s.hide_outer_modal}`}>
+        <svg height="30" width="50" className={`${s.arrow_on_modal}`}>
+          <polygon points="10,0 0,10 20,10" className={`${s.arrow_polygon}`} />
+        </svg>
+        <div ref={(ref) => { this.innermodal = ref; }} className={`${s.show_inner_modal}`}>
+          <span onClick={(e) => {
+            e.preventDefault();
+            this.setState((prevState, prevProps) => {
+              return {
+                showModal: !prevState.showModal
+              };
+            });
+          }} className={`${s.logout}`}><i className="fa fa-sign-out" aria-hidden="true"></i></span>
+          <span className={`${s.logoutMsg}`} >See ya~</span>
+        </div>
+      </div>
+    );
+
     return (
       <div>
         <div className={`${s.chatlist_header}`}>
           <div>
-            <i className="fa fa-cog fa-lg" aria-hidden="true"></i>
+            <i ref={(ref) => { this.configBtn = ref; }} className="fa fa-cog fa-lg" aria-hidden="true" onClick={(e) => {
+              e.preventDefault();
+              this.setState((prevState, prevProps) => {
+                return {
+                  showModal: !prevState.showModal
+                };
+              });
+            }} ></i>
           </div>
           <div>
             <h4>Messenger</h4>
@@ -59,6 +102,7 @@ class ChatList extends React.Component {
           </div>
         </div>
         <ul className={s.chatlist_container}>
+         {logoutModal}
         {this.props.chats.length > 0 && this.props.chats.map((chat, i) => {
           return (
             <li ref="chatroom" key={i}
