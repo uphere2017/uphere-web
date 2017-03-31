@@ -210,10 +210,10 @@ const currentChatRoom = (state = initialChatRoomState, action) => {
 
 const error = (state = null, action) => {
   switch (action.type) {
-    case RECEIVE_LOGIN_FAILURE:
     case REQUEST_CHAT_LIST_FAILURE:
     case RECEIVE_APP_ERROR:
       return action.error;
+    case RECEIVE_LOGIN_FAILURE:
     default:
       return null;
   }
