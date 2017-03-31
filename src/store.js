@@ -101,7 +101,8 @@ const initialState = {
     name: null,
     email: null,
     facebookID: null,
-    profile_image_url: null
+    profile_image_url: null,
+    token: null
   },
   currentChatRoom: {
     uphere_id: null,

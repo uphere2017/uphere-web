@@ -50,7 +50,8 @@ const user = (state = {}, action) => {
         uphere_id: action.user.uphere_id,
         name: action.user.name,
         email: action.user.email,
-        profile_image_url: action.user.profile_image_url
+        profile_image_url: action.user.profile_image_url,
+        token: action.user.token
       });
     default:
       return Object.assign({}, state);
