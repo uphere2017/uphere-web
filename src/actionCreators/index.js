@@ -14,7 +14,8 @@ import {
   RECEIVE_FRIEND_ONLINE,
   CREATE_CHAT_MESSAGE,
   RECEIVE_NEW_MESSAGE,
-  UPDATE_CURRENT_CHATROOM
+  UPDATE_CURRENT_CHATROOM,
+  RECEIVE_APP_ERROR
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -134,5 +135,12 @@ export const updateCurrentChatroom = (chatroom) => {
   return {
     type: UPDATE_CURRENT_CHATROOM,
     chatroom
+  };
+};
+
+export const receiveAppError = (err) => {
+  return {
+    type: RECEIVE_APP_ERROR,
+    error: err
   };
 };

@@ -75,3 +75,11 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
 }
+
+.error_container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}

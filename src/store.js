@@ -107,7 +107,8 @@ const initialState = {
     uphere_id: null,
     participants: null,
     messages: null
-  }
+  },
+  error: null
   // friendList: [{
   //         name: null,
   //         email: null,

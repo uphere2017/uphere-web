@@ -18,7 +18,8 @@ import {
   receiveFriendOnline,
   createChatMessage,
   receiveNewMessage,
-  updateCurrentChatroom
+  updateCurrentChatroom,
+  receiveAppError
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -38,6 +39,7 @@ const addFriendPartial = (dispatch) => (friendID) => {
     dispatch(receiveFriendOnline(data));
   }).catch((err) => {
     console.error(`[Uphere_WEB] Could not add friend: ${err}`);
+    dispatch(receiveAppError(err));
   });
 };
 
@@ -102,9 +104,13 @@ const fetchFacebookUserData = (dispatch) => {
           })
           .catch(err => {
             console.error('[UPHERE_WEB] Could not get friend list:', err)
+            dispatch(receiveAppError(err));
           });
         })
-        .catch(reject);
+        .catch((err) => {
+          dispatch(receiveAppError(err));
+          reject();
+        });
     });
   });
 };
@@ -152,13 +158,18 @@ const mapStateToProps = (state) => {
     user: state.user,
     friendList: state.friendList,
     chatList: state.chatList,
-    currentChatRoom: state.currentChatRoom
+    currentChatRoom: state.currentChatRoom,
+    error: state.error
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   addFriend = addFriendPartial(dispatch);
   dispatchReceiveNewMessage = receiveNewMessagePartial(dispatch);
+
+  window.onerror = (message, source, lineNum, colNum, err) => {
+    dispatch(receiveAppError(err));
+  };
 
   return {
     onLoad: () => {
@@ -244,6 +255,7 @@ const mapDispatchToProps = (dispatch) => {
           receipient_id
         });
       }).catch((err) => {
+        dispatch(receiveAppError(err));
         console.error(`[Uphere_WEB] Could not create new message: ${err}`);
       });
     }
