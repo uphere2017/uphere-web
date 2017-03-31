@@ -20,6 +20,7 @@
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.0",
+    "sentiment": "^3.0.1",
     "socket.io-client": "^1.7.3",
     "whatwg-fetch": "^2.0.3"
   },
