@@ -19,7 +19,8 @@ class Home extends React.Component {
             currentChatID={this.props.currentChatRoom.uphere_id}
             user={this.props.user}
             chats={this.props.chatList}
-            showChat={this.props.showChat} />
+            showChat={this.props.showChat}
+            deleteChat={this.props.deleteChat} />
         </div>
         <div className={`${s.nav_container}`}>
           <div className={`${s.navbar}`}>

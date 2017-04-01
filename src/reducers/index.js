@@ -18,7 +18,8 @@ import {
   RECEIVE_NEW_MESSAGE,
   UPDATE_CURRENT_CHATROOM,
   RECEIVE_APP_ERROR,
-  FRIEND_EMOTION_CHANGE
+  FRIEND_EMOTION_CHANGE,
+  REQUEST_DELETE_CHAT
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -162,6 +163,18 @@ const chatList = (state = [], action) => {
         }
       });
       return chats;
+    case REQUEST_DELETE_CHAT:
+      const currentChats = state.slice();
+      var updatedChats = [];
+      currentChats.forEach((chat, i) => {
+        if (chat.uphere_id === action.chat_id) {
+          updatedChats = [
+            ...currentChats.slice(0, i),
+            ...currentChats.slice(i + 1)
+          ];
+        }
+      });
+      return updatedChats;
     default:
       return state.slice();
   }
@@ -216,6 +229,8 @@ const currentChatRoom = (state = initialChatRoomState, action) => {
       return newState;
     case UPDATE_CURRENT_CHATROOM:
       return Object.assign({}, action.chatroom);
+    case REQUEST_DELETE_CHAT:
+      return Object.assign({}, state, initialChatRoomState);
     default:
       return Object.assign({}, state);
   };
