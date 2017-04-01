@@ -59,6 +59,7 @@ class ChatRoom extends Component {
           </div>
           <div className={`${s.footer}`}>
             <ChatInput
+              friendList={this.props.friendList}
               user={this.props.user}
               chat={this.props.chat}
               newMessage={this.props.newMessage}

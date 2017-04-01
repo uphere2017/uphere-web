@@ -17,7 +17,8 @@ import {
   CREATE_CHAT_MESSAGE,
   RECEIVE_NEW_MESSAGE,
   UPDATE_CURRENT_CHATROOM,
-  RECEIVE_APP_ERROR
+  RECEIVE_APP_ERROR,
+  FRIEND_EMOTION_CHANGE
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -68,7 +69,8 @@ const friendList = (state = [], action) => {
           facebookID: friend.facebook_id,
           uphere_id: friend.uphere_id,
           profile_image_url: friend.profile_image_url,
-          isOnOff: false
+          isOnOff: false,
+          emotion_status: friend.emotion_status
         });
       });
     case RECEIVE_FRIEND_ONLINE:
@@ -85,6 +87,14 @@ const friendList = (state = [], action) => {
         newState.push(action.friend);
       }
       return newState;
+    case FRIEND_EMOTION_CHANGE:
+      return state.map((friend) => {
+        if (friend.uphere_id === action.friend_id) {
+          friend.emotion_status = action.emotion_status;
+        }
+
+        return friend;
+      });
     default:
       return state.slice();
   };
