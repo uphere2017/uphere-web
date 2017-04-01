@@ -20,7 +20,8 @@ import {
   createChatMessage,
   receiveNewMessage,
   updateCurrentChatroom,
-  receiveAppError
+  receiveAppError,
+  friendEmotionChange
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -30,6 +31,7 @@ const socket = io(API_URL);
 
 let addFriend;
 let dispatchReceiveNewMessage;
+let dispatchFriendEmotionChange;
 
 const addFriendPartial = (dispatch) => (friendID) => {
   axios.get(`${API_URL}/users/${friendID}`, {
@@ -48,6 +50,10 @@ const receiveNewMessagePartial = (dispatch) => (message, chat_id) => {
   dispatch(receiveNewMessage(message, chat_id));
 };
 
+const dispatchFriendEmotionChangePartial = (dispatch) => (emotion_status, friend_id) => {
+  dispatch(friendEmotionChange(emotion_status, friend_id));
+};
+
 socket.on('FRIEND_ONLINE', ({ friend_id }) => {
   if (addFriend) {
     addFriend(friend_id);
@@ -60,6 +66,12 @@ socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id }) => {
   }
 
   showMessageNotification(message.text);
+});
+
+socket.on('FRIEND_EMOTION_CHANGE', ({ emotion_status, friend_id }) => {
+  if (dispatchFriendEmotionChange) {
+    dispatchFriendEmotionChange(emotion_status, friend_id);
+  }
 });
 
 const fetchFacebookUserData = (dispatch) => {
@@ -167,6 +179,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   addFriend = addFriendPartial(dispatch);
   dispatchReceiveNewMessage = receiveNewMessagePartial(dispatch);
+  dispatchFriendEmotionChange = dispatchFriendEmotionChangePartial(dispatch);
 
   window.onerror = (message, source, lineNum, colNum, err) => {
     dispatch(receiveAppError(err));
@@ -226,7 +239,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(requestChatRoomSuccess(chatroom));
     },
 
-    newMessage: (message, chatroom, user) => {
+    newMessage: (message, chatroom, user, friendIdList) => {
       const emotions = sentiment(message);
 
       axios.post(API_URL + `/chats/${chatroom.uphere_id}`, {
@@ -256,7 +269,9 @@ const mapDispatchToProps = (dispatch) => {
           text: message,
           created_at: data.created_at,
           text_id: data.id,
-          receipient_id
+          receipient_id,
+          emotion_status: emotions.score,
+          friend_list: friendIdList
         });
       }).catch((err) => {
         dispatch(receiveAppError(err));

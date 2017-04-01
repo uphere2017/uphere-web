@@ -15,7 +15,8 @@ import {
   CREATE_CHAT_MESSAGE,
   RECEIVE_NEW_MESSAGE,
   UPDATE_CURRENT_CHATROOM,
-  RECEIVE_APP_ERROR
+  RECEIVE_APP_ERROR,
+  FRIEND_EMOTION_CHANGE
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -142,5 +143,13 @@ export const receiveAppError = (err) => {
   return {
     type: RECEIVE_APP_ERROR,
     error: err
+  };
+};
+
+export const friendEmotionChange = (emotion_status, friend_id) => {
+  return {
+    type: FRIEND_EMOTION_CHANGE,
+    friend_id,
+    emotion_status
   };
 };
