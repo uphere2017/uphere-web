@@ -10,6 +10,14 @@ class ChatInput extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.chat || nextProps.chat.uphere_id === null) {
+      this.refs.text.disabled = true;
+    } else {
+      this.refs.text.disabled = false;
+    }
+  }
+
   onChange(e) {
     e.preventDefault();
     this.setState({
@@ -46,6 +54,7 @@ class ChatInput extends Component {
                     value={this.state.text}
                     onChange={this.onChange.bind(this)}
                     onKeyDown={this.onKeyPress.bind(this)}
+                    disabled
                   >
                   </textarea>
                 </div>
@@ -53,11 +62,11 @@ class ChatInput extends Component {
                   <div
                     onClick={(event) => {
                       if (this.state.text.trim() === '') {
-                        return
+                        return;
                       } else {
                         event.preventDefault();
                         this.props.newMessage(this.state.text, this.props.chat, this.props.user);
-                        this.setState({ text: '' })
+                        this.setState({ text: '' });
                       }
                     }}
                     className={`${s.button}`}

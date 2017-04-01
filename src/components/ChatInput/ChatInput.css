@@ -28,6 +28,7 @@
 }
 
 .button {
+  cursor: pointer;
   color: #0084ff;
   font-weight: bold;
   display: inline-block;
