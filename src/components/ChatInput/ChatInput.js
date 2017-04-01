@@ -53,7 +53,7 @@ class ChatInput extends Component {
                     rows="4"
                     value={this.state.text}
                     onChange={this.onChange.bind(this)}
-                    onKeyDown={this.onKeyPress.bind(this)}
+                    onKeyPress={this.onKeyPress.bind(this)}
                     disabled
                   >
                   </textarea>
