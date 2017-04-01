@@ -68,7 +68,8 @@ const friendList = (state = [], action) => {
           facebookID: friend.facebook_id,
           uphere_id: friend.uphere_id,
           profile_image_url: friend.profile_image_url,
-          isOnOff: false
+          isOnOff: false,
+          emotion_status: friend.emotion_status
         });
       });
     case RECEIVE_FRIEND_ONLINE:
