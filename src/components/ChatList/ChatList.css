@@ -151,6 +151,7 @@
   position: relative;
   width: 20px;
   height: 20px;
+  padding: 0 10px 0 30px;
 }
 
 .show_inner_modal {
