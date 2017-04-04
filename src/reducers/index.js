@@ -20,7 +20,8 @@ import {
   RECEIVE_APP_ERROR,
   FRIEND_EMOTION_CHANGE,
   REQUEST_DELETE_CHAT,
-  UPDATE_LAST_MESSAGE
+  UPDATE_LAST_MESSAGE,
+  UPLOAD_IMAGE_FAILURE
 } from '../actionTypes';
 
 const login = (state = false, action) => {
