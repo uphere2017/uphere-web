@@ -240,13 +240,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(requestChatRoomSuccess(chatroom));
     },
 
-    newMessage: (message, chatroom, user, friendIdList) => {
+    newMessage: (message, chatroom, user, friendIdList, date) => {
       const emotions = sentiment(message);
 
       axios.post(API_URL + `/chats/${chatroom.uphere_id}`, {
         text: message,
         sender_id: user.uphere_id,
-        emotion_status: emotions.score
+        emotion_status: emotions.score,
+        created_at: date ? date : new Date()
       }, {
         headers: {
           authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
