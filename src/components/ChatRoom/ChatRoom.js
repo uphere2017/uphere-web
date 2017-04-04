@@ -31,16 +31,15 @@ class ChatRoom extends Component {
     return {};
   }
 
-  render() {
+  _msgTime(created_at) {
+    let date = new Date(Date.parse(created_at));
+    let date_day = ['일', '월', '화', '수', '목', '금', '토'];
+    return `${date.getMonth() + 1}월 ${date.getDate()}일 ${date_day[date.getDay()]}요일 ${date.toLocaleTimeString().slice(0, 2)} ${date.toLocaleTimeString().slice(3).split(':')[0]}시 ${date.getMinutes()}분`;
+  }
+
+  render() {  // Mon Apr 03 2017 10:44:07 GMT+0900 (KST)
     let messages = this.props.chat.messages && this.props.chat.messages.length > 0 ? this.props.chat.messages : [];
     messages = messages.sort((x, y) => x.uphere_id - y.uphere_id);
-    let msgDate = create_at => {
-      let date = new Date(Date.parse(create_at)).toString();
-      let month = create_at[5] === '0' ? create_at.slice(6, 7) : create_at.slice(5, 7);
-      let day = date.split(' ')[2];
-      let time = date.split(' ')[4];
-      return `${month}/${day} ${date.slice(0, 3)} ${time.slice(0, 5)}`;
-    };
     return (
         <div className={`${s.container}`} >
           <div className={`${s.content}`} ref="scroll">
@@ -51,7 +50,7 @@ class ChatRoom extends Component {
                          >
                             {message.sender_id !== this.props.user.uphere_id && <img className={`${s.chatlog_avatar}`} src={this._findSenderById(message.sender_id).profile_image_url}/>}
                             <p className={`${s.chatlog_message}`}>{message.text}</p>
-                            <span className={`${s.message_time}`}>{msgDate(message.created_at)}</span>
+                            <span className={`${s.message_time}`}>{this._msgTime(message.created_at)}</span>
                          </li>
                 })
               }
