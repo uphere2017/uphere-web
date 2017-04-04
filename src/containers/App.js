@@ -283,13 +283,22 @@ const mapDispatchToProps = (dispatch) => {
     deleteChat: (chat_id) => {
       axios.delete(`${API_URL}/chats/${chat_id}`)
         .then((data) => {
-          console.log('DELETE RES', data);
           dispatch(requestDeleteChat(chat_id));
         })
         .catch((err) => {
           console.error(`[Uphere_WEB] Could not delete chatroom: ${err}`)
           dispatch(receiveAppError(err));
         });
+    },
+
+    onLogout: () => {
+      window.FB.getLoginStatus(({ status, authResponse }) => {
+        if (status === 'connected') {
+          window.FB.logout((res) => {
+            document.location.reload();
+          });
+        }
+      });
     }
   };
 };

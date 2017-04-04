@@ -20,7 +20,8 @@ class Home extends React.Component {
             user={this.props.user}
             chats={this.props.chatList}
             showChat={this.props.showChat}
-            deleteChat={this.props.deleteChat} />
+            deleteChat={this.props.deleteChat}
+            logout={this.props.logout} />
         </div>
         <div className={`${s.nav_container}`}>
           <div className={`${s.navbar}`}>

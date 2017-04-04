@@ -75,6 +75,10 @@ class ChatList extends React.Component {
                 showModal: !prevState.showModal
               };
             });
+            const logoutConfirm = confirm('Are you sure you want to leave?');
+            if (logoutConfirm) {
+              this.props.logout();
+            }
           }} className={`${s.logout}`}><i className="fa fa-sign-out" aria-hidden="true"></i></span>
           <span className={`${s.logoutMsg}`} >See ya~</span>
         </div>
@@ -94,9 +98,7 @@ class ChatList extends React.Component {
               };
             });
           }}>
-            <hr/>
             <span className={`${s.logoutMsg}`} >Delete</span>
-            <hr/>
           </li>
         </div>
       </div>
