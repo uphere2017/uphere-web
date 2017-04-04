@@ -21,7 +21,8 @@ import {
   receiveNewMessage,
   updateCurrentChatroom,
   receiveAppError,
-  friendEmotionChange
+  friendEmotionChange,
+  requestDeleteChat
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -277,6 +278,18 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(receiveAppError(err));
         console.error(`[Uphere_WEB] Could not create new message: ${err}`);
       });
+    },
+
+    deleteChat: (chat_id) => {
+      axios.delete(`${API_URL}/chats/${chat_id}`)
+        .then((data) => {
+          console.log('DELETE RES', data);
+          dispatch(requestDeleteChat(chat_id));
+        })
+        .catch((err) => {
+          console.error(`[Uphere_WEB] Could not delete chatroom: ${err}`)
+          dispatch(receiveAppError(err));
+        });
     }
   };
 };

@@ -67,13 +67,18 @@
   margin-top: 10px;
 }
 
-
 .chatroom_time {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 16px;
   right: 3%;
-  padding: 5px 10px 0 0;
+  padding: 5px 0px 0 0;
   color: #999;
+}
+
+.chatroom_check {
+  flex: 1;
 }
 
 .chatroom_preview {
@@ -100,13 +105,84 @@
   top: 30px;
 }
 
-.show_inner_modal {
+.not_hide_outer_delete_modal {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  width: 150px;
+  height: 100px;
+  top: 150px;
+}
+
+.show_logout_inner_modal {
   background-color: #fefefe;
+  position: relative;
   padding: 20px;
   border: 1px solid rgba(0,0,0,.15);
   box-shadow: 0 3px 8px rgba(0,0,0,.3);
-  margin: -25px 0 0 0;
+  margin: 17px 0 0 0;
   width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.show_logout_inner_modal:after, .show_logout_inner_modal:before {
+  bottom: 100%;
+  left: 12%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.show_logout_inner_modal:after {
+  border-bottom-color: #fefefe;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+.show_logout_inner_modal:before {
+  border-bottom-color: rgba(0,0,0,.15);
+  border-width: 11px;
+  margin-left: -11px;
+}
+
+.deleteCog {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.show_inner_modal {
+  background-color: #fefefe;
+  position: relative;
+  padding: 0 5px;
+  border: 1px solid rgba(0,0,0,.15);
+  box-shadow: 0 3px 8px rgba(0,0,0,.3);
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.show_inner_modal:after, .show_inner_modal:before {
+  bottom: 100%;
+  left: 12%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.show_inner_modal:after {
+  border-bottom-color: #fefefe;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+.show_inner_modal:before {
+  border-bottom-color: rgba(0,0,0,.15);
+  border-width: 11px;
+  margin-left: -11px;
 }
 
 .logout {
@@ -128,12 +204,18 @@
   font-size: 14px;
 }
 
-.arrow_on_modal {
-  margin: 8px 0 0 10px;
+.hide_chat_cog {
+  display: none;
 }
 
-.arrow_polygon {
-  fill: #FFFFFF;
-  stroke: rgba(0,0,0,.15);
-  stroke-width: 1;
+.chat_cog {
+  flex: 1;
+  padding: 20px 0 0 0;
+  color: rgb(203, 203, 203);
+}
+
+.on_delete:hover {
+  background-color: #0084ff;
+  color: #FFFFFF;
+  cursor: pointer;
 }

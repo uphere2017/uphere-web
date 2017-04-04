@@ -16,7 +16,8 @@ import {
   RECEIVE_NEW_MESSAGE,
   UPDATE_CURRENT_CHATROOM,
   RECEIVE_APP_ERROR,
-  FRIEND_EMOTION_CHANGE
+  FRIEND_EMOTION_CHANGE,
+  REQUEST_DELETE_CHAT
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -151,5 +152,12 @@ export const friendEmotionChange = (emotion_status, friend_id) => {
     type: FRIEND_EMOTION_CHANGE,
     friend_id,
     emotion_status
+  };
+};
+
+export const requestDeleteChat = (chat_id) => {
+  return {
+    type: REQUEST_DELETE_CHAT,
+    chat_id
   };
 };

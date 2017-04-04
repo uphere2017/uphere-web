@@ -91,6 +91,7 @@ class App extends React.Component {
             currentChatRoom={this.props.currentChatRoom}
             newMessage={this.props.newMessage}
             user={this.props.user}
+            deleteChat={this.props.deleteChat}
           />
         }
         {
