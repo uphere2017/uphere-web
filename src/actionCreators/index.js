@@ -18,7 +18,8 @@ import {
   RECEIVE_APP_ERROR,
   FRIEND_EMOTION_CHANGE,
   REQUEST_DELETE_CHAT,
-  UPDATE_LAST_MESSAGE
+  UPDATE_LAST_MESSAGE,
+  UPLOAD_IMAGE_FAILURE
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -166,5 +167,12 @@ export const requestDeleteChat = (chat_id) => {
 export const updateLastMessage = () => {
   return {
     type: UPDATE_LAST_MESSAGE
+  };
+};
+
+export const uploadImageFailure = (err) => {
+  return {
+    type: UPLOAD_IMAGE_FAILURE,
+    error: err
   };
 };
