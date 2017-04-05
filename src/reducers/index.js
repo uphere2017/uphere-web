@@ -19,7 +19,8 @@ import {
   UPDATE_CURRENT_CHATROOM,
   RECEIVE_APP_ERROR,
   FRIEND_EMOTION_CHANGE,
-  REQUEST_DELETE_CHAT
+  REQUEST_DELETE_CHAT,
+  UPDATE_LAST_MESSAGE
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -175,6 +176,15 @@ const chatList = (state = [], action) => {
         }
       });
       return updatedChats;
+    case UPDATE_LAST_MESSAGE:
+      const sortChat = state.slice();
+      return sortChat.sort((a, b) => {
+        let keyA = new Date(a.messages[a.messages.length - 1].created_at);
+        let keyB = new Date(b.messages[b.messages.length - 1].created_at);
+        if(keyA > keyB) return -1;
+        if(keyA < keyB) return 1;
+        return 0;
+      });
     default:
       return state.slice();
   }
