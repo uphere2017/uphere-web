@@ -22,7 +22,8 @@ import {
   updateCurrentChatroom,
   receiveAppError,
   friendEmotionChange,
-  requestDeleteChat
+  requestDeleteChat,
+  updateLastMessage
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -33,6 +34,7 @@ const socket = io(API_URL);
 let addFriend;
 let dispatchReceiveNewMessage;
 let dispatchFriendEmotionChange;
+let dispatchUpdateChatList;
 
 const addFriendPartial = (dispatch) => (friendID) => {
   axios.get(`${API_URL}/users/${friendID}`, {
@@ -55,6 +57,10 @@ const dispatchFriendEmotionChangePartial = (dispatch) => (emotion_status, friend
   dispatch(friendEmotionChange(emotion_status, friend_id));
 };
 
+const dispatchUpdateChatListPartial = (dispatch) => () => {
+  dispatch(updateLastMessage());
+};
+
 socket.on('FRIEND_ONLINE', ({ friend_id }) => {
   if (addFriend) {
     addFriend(friend_id);
@@ -64,6 +70,7 @@ socket.on('FRIEND_ONLINE', ({ friend_id }) => {
 socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id }) => {
   if (dispatchReceiveNewMessage) {
     dispatchReceiveNewMessage(message, chat_id);
+    dispatchUpdateChatList();
   }
 
   showMessageNotification(message.text);
@@ -181,6 +188,7 @@ const mapDispatchToProps = (dispatch) => {
   addFriend = addFriendPartial(dispatch);
   dispatchReceiveNewMessage = receiveNewMessagePartial(dispatch);
   dispatchFriendEmotionChange = dispatchFriendEmotionChangePartial(dispatch);
+  dispatchUpdateChatList = dispatchUpdateChatListPartial(dispatch);
 
   window.onerror = (message, source, lineNum, colNum, err) => {
     dispatch(receiveAppError(err));
@@ -275,6 +283,7 @@ const mapDispatchToProps = (dispatch) => {
           emotion_status: emotions.score,
           friend_list: friendIdList
         });
+        dispatchUpdateChatList();
       }).catch((err) => {
         dispatch(receiveAppError(err));
         console.error(`[Uphere_WEB] Could not create new message: ${err}`);

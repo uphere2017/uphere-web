@@ -22,7 +22,7 @@ class ChatList extends React.Component {
         e.target !== this.innermodal &&
         e.target !== this.configBtn &&
         this.outermodal.className !== `${s.hide_outer_modal}`) {
-        this.setState((prevState, prevProps) => {
+        this.setState((prevState) => {
           return {
             showModal: !prevState.showModal
           };
@@ -59,7 +59,7 @@ class ChatList extends React.Component {
   _msgTime(created_at) {
     let date = new Date(Date.parse(created_at));
     let date_day = ['일', '월', '화', '수', '목', '금', '토'];
-    return `$${date.getMonth() + 1}월 ${date.getDate()}일 ${date_day[date.getDay()]}요일`;
+    return `${date.getMonth() + 1}월 ${date.getDate()}일 ${date_day[date.getDay()]}요일`;
   }
 
   render() {
@@ -81,7 +81,7 @@ class ChatList extends React.Component {
 
     const chatDeleteModal = (
       <div ref={(ref) => { this.deleteModal = ref; }} className={this.state.showDeleteChatModal ? `${s.not_hide_outer_delete_modal}` : `${s.hide_outer_modal}`}>
-        <div ref={(ref) => { this.innerDeleteModal = ref; }} className={`${s.show_inner_modal}`}>
+        <div className={`${s.show_inner_modal}`}>
           <li className={`${s.on_delete}`} onClick={(e) => {
             e.preventDefault();
             this.props.deleteChat(this.state.currentChatId);
@@ -106,7 +106,7 @@ class ChatList extends React.Component {
           <div>
             <i ref={(ref) => { this.configBtn = ref; }} className="fa fa-cog fa-lg" aria-hidden="true" onClick={(e) => {
               e.preventDefault();
-              this.setState((prevState, prevProps) => {
+              this.setState((prevState) => {
                 return {
                   showModal: !prevState.showModal
                 };
@@ -130,7 +130,7 @@ class ChatList extends React.Component {
               onMouseEnter={(e) => {
                 e.preventDefault();
                 if (!this.state.showDeleteChatModal) {
-                  this.setState((prevState, prevProps) => {
+                  this.setState((prevState) => {
                     return {
                       showDeleteCog: !prevState.showDeleteCog,
                       currentChatId: this.props.chats[i].uphere_id,
@@ -142,7 +142,7 @@ class ChatList extends React.Component {
               onMouseLeave={(e) => {
                 e.preventDefault();
                 if (!this.state.showDeleteChatModal) {
-                  this.setState((prevState, prevProps) => {
+                  this.setState((prevState) => {
                     return {
                       showDeleteCog: !prevState.showDeleteCog
                     };
@@ -168,7 +168,7 @@ class ChatList extends React.Component {
                     this.deleteModal.style.top = `${e.pageY + 20}px`;
                     this.deleteModal.style.left = `${e.pageX - 15}px`;
                     if (this.state.currentChatIndex === i) {
-                      this.setState((prevState, prevProps) => {
+                      this.setState((prevState) => {
                         return {
                           showDeleteChatModal: !prevState.showDeleteChatModal
                         };
