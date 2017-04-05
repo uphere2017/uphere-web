@@ -247,7 +247,7 @@ const mapDispatchToProps = (dispatch) => {
         text: message,
         sender_id: user.uphere_id,
         emotion_status: emotions.score,
-        created_at: date ? date : new Date()
+        created_at: date ? date : new Date().toISOString()
       }, {
         headers: {
           authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`

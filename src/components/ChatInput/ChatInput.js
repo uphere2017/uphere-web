@@ -35,7 +35,7 @@ class ChatInput extends Component {
         });
       } else if (!e.altKey) {
         e.preventDefault();
-        this.props.newMessage(e.target.value, this.props.chat, this.props.user, this.props.friendList.map((friend) => friend.uphere_id));
+        this.props.newMessage(e.target.value, this.props.chat, this.props.user, this.props.friendList.map((friend) => friend.uphere_id), `${new Date().toISOString()}`);
         this.setState({ text: '' });
       }
     }
@@ -65,7 +65,7 @@ class ChatInput extends Component {
                         return;
                       } else {
                         event.preventDefault();
-                        this.props.newMessage(this.state.text, this.props.chat, this.props.user, this.props.friendList.map((friend) => friend.uphere_id), `${new Date()}`);
+                        this.props.newMessage(this.state.text, this.props.chat, this.props.user, this.props.friendList.map((friend) => friend.uphere_id), `${new Date().toISOString()}`);
                         this.setState({ text: '' });
                       }
                     }}

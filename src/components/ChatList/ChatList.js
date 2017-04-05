@@ -56,11 +56,13 @@ class ChatList extends React.Component {
     return message.sender_id === this.props.user.uphere_id;
   }
 
+  _msgTime(created_at) {
+    let date = new Date(Date.parse(created_at));
+    let date_day = ['일', '월', '화', '수', '목', '금', '토'];
+    return `$${date.getMonth() + 1}월 ${date.getDate()}일 ${date_day[date.getDay()]}요일`;
+  }
+
   render() {
-    const msgTime = (created_at) => {
-      var date = new Date(created_at);
-      return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-    };
     const logoutModal = (
       <div ref={(ref) => { this.outermodal = ref; }} className={this.state.showModal ? `${s.not_hide_outer_modal}` : `${s.hide_outer_modal}`}>
         <div ref={(ref) => { this.innermodal = ref; }} className={`${s.show_logout_inner_modal}`}>
@@ -159,7 +161,7 @@ class ChatList extends React.Component {
                 { this._getFriend(chat).name }
               </span>
               <div className={`${s.chatroom_time}`}>
-                <i className={`fa fa-check ${s.chatroom_check}`} aria-hidden="true">{chat.messages.length > 0 ? msgTime(chat.messages[chat.messages.length - 1].created_at) : null}</i>
+                <i className={`fa fa-check ${s.chatroom_check}`} aria-hidden="true">{chat.messages.length > 0 ? this._msgTime(chat.messages[chat.messages.length - 1].created_at) : null}</i>
                 <div className={`${this.state.showDeleteCog && this.state.currentChatIndex === i ? s.chat_cog : s.hide_chat_cog}`}>
                   <i id="deleteCog" ref={(ref) => { this.deleteCog = ref; }} className={`fa fa-cog fa-lg ${s.deleteCog}`} aria-hidden="true" onClick={(e) => {
                     e.preventDefault();
