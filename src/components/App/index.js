@@ -92,6 +92,7 @@ class App extends React.Component {
             newMessage={this.props.newMessage}
             user={this.props.user}
             deleteChat={this.props.deleteChat}
+            logout={this.props.onLogout}
           />
         }
         {
