@@ -178,9 +178,9 @@ const chatList = (state = [], action) => {
       return updatedChats;
     case UPDATE_LAST_MESSAGE:
       const sortChat = state.slice();
-      if (sortChat.length === 0) {
+      if (sortChat.length === 0 || sortChat.length === 1) {
         return sortChat;
-      } else {
+      } else if (sortChat.every((chat) => {return chat.messages.length !== 0})) {
         return sortChat.sort((a, b) => {
           let keyA = new Date(a.messages[a.messages.length - 1].created_at);
           let keyB = new Date(b.messages[b.messages.length - 1].created_at);
