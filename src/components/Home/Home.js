@@ -35,7 +35,8 @@ class Home extends React.Component {
                 chat={this.props.currentChatRoom}
                 newMessage={this.props.newMessage}
                 friendList={this.props.friendList}
-                user={this.props.user} />
+                user={this.props.user}
+                uploadImage={this.props.uploadImage} />
             </div>
             <div className={`${s.friend_list}`}>
               <UserList
