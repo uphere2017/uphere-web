@@ -75,24 +75,22 @@ class ChatInput extends Component {
                         onChange={this.onImageUpload.bind(this)} />
                       <span className={`${s.file_btn}`}><i className="fa fa-picture-o" aria-hidden="true"></i></span>
                     </form>
-                    <div className={`${s.button_wrapper}`}>
-                      <div
-                        onClick={(event) => {
-                          if (this.state.text.trim() === '') {
-                            return;
-                          } else {
-                            event.preventDefault();
-                            this.props.newMessage(this.state.text, this.props.chat, this.props.user, this.props.friendList.map((friend) => friend.uphere_id), `${new Date().toISOString()}`);
-                            this.setState({ text: '' });
-                          }
-                        }}
-                        className={`${s.button}`}
-                        >
-                      <i className="fa fa-paper-plane" aria-hidden="true"> SEND</i>
-                    </div>
-                  </div>
+                    <div
+                      onClick={(event) => {
+                        if (this.state.text.trim() === '') {
+                          return;
+                        } else {
+                          event.preventDefault();
+                          this.props.newMessage(this.state.text, this.props.chat, this.props.user, this.props.friendList.map((friend) => friend.uphere_id), `${new Date().toISOString()}`);
+                          this.setState({ text: '' });
+                        }
+                      }}
+                      className={`${s.send_btn}`}
+                      >
+                    <i className="fa fa-paper-plane" aria-hidden="true"></i>
                 </div>
               </div>
+            </div>
             );
   }
 }

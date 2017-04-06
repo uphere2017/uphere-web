@@ -23,28 +23,15 @@
 }
 
 .button_wrapper {
-  height: 40px;
-  padding: 0 10px;
-  margin-top: -50px;
-}
-
-.button {
-  cursor: pointer;
-  color: #329af0;
-  font-size: 16px;
-  font-weight: 900;
-  display: inline-block;
-  float: right;
-  background: #f8f9fa;
-  padding: 8px 16px;
-  border-radius: 2px;
-  margin-top: 13px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 .file_input{
   display: inline-block;
   position: relative;
-  margin-left: 770px;
+  margin-left: 810px;
 }
 
 .file_send {
@@ -65,4 +52,16 @@
   padding: 8px 16px;
   border-radius: 2px;
   margin-right: 8px;
+}
+
+.send_btn{
+  cursor: pointer;
+  color: #329af0;
+  font-size: 16px;
+  font-weight: 900;
+  display: inline-block;
+  float: right;
+  background: #f8f9fa;
+  padding: 8px 16px;
+  border-radius: 2px;
 }
