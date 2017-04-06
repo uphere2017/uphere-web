@@ -92,7 +92,7 @@ class App extends React.Component {
             newMessage={this.props.newMessage}
             user={this.props.user}
             deleteChat={this.props.deleteChat}
-          />
+            uploadImage={this.props.uploadImage} />
         }
         {
           this.props.error !== null &&

@@ -23,7 +23,8 @@ import {
   receiveAppError,
   friendEmotionChange,
   requestDeleteChat,
-  updateLastMessage
+  updateLastMessage,
+  uploadImageFailure
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -293,17 +294,51 @@ const mapDispatchToProps = (dispatch) => {
     deleteChat: (chat_id) => {
       axios.delete(`${API_URL}/chats/${chat_id}`)
         .then((data) => {
-          console.log('DELETE RES', data);
           dispatch(requestDeleteChat(chat_id));
         })
         .catch((err) => {
-          console.error(`[Uphere_WEB] Could not delete chatroom: ${err}`)
+          console.error(`[Uphere_WEB] Could not delete chatroom: ${err}`);
           dispatch(receiveAppError(err));
         });
-    }
-  };
-};
+    },
 
+    uploadImage: (chatroom, user, imagefile, friendIdList, date) => {
+      const imageData = new FormData();
+        imageData.append('name', imagefile.name)
+        imageData.append('userfile', imagefile)
+        imageData.append('userid', user.uphere_id)
+        imageData.append('created_at', date ? date : new Date().toISOString())
+
+      axios.post(API_URL + `/upload/${chatroom.uphere_id}`, imageData)
+        .then(res => {
+          dispatch(createChatMessage({
+            chatroom: chatroom,
+            text_id: res.data.uphere_id,
+            user_id: user.uphere_id,
+            text: res.data.text,
+            created_at: res.data.created_at
+          }));
+
+          const receipient_id = chatroom.participants.filter((chatUser) => {
+            return chatUser.uphere_id !== user.uphere_id;
+          })[0].uphere_id;
+
+          socket.emit('SEND_NEW_MESSAGE', {
+            sender_id: user.uphere_id,
+            chat_id: chatroom.uphere_id,
+            text: res.data.text,
+            created_at: res.data.created_at,
+            text_id: res.data.uphere_id,
+            receipient_id,
+            friend_list: friendIdList
+          });
+        }).catch((err) => {
+          dispatch(uploadImageFailure(err));
+        })
+      }
+    };
+  }
+  
 const AppContainer = connect(
   mapStateToProps,
   mapDispatchToProps

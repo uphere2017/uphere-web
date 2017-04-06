@@ -41,6 +41,14 @@ class ChatInput extends Component {
     }
   }
 
+  onImageUpload(e) {
+    const file = e.target.files[0];
+    if (file === undefined) {
+      return alert("파일이 선택되지 않았습니다.");
+    }
+    this.props.uploadImage(this.props.chat, this.props.user, file, this.props.friendList.map((friend) => friend.uphere_id), `${new Date().toISOString()}` );
+  }
+
   render() {
     return (
               <div className={`${s.text_field}`}>
@@ -54,24 +62,34 @@ class ChatInput extends Component {
                     value={this.state.text}
                     onChange={this.onChange.bind(this)}
                     onKeyPress={this.onKeyPress.bind(this)}
-                    disabled
-                  >
-                  </textarea>
+                    disabled />
                 </div>
-                <div className={`${s.button_wrapper}`}>
-                  <div
-                    onClick={(event) => {
-                      if (this.state.text.trim() === '') {
-                        return;
-                      } else {
-                        event.preventDefault();
-                        this.props.newMessage(this.state.text, this.props.chat, this.props.user, this.props.friendList.map((friend) => friend.uphere_id), `${new Date().toISOString()}`);
-                        this.setState({ text: '' });
-                      }
-                    }}
-                    className={`${s.button}`}
-                  >
-                    SEND
+                  <div className={`${s.button_wrapper}`}>
+                    <form method="post" encType="multipart/form-data" className={`${s.file_input}`}>
+                      <input type="file"
+                        ref="file"
+                        name="file"
+                        accept="image/*"
+                        name="userfile"
+                        className={`${s.file_send}`}
+                        onChange={this.onImageUpload.bind(this)} />
+                      <span className={`${s.file_btn}`}><i className="fa fa-picture-o" aria-hidden="true"></i></span>
+                    </form>
+                    <div className={`${s.button_wrapper}`}>
+                      <div
+                        onClick={(event) => {
+                          if (this.state.text.trim() === '') {
+                            return;
+                          } else {
+                            event.preventDefault();
+                            this.props.newMessage(this.state.text, this.props.chat, this.props.user, this.props.friendList.map((friend) => friend.uphere_id), `${new Date().toISOString()}`);
+                            this.setState({ text: '' });
+                          }
+                        }}
+                        className={`${s.button}`}
+                        >
+                      <i className="fa fa-paper-plane" aria-hidden="true"> SEND</i>
+                    </div>
                   </div>
                 </div>
               </div>

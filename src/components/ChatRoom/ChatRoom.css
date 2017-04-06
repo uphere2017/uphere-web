@@ -73,7 +73,7 @@
   bottom: .6em;
   left: auto;
   border: 6px solid transparent;
-  border-left-color: #08f;
+  border-left-color: #0084ff;
 }
 
 .chatlog_message {
@@ -85,9 +85,9 @@
 }
 
 .chatlog_entry.chatlog_entry_user .chatlog_message {
-  border-top: 1px solid #07f;
-  border-bottom: 1px solid #07f;
-  background-color: #08f;
+  border-top: 1px solid #0084ff;
+  border-bottom: 1px solid #0084ff;
+  background-color: #0084ff;
   color: #fff;
 }
 
@@ -99,4 +99,9 @@
 .message_time {
   font-size: 14px;
   color: #999999;
+}
+
+.img_message {
+  width: 300px;
+  max-width: 100%;
 }
