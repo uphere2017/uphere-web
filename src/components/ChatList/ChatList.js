@@ -111,7 +111,8 @@ class ChatList extends React.Component {
                   showModal: !prevState.showModal
                 };
               });
-            }} ></i>
+            }} >
+            </i>
           </div>
           <div>
             <h4>Messenger</h4>
