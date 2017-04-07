@@ -1,3 +1,5 @@
+import Icon from './uphere1.png';
+
 let isActive = false;
 
 function getNotificationPermission() {
@@ -17,7 +19,7 @@ function showMessageNotification(text) {
   }
 
   const notification = new Notification('A new message from Uphere!', {
-    icon: "https://cdn2.iconfinder.com/data/icons/flat-game-ui-buttons-icons-1/512/1-512.png",
+    icon: Icon,
     body: `Your friend says: ${text}`,
   });
 }

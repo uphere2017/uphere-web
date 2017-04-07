@@ -56,7 +56,7 @@ class ChatInput extends Component {
                   <textarea
                     ref="text"
                     className={`${s.text}`}
-                    placeholder={'메시지를 입력하세요...'}
+                    placeholder={this.props.friendList.length ? '메시지를 입력하세요...' : 'Currently unavailable until you have friend to chat'}
                     type="text" id="talk"
                     rows="4"
                     value={this.state.text}

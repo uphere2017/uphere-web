@@ -26,12 +26,12 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  justify-content: flex-end;
 }
 
 .file_input{
   display: inline-block;
   position: relative;
-  margin-left: 810px;
 }
 
 .file_send {

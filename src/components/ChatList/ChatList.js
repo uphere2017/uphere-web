@@ -122,9 +122,9 @@ class ChatList extends React.Component {
           </div>
         </div>
         <ul className={s.chatlist_container}>
-         {logoutModal}
-         {chatDeleteModal}
-        {this.props.chats.length > 0 && this.props.chats.map((chat, i) => {
+          {logoutModal}
+          {chatDeleteModal}
+          {this.props.chats.length > 0 && this.props.chats.map((chat, i) => {
           return (
             <li ref="chatroom" key={i}
               className={`${s.chatroom_container} ${this.state.currentChatIndex === i ? s.chatroom_click : ''}`}
@@ -194,6 +194,9 @@ class ChatList extends React.Component {
             </li>
           );
         })}
+        {!this.props.chats.length && <div className={`${s.default}`}>
+          <h1 className={`${s.default_text}`}>Choose friend to create a chat room!</h1>
+          </div>}
         </ul>
       </div>
     );
