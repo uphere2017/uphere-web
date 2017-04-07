@@ -92,7 +92,7 @@
 - CircleCI에서 빌드와 테스트를 통과하면 uphere-Server는 최종본은 서버용 AWS S3버킷으로 전달 되어진 후, AWS EC2 Instance가 저장합니다.
 - 최종적으로 AWS CodeDeploy 서비스를 통해 자동배포 됩니다.
 
-## TeamMember
+## Team Members
 
 [손효정](https://github.com/hyojeongson), [윤송이](https://github.com/inakarune), [도진호](https://github.com/JinHo-Do), [이시우](https://github.com/postsw7), [안정현](https://github.com/kmmdong)
 
