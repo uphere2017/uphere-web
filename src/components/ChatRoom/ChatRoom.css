@@ -104,3 +104,51 @@
 .img_message {
   width: 300px;
 }
+
+.default {
+  margin-top: 350px;
+  padding: 200px;
+  display: flex;
+  width: 50%;
+  flex-direction: row;
+  align-items: flex-start;
+  color: #495057;
+}
+
+.default_img {
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.default_message {
+  padding: 20px;
+  border-radius: 10px;
+  background: #f6f6f6;
+}
+
+.default_message::after {
+  right: 100%;
+  border: solid transparent;
+  border-right-color: #f6f6f6;
+  content: '';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-width: 10px;
+  top: 10px;
+}
+
+.default_text {
+  color: #2196F3;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.default_text_KR {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 15px;
+}

@@ -215,6 +215,10 @@
   color: rgb(203, 203, 203);
 }
 
+.on_delete {
+  padding: 20px;
+}
+
 .on_delete:hover {
   background-color: #0084ff;
   color: #FFFFFF;
@@ -227,20 +231,29 @@
 }
 
 .default {
+  padding-top: 300px;
   display: flex;
+  width: 80%;
+  padding-left: 30px;
+  color: #495057;
   flex-direction: row;
   justify-content: center;
   align-self: center;
   align-items: center;
   flex-wrap: wrap;
-  width: 80%;
-  padding-left: 30px;
-  height: 500px;
 }
 
 .default_text {
+  color: #2196F3;
   display: flex;
   font-family: 'Roboto', sans-serif;
-  line-height: 30px;
-  font-size: 20px;
+  font-weight: 700;
+  font-size: 22px;
 }
+
+.default_text_KR {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 15px;
+  line-height: 25px;
+}
+

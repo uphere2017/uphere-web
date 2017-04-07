@@ -81,19 +81,41 @@
 
 .default {
   display: flex;
-  flex-direction: row;
+  color: #495057;
+  width: 70%;
+  flex-direction: column;
   justify-content: center;
   align-self: center;
   align-items: center;
   flex-wrap: wrap;
-  width: 70%;
-  height: 500px;
 }
 
 .default_text {
   display: flex;
+  color: #2196F3;
   font-family: 'Roboto', sans-serif;
-  line-height: 30px;
-  font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.default_img {
+  width: 300px;
+}
+
+.default_text_KR {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.default_btn {
+  cursor: pointer;
+  color: #329af0;
+  font-size: 16px;
+  font-weight: 900;
+  display: inline-block;
+  float: right;
+  background: #f8f9fa;
+  padding: 8px 16px;
+  border-radius: 2px;
 }

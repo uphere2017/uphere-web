@@ -73,8 +73,10 @@ class ChatList extends React.Component {
                 showModal: !prevState.showModal
               };
             });
-          }} className={`${s.logout}`}><i className="fa fa-sign-out" aria-hidden="true"></i></span>
-          <span className={`${s.logoutMsg}`} >See ya~</span>
+          }} className={`${s.logout}`} />
+          <span className={`${s.logoutMsg}`} >
+            <i className="fa fa-sign-out" aria-hidden="true"/> Logout
+          </span>
         </div>
       </div>
     );
@@ -92,9 +94,9 @@ class ChatList extends React.Component {
               };
             });
           }}>
-            <hr/>
-            <span className={`${s.logoutMsg}`} >Delete</span>
-            <hr/>
+            <span className={`${s.logoutMsg}`} >
+              <i className="fa fa-trash" aria-hidden="true"/> Delete
+            </span>
           </li>
         </div>
       </div>
@@ -162,7 +164,7 @@ class ChatList extends React.Component {
                 { this._getFriend(chat).name }
               </span>
               <div className={`${s.chatroom_time}`}>
-                <i className={`fa fa-check ${s.chatroom_check}`} aria-hidden="true">{chat.messages.length > 0 ? this._msgTime(chat.messages[chat.messages.length - 1].created_at) : null}</i>
+                <span className={`${s.chatroom_check}`}>{chat.messages.length > 0 ? this._msgTime(chat.messages[chat.messages.length - 1].created_at) : null}</span>
                 <div className={`${this.state.showDeleteCog && this.state.currentChatIndex === i ? s.chat_cog : s.hide_chat_cog}`}>
                   <i id="deleteCog" ref={(ref) => { this.deleteCog = ref; }} className={`fa fa-cog fa-lg ${s.deleteCog}`} aria-hidden="true" onClick={(e) => {
                     e.preventDefault();
@@ -195,7 +197,12 @@ class ChatList extends React.Component {
           );
         })}
         {!this.props.chats.length && <div className={`${s.default}`}>
-          <h1 className={`${s.default_text}`}>Choose friend to create a chat room!</h1>
+          <p className={`${s.default_text}`}>
+            Choose friend to create a chat room!
+          </p>
+          <p className={`${s.default_text_KR}`}>
+            <b>친구를 선택하면 새로운 채팅방이 만들어져요.</b>
+          </p>
           </div>}
         </ul>
       </div>
