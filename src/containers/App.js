@@ -74,6 +74,12 @@ socket.on('FRIEND_ONLINE', ({ friend_id }) => {
   }
 });
 
+socket.on('FRIEND_DISCONNECT', (friend_id) => {
+  if (addFriend) {
+    addFriend(friend_id);
+  }
+});
+
 socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id, chat }) => {
   if (dispatchReceiveNewMessage) {
     dispatchUpdateCurrentChatList(chat);

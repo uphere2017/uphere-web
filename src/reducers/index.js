@@ -83,11 +83,11 @@ const friendList = (state = [], action) => {
       newState.forEach((friend) => {
         if(friend.uphere_id === action.friend.uphere_id) {
           isExistingFriend = true;
-          friend.isOnOff = true;
+          friend.isOnOff = !friend.isOnOff;
         }
       });
       if(!isExistingFriend) {
-        action.friend.isOnOff = true;
+        action.friend.isOnOff = !action.friend.isOnOff;
         newState.push(action.friend);
       }
       return newState;
