@@ -1,4 +1,4 @@
-# [Uphere-web](http://uphere.world)
+# [Uphere-web](http://uphere.world) &middot; [![CircleCI](https://circleci.com/gh/uphere2017/uphere-web.svg?style=shield)](https://circleci.com/gh/uphere2017/uphere-web)
 
 ## Introduction
 
