@@ -71,7 +71,11 @@ class UserList extends React.Component {
             </li>
           );
         })}
-        { !this.props.friendList && <div>No friends yet</div> }
+        { !this.props.friendList.length && <div className={`${s.default}`}>
+          <p className={`${s.default_text}`}>
+            You Have No Friends who Use Uphere App!
+          </p>
+          </div> }
       </ul>
     );
   }

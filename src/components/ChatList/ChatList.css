@@ -225,3 +225,22 @@
   font-size: 17px;
   font-weight: 800;
 }
+
+.default {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 80%;
+  padding-left: 30px;
+  height: 500px;
+}
+
+.default_text {
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  line-height: 30px;
+  font-size: 20px;
+}
