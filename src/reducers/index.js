@@ -21,7 +21,8 @@ import {
   FRIEND_EMOTION_CHANGE,
   REQUEST_DELETE_CHAT,
   UPDATE_LAST_MESSAGE,
-  UPLOAD_IMAGE_FAILURE
+  UPLOAD_IMAGE_FAILURE,
+  UPDATE_CURRENT_CHATLIST
 } from '../actionTypes';
 
 const login = (state = false, action) => {
@@ -151,6 +152,16 @@ const chatList = (state = [], action) => {
         }
       });
       return newChats;
+    case UPDATE_CURRENT_CHATLIST:
+      const updateChats = state.slice();
+      const isChatExisted = updateChats.some((chat) => {
+        return chat.uphere_id === action.chat.uphere_id;
+      });
+      if (isChatExisted) {
+        return updateChats;
+      }
+      updateChats.push(action.chat);
+      return updateChats;
     case CREATE_CHAT_MESSAGE:
       const chats = state.slice();
       chats.forEach((chat) => {
