@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './UserList.css';
 import { EMOJI_UNICODE } from './emojiUnicode';
+import defaultImage from './list.png';
 
 class UserList extends React.Component {
   constructor(props) {
@@ -71,10 +72,22 @@ class UserList extends React.Component {
             </li>
           );
         })}
-        { !this.props.friendList.length && <div className={`${s.default}`}>
-          <p className={`${s.default_text}`}>
-            You Have No Friends who Use Uphere App!
-          </p>
+        { !this.props.friendList.length && 
+          <div className={`${s.default}`}>
+            <p className={`${s.default_text}`}>
+              <i className="fa fa-user-plus" aria-hidden="true" />
+              You Have No Friends who Use Uphere App!
+            </p>
+            <img src={`${defaultImage}`} className={`${s.default_img}`} />
+            <p className={`${s.default_text_KR}`}>
+              <b>Uphere에서 함께하고 싶은 친구를 초대해보세요</b><br/>
+              페이스북 친구와 간편하게 메세지를 주고 받을 수 있어요.
+              대화를 통해 친구의 감정상태를 알수있어요. 메세지에 감정을 담아 보내보세요!
+            </p>
+            <div className={`${s.default_btn}`}>
+              <i className="fa fa-link" aria-hidden="true"/>
+              친구초대하기
+            </div>
           </div> }
       </ul>
     );

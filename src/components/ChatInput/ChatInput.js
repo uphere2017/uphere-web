@@ -16,6 +16,12 @@ class ChatInput extends Component {
     } else {
       this.refs.text.disabled = false;
     }
+
+    if (!nextProps.chat || nextProps.chat.uphere_id === null) {
+      this.refs.file.disabled = true;
+    } else {
+      this.refs.file.disabled = false;
+    }
   }
 
   onChange(e) {
@@ -72,7 +78,8 @@ class ChatInput extends Component {
                         accept="image/*"
                         name="userfile"
                         className={`${s.file_send}`}
-                        onChange={this.onImageUpload.bind(this)} />
+                        onChange={this.onImageUpload.bind(this)}
+                        disabled />
                       <span className={`${s.file_btn}`}><i className="fa fa-picture-o" aria-hidden="true"></i></span>
                     </form>
                     <div

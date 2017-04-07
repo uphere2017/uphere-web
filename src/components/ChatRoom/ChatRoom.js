@@ -64,6 +64,16 @@ class ChatRoom extends Component {
                 })
               }
             </ul>
+            {!this.props.chat.length &&
+              <div className={`${s.default}`}>
+                <img src="http://semantic-ui.com/images/avatar2/small/lena.png" className={`${s.default_img}`}/>
+              <div className={`${s.default_message}`}>
+                <p className={`${s.default_text}`}>Send Message!</p>
+                <p className={`${s.default_text_KR}`}>
+                  <b>친구에게 새로운 메세지를 보내보세요. 이미지 보내기도 가능하답니다.</b>
+                </p>
+              </div>
+            </div>}
           </div>
           <div className={`${s.footer}`}>
             <ChatInput
