@@ -13,14 +13,14 @@ function getNotificationPermission() {
   }
 }
 
-function showMessageNotification(text) {
+function showMessageNotification(name, text) {
   if (!isActive) {
     return;
   }
 
   const notification = new Notification('A new message from Uphere!', {
     icon: Icon,
-    body: `Your friend says: ${text}`,
+    body: `${name}: ${text}`,
   });
 }
 

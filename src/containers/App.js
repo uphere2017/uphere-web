@@ -24,7 +24,8 @@ import {
   friendEmotionChange,
   requestDeleteChat,
   updateLastMessage,
-  uploadImageFailure
+  uploadImageFailure,
+  updateCurrentChatlist
 } from '../actionCreators';
 import App from '../components/App';
 import { API_URL } from '../config';
@@ -36,6 +37,7 @@ let addFriend;
 let dispatchReceiveNewMessage;
 let dispatchFriendEmotionChange;
 let dispatchUpdateChatList;
+let dispatchUpdateCurrentChatList;
 
 const addFriendPartial = (dispatch) => (friendID) => {
   axios.get(`${API_URL}/users/${friendID}`, {
@@ -62,19 +64,32 @@ const dispatchUpdateChatListPartial = (dispatch) => () => {
   dispatch(updateLastMessage());
 };
 
+const dispatchUpdateCurrentChatListPartial = (dispatch) => (chat) => {
+  dispatch(updateCurrentChatlist(chat));
+};
+
 socket.on('FRIEND_ONLINE', ({ friend_id }) => {
   if (addFriend) {
     addFriend(friend_id);
   }
 });
 
-socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id }) => {
+socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id, chat }) => {
   if (dispatchReceiveNewMessage) {
+    dispatchUpdateCurrentChatList(chat);
     dispatchReceiveNewMessage(message, chat_id);
     dispatchUpdateChatList();
   }
-
-  showMessageNotification(message.text);
+  axios.get(API_URL + `/users/${message.sender_id}`, {
+    headers: {
+      authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
+    }
+  }).then(({ data }) => {
+      showMessageNotification(data.name, message.text);
+    })
+    .catch((err) => {
+      console.error('[UPHERE_WEB] Could not get sender name:', err)
+    })
 });
 
 socket.on('FRIEND_EMOTION_CHANGE', ({ emotion_status, friend_id }) => {
@@ -190,6 +205,7 @@ const mapDispatchToProps = (dispatch) => {
   dispatchReceiveNewMessage = receiveNewMessagePartial(dispatch);
   dispatchFriendEmotionChange = dispatchFriendEmotionChangePartial(dispatch);
   dispatchUpdateChatList = dispatchUpdateChatListPartial(dispatch);
+  dispatchUpdateCurrentChatList = dispatchUpdateCurrentChatListPartial(dispatch);
 
   window.onerror = (message, source, lineNum, colNum, err) => {
     dispatch(receiveAppError(err));
@@ -276,6 +292,7 @@ const mapDispatchToProps = (dispatch) => {
 
         socket.emit('SEND_NEW_MESSAGE', {
           sender_id: user.uphere_id,
+          chat: chatroom,
           chat_id: chatroom.uphere_id,
           text: message,
           created_at: data.created_at,
@@ -338,7 +355,7 @@ const mapDispatchToProps = (dispatch) => {
       }
     };
   }
-  
+
 const AppContainer = connect(
   mapStateToProps,
   mapDispatchToProps

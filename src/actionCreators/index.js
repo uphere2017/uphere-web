@@ -19,7 +19,8 @@ import {
   FRIEND_EMOTION_CHANGE,
   REQUEST_DELETE_CHAT,
   UPDATE_LAST_MESSAGE,
-  UPLOAD_IMAGE_FAILURE
+  UPLOAD_IMAGE_FAILURE,
+  UPDATE_CURRENT_CHATLIST
 } from '../actionTypes';
 
 export const requestLoginStatus = () => {
@@ -176,3 +177,10 @@ export const uploadImageFailure = (err) => {
     error: err
   };
 };
+
+export const updateCurrentChatlist = (chat) => {
+  return {
+    type: UPDATE_CURRENT_CHATLIST,
+    chat
+  };
+}
