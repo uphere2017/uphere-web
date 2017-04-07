@@ -27,6 +27,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-end;
+  margin-top: 5px;
 }
 
 .file_input{
@@ -48,10 +49,16 @@
 .file_btn {
   display: inline-block;
   cursor: pointer;
+  color: #329af0;
   background: #f8f9fa;
   padding: 8px 16px;
   border-radius: 2px;
   margin-right: 8px;
+}
+
+.file_btn:hover {
+  background-color: #329af0;
+  color: #f8f9fa;
 }
 
 .send_btn{
@@ -64,4 +71,9 @@
   background: #f8f9fa;
   padding: 8px 16px;
   border-radius: 2px;
+}
+
+.send_btn:hover {
+  background-color: #329af0;
+  color: #f8f9fa;
 }

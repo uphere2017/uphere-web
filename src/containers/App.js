@@ -69,13 +69,13 @@ const dispatchUpdateCurrentChatListPartial = (dispatch) => (chat) => {
 };
 
 socket.on('FRIEND_ONLINE', ({ friend_id }) => {
-  if (addFriend) {
+  if (friend_id) {
     addFriend(friend_id);
   }
 });
 
 socket.on('FRIEND_DISCONNECT', (friend_id) => {
-  if (addFriend) {
+  if (friend_id) {
     addFriend(friend_id);
   }
 });
