@@ -93,12 +93,21 @@
     display: none !important
   }
 
-  .container::after {
-    content: "Uphere은 웹에서 확인 하실 수 있어요";
+  .container {
+    display: none;
+  }
+
+  .container.main_container {
+    display: block;
+  }
+
+  .main_container::after {
+    content: "Uphere는 데스크탑에서 확인 하실 수 있어요";
     text-align: center;
     position: absolute;
     top: 50%;
     left: 20%;
+    padding-right: 30px;
     font-family: 'Noto Sans', sans-serif;
     font-weight: 600;
     color: #343a40;
