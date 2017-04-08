@@ -189,7 +189,7 @@ class ChatList extends React.Component {
                         this._isYourMessage(chat.messages[chat.messages.length - 1]) ?
                           'You: ' : null
                       }
-                      <span className={ i === 0 ? s.bold : '' }>{ chat.messages[chat.messages.length - 1].text }</span>
+                      <span>{ chat.messages[chat.messages.length - 1].text }</span>
                     </span>
                 }
               </div>

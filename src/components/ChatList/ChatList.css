@@ -225,22 +225,6 @@
   cursor: pointer;
 }
 
-.bold {
-  font-family: 'Noto Sans', sans-serif;
-  font-weight: 700;
-}
-.bold::after {
-  content: "new";
-  color: #fff;
-  background-color: #ff6b6b;
-  border-radius: 10px;
-  font-size: 5px;
-  font-weight: 400;
-  padding: 5px;
-  display: inline-block;
-}
-
-
 .default {
   padding-top: 300px;
   display: flex;
