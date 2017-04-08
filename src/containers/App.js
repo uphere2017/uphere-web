@@ -17,6 +17,7 @@ import {
   createChatSuccess,
   createChatFailure,
   receiveFriendOnline,
+  receiveFriendOffline,
   createChatMessage,
   receiveNewMessage,
   updateCurrentChatroom,
@@ -39,13 +40,17 @@ let dispatchFriendEmotionChange;
 let dispatchUpdateChatList;
 let dispatchUpdateCurrentChatList;
 
-const addFriendPartial = (dispatch) => (friendID) => {
+const addFriendPartial = (dispatch) => (friendID, status) => {
   axios.get(`${API_URL}/users/${friendID}`, {
     headers: {
       authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
     }
   }).then(({ data }) =>{
-    dispatch(receiveFriendOnline(data));
+    if (status === 'online') {
+      dispatch(receiveFriendOnline(data));
+    } else {
+      dispatch(receiveFriendOffline(data));
+    }
   }).catch((err) => {
     console.error(`[Uphere_WEB] Could not add friend: ${err}`);
     dispatch(receiveAppError(err));
@@ -70,13 +75,13 @@ const dispatchUpdateCurrentChatListPartial = (dispatch) => (chat) => {
 
 socket.on('FRIEND_ONLINE', ({ friend_id }) => {
   if (friend_id) {
-    addFriend(friend_id);
+    addFriend(friend_id, 'online');
   }
 });
 
 socket.on('FRIEND_DISCONNECT', (friend_id) => {
   if (friend_id) {
-    addFriend(friend_id);
+    addFriend(friend_id, 'offline');
   }
 });
 

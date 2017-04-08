@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChatInput from '../ChatInput/ChatInput';
 import s from './ChatRoom.css';
+import Img from './uphere1.png';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class ChatRoom extends Component {
         <div className={`${s.container}`} >
           <div className={`${s.content}`} ref="scroll">
             <ul className={`${s.chatlog}`}>
-              { messages.map((message, i) => {
+              { messages.length ? messages.map((message, i) => {
                   return (
                     <li key={i}
                       className={message.sender_id === this.props.user.uphere_id ? `${s.chatlog_entry_user} ${s.chatlog_entry}` : `${s.chatlog_entry}`}>
@@ -61,7 +62,7 @@ class ChatRoom extends Component {
                             </span>
                     </li>
                   );
-                })
+                }) : <div><img src={Img}/></div>
               }
             </ul>
             {this.props.chat.messages && !this.props.chat.messages.length &&

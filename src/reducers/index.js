@@ -14,6 +14,7 @@ import {
   CREATE_CHAT_SUCCESS,
   CREATE_CHAT_FAILURE,
   RECEIVE_FRIEND_ONLINE,
+  RECEIVE_FRIEND_OFFLINE,
   CREATE_CHAT_MESSAGE,
   RECEIVE_NEW_MESSAGE,
   UPDATE_CURRENT_CHATROOM,
@@ -21,7 +22,6 @@ import {
   FRIEND_EMOTION_CHANGE,
   REQUEST_DELETE_CHAT,
   UPDATE_LAST_MESSAGE,
-  UPLOAD_IMAGE_FAILURE,
   UPDATE_CURRENT_CHATLIST
 } from '../actionTypes';
 
@@ -64,6 +64,9 @@ const user = (state = {}, action) => {
 };
 
 const friendList = (state = [], action) => {
+  const newState = state.slice();
+  let isExistingFriend = false;
+
   switch (action.type) {
     case RECEIVE_FRIEND_LIST:
       return action.friendList.map((friend) => {
@@ -78,18 +81,23 @@ const friendList = (state = [], action) => {
         });
       });
     case RECEIVE_FRIEND_ONLINE:
-      const newState = state.slice();
-      let isExistingFriend = false;
       newState.forEach((friend) => {
         if(friend.uphere_id === action.friend.uphere_id) {
           isExistingFriend = true;
-          friend.isOnOff = !friend.isOnOff;
+          friend.isOnOff = true;
         }
       });
       if(!isExistingFriend) {
-        action.friend.isOnOff = !action.friend.isOnOff;
+        action.friend.isOnOff = true;
         newState.push(action.friend);
       }
+      return newState;
+    case RECEIVE_FRIEND_OFFLINE:
+      newState.forEach((friend) => {
+        if(friend.uphere_id === action.friend.uphere_id) {
+          friend.isOnOff = false;
+        }
+      });
       return newState;
     case FRIEND_EMOTION_CHANGE:
       return state.map((friend) => {
@@ -155,7 +163,9 @@ const chatList = (state = [], action) => {
     case UPDATE_CURRENT_CHATLIST:
       const updateChats = state.slice();
       const isChatExisted = updateChats.some((chat) => {
-        return chat.uphere_id === action.chat.uphere_id;
+        if (action.chat) {
+          return chat.uphere_id === action.chat.uphere_id;
+        } return updateChats;
       });
       if (isChatExisted) {
         return updateChats;
