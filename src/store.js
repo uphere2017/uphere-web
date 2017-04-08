@@ -123,7 +123,13 @@ const initialState = {
   //       }
 };
 
-const store = createStore(reducers, initialState, applyMiddleware(logger));
-console.log('[UPHERE]INITIAL_APP_STATE:', store.getState());
+let store;
+
+if (process.env.NODE_ENV === 'production') {
+  store = createStore(reducers, initialState);
+} else {
+  store = createStore(reducers, initialState, applyMiddleware(logger));
+  console.log('[UPHERE]INITIAL_APP_STATE:', store.getState());
+}
 
 export default store;

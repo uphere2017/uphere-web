@@ -163,7 +163,9 @@ const chatList = (state = [], action) => {
     case UPDATE_CURRENT_CHATLIST:
       const updateChats = state.slice();
       const isChatExisted = updateChats.some((chat) => {
-        return chat.uphere_id === action.chat.uphere_id;
+        if (action.chat) {
+          return chat.uphere_id === action.chat.uphere_id;
+        } return updateChats;
       });
       if (isChatExisted) {
         return updateChats;
