@@ -11,8 +11,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('[UPHERE]APP_COMPONENT_PROPS:', props);
-
     this.state = {
       isLoading: true
     };
@@ -58,7 +56,7 @@ class App extends React.Component {
     const that = this;
 
     return (
-      <div className={`${s.container}`}>
+      <div className={`${s.container} ${s.main_container}`}>
         {
           !this.props.isLoggedIn && this.state.isLoading &&
           <div>
