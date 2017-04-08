@@ -119,3 +119,8 @@
   padding: 8px 16px;
   border-radius: 2px;
 }
+
+.default_btn:hover {
+  background-color: #329af0;
+  color: #f8f9fa;
+}

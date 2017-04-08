@@ -3,6 +3,9 @@
   flex-direction: column;
   font-size: 1.2rem;
   height: 100%;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .content {
