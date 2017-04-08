@@ -12,6 +12,7 @@ import {
   CREATE_CHAT_SUCCESS,
   CREATE_CHAT_FAILURE,
   RECEIVE_FRIEND_ONLINE,
+  RECEIVE_FRIEND_OFFLINE,
   CREATE_CHAT_MESSAGE,
   RECEIVE_NEW_MESSAGE,
   UPDATE_CURRENT_CHATROOM,
@@ -113,6 +114,13 @@ export const createChatFailure = ( ) => {
 export const receiveFriendOnline = (friend) => {
   return {
     type: RECEIVE_FRIEND_ONLINE,
+    friend
+  };
+};
+
+export const receiveFriendOffline = (friend) => {
+  return {
+    type: RECEIVE_FRIEND_OFFLINE,
     friend
   };
 };
