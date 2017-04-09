@@ -320,7 +320,11 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     deleteChat: (chat_id) => {
-      axios.delete(`${API_URL}/chats/${chat_id}`)
+      axios.delete(`${API_URL}/chats/${chat_id}`, {
+        headers: {
+          authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
+        }
+      })
         .then((data) => {
           dispatch(requestDeleteChat(chat_id));
         })
