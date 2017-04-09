@@ -43,7 +43,7 @@ let dispatchUpdateCurrentChatList;
 const addFriendPartial = (dispatch) => (friendID, status) => {
   axios.get(`${API_URL}/users/${friendID}`, {
     headers: {
-      authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
+      authorization: `Bearer ${window.localStorage.getItem('accessToken')}`
     }
   }).then(({ data }) =>{
     if (status === 'online') {
@@ -93,7 +93,7 @@ socket.on('RECEIVE_NEW_MESSAGE', ({ message, chat_id, chat }) => {
   }
   axios.get(API_URL + `/users/${message.sender_id}`, {
     headers: {
-      authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
+      authorization: `Bearer ${window.localStorage.getItem('accessToken')}`
     }
   }).then(({ data }) => {
       showMessageNotification(data.name, message.text);
@@ -131,7 +131,7 @@ const fetchFacebookUserData = (dispatch) => {
         .then(({ data }) => {
           dispatch(receiveUserData({ user: data.user }));
 
-          window.sessionStorage.setItem('accessToken', data.accessToken);
+          window.localStorage.setItem('accessToken', data.accessToken);
 
           socket.emit('LOG_IN', {
             user_uphere_id: data.user.uphere_id
@@ -139,7 +139,7 @@ const fetchFacebookUserData = (dispatch) => {
 
           axios.get(`${API_URL}/users/${data.user.uphere_id}/friend-list`, {
             headers: {
-              authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
+              authorization: `Bearer ${window.localStorage.getItem('accessToken')}`
             }
           }).then(response => {
             socket.emit('USER_ONLINE', {
@@ -166,7 +166,7 @@ const fetchFacebookUserData = (dispatch) => {
 const chatListRequest = (dispatch, user, friendList) => {
   return axios.get(`${API_URL}/users/${user.uphere_id}/chats`, {
     headers: {
-      authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
+      authorization: `Bearer ${window.localStorage.getItem('accessToken')}`
     }
   }).then(({ data }) => {
     data.chats.map((chat, i) => {
@@ -254,7 +254,7 @@ const mapDispatchToProps = (dispatch) => {
         messages: []
       }, {
         headers: {
-          authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
+          authorization: `Bearer ${window.localStorage.getItem('accessToken')}`
         }
       }).then((res) => {
         dispatch(updateCurrentChatroom(res.data.chat));
@@ -286,7 +286,7 @@ const mapDispatchToProps = (dispatch) => {
         created_at: date ? date : new Date().toISOString()
       }, {
         headers: {
-          authorization: `Bearer ${window.sessionStorage.getItem('accessToken')}`
+          authorization: `Bearer ${window.localStorage.getItem('accessToken')}`
         }
       }).then(({ data }) => {
         dispatch(createChatMessage({
@@ -320,7 +320,11 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     deleteChat: (chat_id) => {
-      axios.delete(`${API_URL}/chats/${chat_id}`)
+      axios.delete(`${API_URL}/chats/${chat_id}`, {
+        headers: {
+          authorization: `Bearer ${window.localStorage.getItem('accessToken')}`
+        }
+      })
         .then((data) => {
           dispatch(requestDeleteChat(chat_id));
         })
